@@ -2,6 +2,7 @@ package com.mygdx.game.util;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,28 +14,28 @@ public class MyInputProcessor implements InputProcessor {
     @Override
     public boolean keyDown(int keycode) {
         // Handle key down event
-        if (keycode == Input.Keys.LEFT)
-            addEvent('0');
-        if (keycode == Input.Keys.RIGHT)
-            addEvent('1');
-        if (keycode == Input.Keys.UP)
-            addEvent('2');
-        if (keycode == Input.Keys.DOWN)
-            addEvent('3');
+        if (keycode == Input.Keys.W)
+            addEvent('W');
+        if (keycode == Input.Keys.A)
+            addEvent('A');
+        if (keycode == Input.Keys.S)
+            addEvent('S');
+        if (keycode == Input.Keys.D)
+            addEvent('D');
 
         return true; // Return true to indicate that the event has been handled
     }
 
     @Override
     public boolean keyUp(int i) {
-        if (i == Input.Keys.LEFT)
-            remEvent('0');
-        if (i == Input.Keys.RIGHT)
-            remEvent('1');
-        if (i == Input.Keys.UP)
-            remEvent('2');
-        if (i == Input.Keys.DOWN)
-            remEvent('3');
+        if (i == Input.Keys.W)
+            remEvent('W');
+        if (i == Input.Keys.A)
+            remEvent('A');
+        if (i == Input.Keys.S)
+            remEvent('S');
+        if (i == Input.Keys.D)
+            remEvent('D');
 
         return true;
     }
@@ -61,12 +62,17 @@ public class MyInputProcessor implements InputProcessor {
 
     @Override
     public boolean touchDragged(int i, int i1, int i2) {
+
         return false;
     }
 
+
+
     @Override
-    public boolean mouseMoved(int i, int i1) {
-        return false;
+    public boolean mouseMoved(int x, int y) {
+
+
+        return true;
     }
 
     @Override

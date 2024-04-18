@@ -1,30 +1,29 @@
-package com.mygdx.game.mob;
+package com.mygdx.game.mob.hostile;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
-import com.mygdx.game.obj.shape.Entity;
+import com.mygdx.game.mob.Mob;
 
 import static com.mygdx.game.Main.world;
 
-public class Zombie extends Entity {
+public class Zombie extends Mob {
     public static int num_of_zom = 0;
     public static void instantiate(float x, float y) {
         num_of_zom++;
-        entities.add(new Zombie(x, y, "Zom".concat(Integer.toString(num_of_zom))));
+        mobs.add(new Zombie(x, y, "Zom".concat(Integer.toString(num_of_zom))));
     }
     public static Zombie getZombie(int n) {
-        for (Entity e : entities) {
-            if (e instanceof Zombie)
-                if (e.getName().equals("Zom".concat(Integer.toString(n))))
-                    return (Zombie) e;
+        for (Mob m : mobs) {
+            if (m instanceof Zombie)
+                if (m.getName().equals("Zom".concat(Integer.toString(n))))
+                    return (Zombie) m;
         }
         return null;
     }
 
     private Shape shape;
     private Body head, torso, armLeft, armRight;
-    private float damp = 2f, angle, previousAngle = 0, dAngle = 0;
+    private float damp = 4f, angle, previousAngle = 0, dAngle = 0;
     public Zombie(float x, float y, String name) {
         super(x, y, BodyDef.BodyType.DynamicBody);
         setName(name);
@@ -36,7 +35,6 @@ public class Zombie extends Entity {
         shape = new CircleShape();
         shape.setRadius(.5f);
         head.createFixture(shape, 1f);
-        head.setTransform(0f, 0f, 0f);
         shape.dispose();
         head.setAngularDamping(damp);
         head.setLinearDamping(damp);
@@ -84,16 +82,13 @@ public class Zombie extends Entity {
         shape.dispose();
 
 
-        weldJointDef.bodyA = head;
-        weldJointDef.bodyB = torso;
-        weldJointDef.collideConnected = false;
-        world.createJoint(weldJointDef);
-
+        weldBodies2(head, torso, false);
 
 
     }
 
     // SETTER
+
 
     // GETTER
     public Body getHead() {return head;}
@@ -106,7 +101,6 @@ public class Zombie extends Entity {
         angle = head.getAngle();
         dAngle = previousAngle - angle;
         previousAngle = angle;
-        System.out.println(Math.toDegrees(dAngle));
     }
 
     public void turnLeft() {head.applyTorque(2f, true);}

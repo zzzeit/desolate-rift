@@ -12,7 +12,7 @@ public class Ball extends Disk {
 
     public Ball(float x, float y, float r, BodyDef.BodyType BT, float density) {
         super(x, y, r, BT, density);
-        getBody().getFixtureList().first().setRestitution(.9f);
-        getBody().getFixtureList().first().setFriction(.5f);
+        getBody().getFixtureList().first().setRestitution(4f);
+        getBody().getFixtureList().first().setFriction(4f);
     }
 }
