@@ -75,8 +75,14 @@ public class MyInputProcessor implements InputProcessor {
         return true;
     }
 
+    public static float zoom = 2f;
     @Override
     public boolean scrolled(float v, float v1) {
+        zoom += v1 * .2f;
+        if (zoom < 1f)
+            zoom = 1f;
+        else if (zoom > 3f)
+            zoom = 3f;
         return false;
     }
 }

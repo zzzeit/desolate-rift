@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.mygdx.game.Main.world;
+import static com.mygdx.game.util.Settings.angleBetweenPoints;
 
 public abstract class Mob {
     public static List<Mob> mobs = new ArrayList<>();
@@ -49,4 +50,5 @@ public abstract class Mob {
         weldJointDef.collideConnected = collide;
         world.createJoint(weldJointDef);
     }
+
 }

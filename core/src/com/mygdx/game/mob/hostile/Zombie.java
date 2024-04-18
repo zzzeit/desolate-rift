@@ -2,8 +2,10 @@ package com.mygdx.game.mob.hostile;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.mygdx.game.Main;
 import com.mygdx.game.mob.Mob;
 
+import static com.mygdx.game.util.Settings.angleBetweenPoints;
 import static com.mygdx.game.Main.world;
 
 public class Zombie extends Mob {
@@ -23,7 +25,7 @@ public class Zombie extends Mob {
 
     private Shape shape;
     private Body head, torso, armLeft, armRight;
-    private float damp = 4f, angle, previousAngle = 0, dAngle = 0;
+    private float speed = 10f, damp = 4f, angle, visionAngle, previousAngle = 0, dAngle = 0;
     public Zombie(float x, float y, String name) {
         super(x, y, BodyDef.BodyType.DynamicBody);
         setName(name);
@@ -93,18 +95,60 @@ public class Zombie extends Mob {
     // GETTER
     public Body getHead() {return head;}
     public Body getTorso() {return torso;}
-    public float getAngle() {return angle;}
+    public float getAngle(boolean d) {
+        if (!d) return angle;
+        else return (float) Math.toDegrees(angle);
+    }
+    public float getVisionAngle(boolean d) {
+        if (!d) return visionAngle;
+        else return (float) Math.toDegrees(visionAngle);
+    }
     public float getDAngle() {return dAngle;}
 
     @Override
     public void update() {
-        angle = head.getAngle();
+        angle = head.getAngle(); // Get the current angle
         dAngle = previousAngle - angle;
         previousAngle = angle;
+        while (angle < 0) {
+            angle += (float) (Math.PI * 2);
+        }
+        while (angle >= Math.PI * 2) {
+            angle -= (float) (Math.PI * 2);
+        }
+        visionAngle = (float) (angle + (Math.PI / 2));
+        if (visionAngle > Math.PI * 2)
+            visionAngle -= (float) (Math.PI * 2);
     }
 
-    public void turnLeft() {head.applyTorque(2f, true);}
-    public void turnRight() {head.applyTorque(-2f, true);}
-    public void moveForward() {head.applyForceToCenter((float) (5f * Math.cos(getAngle() + Math.toRadians(90))), (float) (5f * Math.sin(getAngle() + Math.toRadians(90))), true);}
-    public void moveBackward() {head.applyForceToCenter((float) (-5f * Math.cos(getAngle() + Math.toRadians(90))), (float) (-5f * Math.sin(getAngle() + Math.toRadians(90))), true);}
+
+    public void turnLeft() {head.applyTorque(speed * .8f, true);}
+    public void turnRight() {head.applyTorque(-speed * .8f, true);}
+    public void moveForward() {head.applyForceToCenter((float) (speed * Math.cos((getAngle(false) + Math.PI / 2))), (float) (speed * Math.sin((getAngle(false) + Math.PI / 2))), true);}
+    public void moveBackward() {head.applyForceToCenter((float) (-speed * Math.cos((getAngle(false) + Math.PI / 2))), (float) (-speed * Math.sin((getAngle(false) + Math.PI / 2))), true);}
+
+    private float haD;
+    public void faceToPoint(Vector2 center, Vector2 p2, float FOV) {
+        float headAngle = getVisionAngle(false), angleBetween = (float) angleBetweenPoints(center, p2, false);
+        haD = headAngle - angleBetween;
+        // Ensure the difference is within the range of -π to π (or -180 to 180 degrees)
+        while (haD < -Math.PI) {
+            haD += 2 * Math.PI;
+        }
+        while (haD >= Math.PI) {
+            haD -= 2 * Math.PI;
+        }
+        haD = (float) Math.toDegrees(haD);
+        if (haD < 0 - (FOV / 2))
+            turnLeft();
+        else if (haD > 0 + (FOV / 2))
+            turnRight();
+        else
+            moveForward();
+//        System.out.printf("HA[%f]  AB[%f]\n", headAngle, angleBetween);
+//        System.out.printf("HA[%f]   AB[%f]   DIFFERENCE[%f]\n", headAngle, angleBetween, hold);
+
+    }
+
+
 }

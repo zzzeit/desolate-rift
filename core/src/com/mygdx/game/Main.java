@@ -1,6 +1,9 @@
 package com.mygdx.game;
 
 import static com.badlogic.gdx.physics.box2d.BodyDef.BodyType.*;
+import static com.mygdx.game.mob.Mob.mobs;
+import static com.mygdx.game.mob.hostile.Zombie.getZombie;
+import static com.mygdx.game.mob.player.Human.getHuman;
 import static com.mygdx.game.util.Settings.*;
 
 import com.badlogic.gdx.ApplicationAdapter;
@@ -49,7 +52,7 @@ public class Main extends ApplicationAdapter {
 
 
 		Ball.ballInst(1.5f, 6f, 1f, DynamicBody, 1f);
-		Box.instantiate(0, 0, 20, .5f, StaticBody, 1f);
+		Box.instantiate(0, 0, 20, 1f, StaticBody, 1f);
 
 		Zombie.instantiate(10f, 4f);
 		Zombie.instantiate(0f, 3f);
@@ -68,24 +71,27 @@ public class Main extends ApplicationAdapter {
 
 		Entity.upd();
 		Mob.upd();
-
-
+		for (Mob m : mobs)
+			if (m instanceof Zombie) {
+				((Zombie) m).faceToPoint(((Zombie) m).getHead().getPosition(), getHuman(1).getHead().getPosition(), 30);
+			}
+//		getZombie(1).faceToPoint(getZombie(1).getHead().getPosition(), getHuman(1).getHead().getPosition(), 10);
 		mouseRelative.set(Gdx.input.getDeltaX(), Gdx.input.getDeltaY());
 
 		if (events.contains('W'))
-			Human.getHuman(1).moveForward();
+			getHuman(1).moveForward();
 		if (events.contains('A'))
-			Human.getHuman(1).moveLeft();
+			getHuman(1).moveLeft();
 		if (events.contains('S'))
-			Human.getHuman(1).moveBackward();
+			getHuman(1).moveBackward();
 		if (events.contains('D'))
-			Human.getHuman(1).moveRight();
+			getHuman(1).moveRight();
 
-		camera.position.set(Human.getHuman(1).getHead().getPosition().x, Human.getHuman(1).getHead().getPosition().y, 0f);
-		camera.rotate((float) (1 * Math.toDegrees(Human.getHuman(1).getDAngle())));
-		Human.getHuman(1).rotate(-mouseRelative.x);
+		camera.position.set(getHuman(1).getHead().getPosition().x, getHuman(1).getHead().getPosition().y, 0f);
+		camera.rotate((float) (1 * Math.toDegrees(getHuman(1).getDAngle())));
+		getHuman(1).rotate(-mouseRelative.x);
 
-		camera.zoom = 2f;
+		camera.zoom = zoom;
 		camera.update();
 		renderer.setProjectionMatrix(camera.combined);
 
@@ -95,6 +101,7 @@ public class Main extends ApplicationAdapter {
 //		events.clear();
 		// Debug renderer
 		debugRenderer.render(world, camera.combined);
+		debugRenderer.setDrawJoints(false);
 	}
 
 	@Override

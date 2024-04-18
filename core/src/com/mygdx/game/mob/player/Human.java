@@ -25,7 +25,7 @@ public class Human extends Mob {
 
     private Shape shape;
     private Body head, torso;
-    private float speed = 20f, damp = 4f, angle, previousAngle = 0, dAngle = 0;
+    private float speed = 20f, damp = 4f, angle, visionAngle, previousAngle = 0, dAngle = 0;
     public Human(float x, float y, String name) {
         super(x, y, BodyDef.BodyType.DynamicBody);
         setName(name);
@@ -38,8 +38,9 @@ public class Human extends Mob {
         shape.setRadius(.5f);
         head.createFixture(shape, 1f);
         shape.dispose();
-        head.setAngularDamping(damp);
+        head.setAngularDamping(10);
         head.setLinearDamping(damp);
+        head.setFixedRotation(true);
 
 
         // TORSO
@@ -64,7 +65,10 @@ public class Human extends Mob {
     // GETTER
     public Body getHead() {return head;}
     public Body getTorso() {return torso;}
-    public float getAngle() {return angle;}
+    public float getAngle(boolean d) {
+        if (!d) return angle;
+        else return (float) Math.toDegrees(angle);
+    }
     public float getDAngle() {return dAngle;}
 
     @Override
@@ -72,14 +76,23 @@ public class Human extends Mob {
         angle = head.getAngle(); // Get the current angle
         dAngle = previousAngle - angle;
         previousAngle = angle;
+        while (angle < 0) {
+            angle += (float) (Math.PI * 2);
+        }
+        while (angle >= Math.PI * 2) {
+            angle -= (float) (Math.PI * 2);
+        }
+        visionAngle = (float) (angle + (Math.PI / 2));
+        if (visionAngle > Math.PI * 2)
+            visionAngle -= (float) (Math.PI * 2);
     }
 
     public void turnLeft() {head.applyTorque(speed * .05f, true);}
     public void turnRight() {head.applyTorque(-speed * .05f, true);}
-    public void moveLeft() {head.applyForceToCenter((float) (-speed * Math.cos(getAngle())), (float) (-speed * Math.sin(getAngle())), true);}
-    public void moveRight() {head.applyForceToCenter((float) (speed * Math.cos(getAngle())), (float) (speed * Math.sin(getAngle())), true);}
-    public void moveForward() {head.applyForceToCenter((float) (speed * Math.cos(getAngle() + Math.toRadians(90))), (float) (speed * Math.sin(getAngle() + Math.toRadians(90))), true);}
-    public void moveBackward() {head.applyForceToCenter((float) (-speed * Math.cos(getAngle() + Math.toRadians(90))), (float) (-speed * Math.sin(getAngle() + Math.toRadians(90))), true);}
+    public void moveLeft() {head.applyForceToCenter((float) (-speed * Math.cos(getAngle(false))), (float) (-speed * Math.sin(getAngle(false))), true);}
+    public void moveRight() {head.applyForceToCenter((float) (speed * Math.cos(getAngle(false))), (float) (speed * Math.sin(getAngle(false))), true);}
+    public void moveForward() {head.applyForceToCenter((float) (speed * Math.cos((getAngle(false) + Math.PI / 2))), (float) (speed * Math.sin((getAngle(false) + Math.PI / 2))), true);}
+    public void moveBackward() {head.applyForceToCenter((float) (-speed * Math.cos((getAngle(false) + Math.PI / 2))), (float) (-speed * Math.sin((getAngle(false) + Math.PI / 2))), true);}
     public void rotate(float angle) {head.setTransform(head.getPosition().x, head.getPosition().y, (float) (head.getAngle() + Math.toRadians(angle)));}
 
 
