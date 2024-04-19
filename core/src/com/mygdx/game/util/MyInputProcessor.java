@@ -1,5 +1,6 @@
 package com.mygdx.game.util;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
@@ -22,6 +23,11 @@ public class MyInputProcessor implements InputProcessor {
             addEvent('S');
         if (keycode == Input.Keys.D)
             addEvent('D');
+
+        if (keycode == Input.Keys.ESCAPE) { // Check for the ESC key
+            Gdx.app.exit(); // Exit the application
+            return true;
+        }
 
         return true; // Return true to indicate that the event has been handled
     }
@@ -78,11 +84,11 @@ public class MyInputProcessor implements InputProcessor {
     public static float zoom = 2f;
     @Override
     public boolean scrolled(float v, float v1) {
-        zoom += v1 * .2f;
+        zoom += v1 * .05f;
         if (zoom < 1f)
             zoom = 1f;
-        else if (zoom > 3f)
-            zoom = 3f;
+        else if (zoom > 1.5f)
+            zoom = 1.5f;
         return false;
     }
 }
