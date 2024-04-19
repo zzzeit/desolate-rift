@@ -8,18 +8,27 @@ import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
 import com.mygdx.game.entity.Entity;
 import com.mygdx.game.entity.IEntity;
+import com.mygdx.game.entity.mob.hostile.Zombie;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.mygdx.game.Main.world;
+import static com.mygdx.game.Main.*;
+import static com.mygdx.game.Main.spriteBatch;
+import static com.mygdx.game.entity.mob.player.Human.getHuman;
 
 public abstract class MobileEntity extends Entity implements IEntity {
     public static List<MobileEntity> mobs = new ArrayList<>();
     public static void upd() {
         for (MobileEntity m : mobs){
             m.update();
+            spriteBatch.setProjectionMatrix(getCamera().combined);
+            spriteBatch.begin();
             m.render();
+            spriteBatch.end();
+            if (m instanceof Zombie) {
+                ((Zombie) m).faceToPoint(((Zombie) m).getHead().getPosition(), getHuman(1).getHead().getPosition(), 30);
+            }
         }
     }
 

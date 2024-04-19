@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
 import com.mygdx.game.entity.Entity;
 import com.mygdx.game.entity.IEntity;
+import com.mygdx.game.entity.obj.BeachBall;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,11 @@ public abstract class BlockEntity extends Entity implements IEntity {
     public static void upd() {
         for (BlockEntity b : entities){
             b.update();
+            spriteBatch.setProjectionMatrix(getCamera().combined);
+            spriteBatch.begin();
             b.render();
+            spriteBatch.end();
+//            System.out.println("Hi");
         }
     }
 

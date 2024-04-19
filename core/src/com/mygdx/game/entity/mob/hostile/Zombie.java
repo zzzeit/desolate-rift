@@ -3,6 +3,7 @@ package com.mygdx.game.entity.mob.hostile;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.entity.mob.MobileEntity;
+import org.lwjgl.Sys;
 
 import static com.mygdx.game.util.Settings.angleBetweenPoints;
 import static com.mygdx.game.Main.world;
@@ -152,6 +153,5 @@ public class Zombie extends MobileEntity {
 
     @Override
     public void render() {
-
     }
 }

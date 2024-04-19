@@ -7,6 +7,7 @@ import static com.mygdx.game.util.Settings.*;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -29,22 +30,22 @@ import com.mygdx.game.util.MyInputProcessor;
 import static com.mygdx.game.util.MyInputProcessor.*;
 
 public class Main extends ApplicationAdapter {
-	private OrthographicCamera camera;
+	private static OrthographicCamera camera;
 	private Viewport viewport;
 	private ShapeRenderer renderer;
 	public static World world;
 	private Box2DDebugRenderer debugRenderer;
 	private static Vector2 mouseRelative = new Vector2();
-	private SpriteBatch spriteBatch;
+	public static SpriteBatch spriteBatch;
 	private Texture texture;
 	private Sprite sprite;
 
 	@Override
 	public void create () {
 		// Set window size and make it not resizable
-//		Gdx.graphics.setWindowedMode(WIN_WIDTH, WIN_HEIGHT);
+		Gdx.graphics.setWindowedMode(WIN_WIDTH, WIN_HEIGHT);
 		Gdx.input.setInputProcessor(new MyInputProcessor());
-		Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+//		Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
 //		Gdx.graphics.setResizable(false);
 //		camera = new OrthographicCamera(20, 20 * ((float) WIN_HEIGHT /WIN_WIDTH));
 		camera = new OrthographicCamera();
@@ -64,7 +65,7 @@ public class Main extends ApplicationAdapter {
 
 
 		BeachBall.instantiate(1.5f, 6f, 1f, DynamicBody, 1f);
-		Box.instantiate(0, 0, 1f, 1f, StaticBody, 1f);
+		Box.instantiate(0, 0, 1f, 1f, DynamicBody, 1f);
 
 		Zombie.instantiate(10f, 4f);
 		Zombie.instantiate(0f, 3f);
@@ -81,12 +82,21 @@ public class Main extends ApplicationAdapter {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+
+		spriteBatch.setProjectionMatrix(camera.combined);
+		spriteBatch.begin();
+		for (int x = -29; x < 30; x++)
+			for (int y = -29; y < 30; y++) {
+				sprite.setCenter(x, y);
+				sprite.draw(spriteBatch);
+			}
+//		sprite.draw(spriteBatch);
+		spriteBatch.end();
+
+
 		BlockEntity.upd();
 		MobileEntity.upd();
-		for (MobileEntity m : mobs)
-			if (m instanceof Zombie) {
-				((Zombie) m).faceToPoint(((Zombie) m).getHead().getPosition(), getHuman(1).getHead().getPosition(), 30);
-			}
+
 //		getZombie(1).faceToPoint(getZombie(1).getHead().getPosition(), getHuman(1).getHead().getPosition(), 10);
 		mouseRelative.set(Gdx.input.getDeltaX(), Gdx.input.getDeltaY());
 
@@ -110,15 +120,7 @@ public class Main extends ApplicationAdapter {
 		camera.update();
 		renderer.setProjectionMatrix(camera.combined);
 
-		spriteBatch.setProjectionMatrix(camera.combined);
-		spriteBatch.begin();
-		for (int x = -29; x < 30; x++)
-			for (int y = -29; y < 30; y++) {
-				sprite.setCenter(x, y);
-				sprite.draw(spriteBatch);
-			}
-//		sprite.draw(spriteBatch);
-		spriteBatch.end();
+
 
 		renderer.begin(ShapeRenderer.ShapeType.Filled);
 		// Render your game objects
@@ -143,5 +145,7 @@ public class Main extends ApplicationAdapter {
 	public void resize(int width, int height) {
 		viewport.update(width, height);
 	}
+
+	public static Camera getCamera() {return camera;}
 
 }
