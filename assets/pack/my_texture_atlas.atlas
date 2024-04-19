@@ -1,0 +1,110 @@
+
+my_texture_atlas.png
+size: 512, 512
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+assets/badlogic
+  rotate: false
+  xy: 2, 167
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+assets/beachball
+  rotate: false
+  xy: 2, 37
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+assets/block
+  rotate: false
+  xy: 260, 390
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
+assets/block2
+  rotate: false
+  xy: 2, 2
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
+assets/cobblestone
+  rotate: false
+  xy: 295, 391
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+assets/grass
+  rotate: false
+  xy: 132, 132
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
+assets/plank
+  rotate: false
+  xy: 260, 355
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
+
+my_texture_atlas2.png
+size: 512, 512
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+desktop/build/resources/main/badlogic
+  rotate: false
+  xy: 2, 167
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+desktop/build/resources/main/beachball
+  rotate: false
+  xy: 2, 37
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+desktop/build/resources/main/block
+  rotate: false
+  xy: 260, 390
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
+desktop/build/resources/main/block2
+  rotate: false
+  xy: 2, 2
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
+desktop/build/resources/main/cobblestone
+  rotate: false
+  xy: 295, 391
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+desktop/build/resources/main/grass
+  rotate: false
+  xy: 132, 132
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
+desktop/build/resources/main/plank
+  rotate: false
+  xy: 260, 355
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1

@@ -1,8 +1,8 @@
 package com.mygdx.game;
 
 import static com.badlogic.gdx.physics.box2d.BodyDef.BodyType.*;
-import static com.mygdx.game.mob.Mob.mobs;
-import static com.mygdx.game.mob.player.Human.getHuman;
+import static com.mygdx.game.entity.mob.MobileEntity.mobs;
+import static com.mygdx.game.entity.mob.player.Human.getHuman;
 import static com.mygdx.game.util.Settings.*;
 
 import com.badlogic.gdx.ApplicationAdapter;
@@ -14,16 +14,16 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.mob.Mob;
-import com.mygdx.game.mob.hostile.Zombie;
-import com.mygdx.game.mob.player.Human;
-import com.mygdx.game.obj.Ball;
-import com.mygdx.game.obj.Box;
-import com.mygdx.game.obj.shape.Entity;
+import com.mygdx.game.entity.mob.MobileEntity;
+import com.mygdx.game.entity.mob.hostile.Zombie;
+import com.mygdx.game.entity.mob.player.Human;
+import com.mygdx.game.entity.obj.Ball;
+import com.mygdx.game.entity.obj.BeachBall;
+import com.mygdx.game.entity.obj.Box;
+import com.mygdx.game.entity.obj.shape.BlockEntity;
 import com.mygdx.game.util.MyInputProcessor;
 
 import static com.mygdx.game.util.MyInputProcessor.*;
@@ -42,9 +42,9 @@ public class Main extends ApplicationAdapter {
 	@Override
 	public void create () {
 		// Set window size and make it not resizable
-		Gdx.graphics.setWindowedMode(WIN_WIDTH, WIN_HEIGHT);
+//		Gdx.graphics.setWindowedMode(WIN_WIDTH, WIN_HEIGHT);
 		Gdx.input.setInputProcessor(new MyInputProcessor());
-//		Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+		Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
 //		Gdx.graphics.setResizable(false);
 //		camera = new OrthographicCamera(20, 20 * ((float) WIN_HEIGHT /WIN_WIDTH));
 		camera = new OrthographicCamera();
@@ -52,9 +52,9 @@ public class Main extends ApplicationAdapter {
 		viewport.apply();
 
 		spriteBatch = new SpriteBatch();
-		texture = new Texture("cobblestone.png");
+		texture = new Texture("grass.png");
 		sprite = new Sprite(texture);
-		sprite.setScale(.025f, .025f);
+		sprite.setScale(1/32f, 1/32f);
 		sprite.setCenter(0f, 0f);
 
 
@@ -63,7 +63,7 @@ public class Main extends ApplicationAdapter {
 		debugRenderer = new Box2DDebugRenderer();
 
 
-		Ball.ballInst(1.5f, 6f, 1f, DynamicBody, 1f);
+		BeachBall.instantiate(1.5f, 6f, 1f, DynamicBody, 1f);
 		Box.instantiate(0, 0, 1f, 1f, StaticBody, 1f);
 
 		Zombie.instantiate(10f, 4f);
@@ -81,9 +81,9 @@ public class Main extends ApplicationAdapter {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		Entity.upd();
-		Mob.upd();
-		for (Mob m : mobs)
+		BlockEntity.upd();
+		MobileEntity.upd();
+		for (MobileEntity m : mobs)
 			if (m instanceof Zombie) {
 				((Zombie) m).faceToPoint(((Zombie) m).getHead().getPosition(), getHuman(1).getHead().getPosition(), 30);
 			}
@@ -99,12 +99,12 @@ public class Main extends ApplicationAdapter {
 		if (events.contains('D'))
 			getHuman(1).moveRight();
 
-		camera.position.set((float) ((Math.cos(getHuman(1).getAngle(false) + (Math.PI/2)) * (10 + (7 * (zoom - 1.5f)))) + getHuman(1).getHead().getPosition().x), (float) ((Math.sin(getHuman(1).getAngle(false) + (Math.PI/2)) * (10 + (7 * (zoom - 1.5f)))) + getHuman(1).getHead().getPosition().y), 0f);
+		camera.position.set((float) ((Math.cos(getHuman(1).getAngle(false) + (Math.PI/2)) * (8 + (5 * (zoom - maxZoom)))) + getHuman(1).getHead().getPosition().x), (float) ((Math.sin(getHuman(1).getAngle(false) + (Math.PI/2)) * (8 + (5 * (zoom - maxZoom)))) + getHuman(1).getHead().getPosition().y), 0f);
 //		camera.position.set(getHuman(1).getHead().getPosition().x, getHuman(1).getHead().getPosition().y + 12f, 0f);
 		camera.rotate((float) (1 * Math.toDegrees(getHuman(1).getDAngle())));
 //		camera.rotateAround(new Vector3(0, 0, 0), new Vector3(0, 0, 1), 1);
 //		camera.rotateAround(new Vector3(getHuman(1).getHead().getPosition().x, getHuman(1).getHead().getPosition().y, 0f), camera.position, (float) (1 * Math.toDegrees(getHuman(1).getDAngle())));
-		getHuman(1).rotate(-mouseRelative.x);
+		getHuman(1).rotate(-(mouseRelative.x * .5f));
 
 		camera.zoom = zoom;
 		camera.update();
@@ -112,11 +112,12 @@ public class Main extends ApplicationAdapter {
 
 		spriteBatch.setProjectionMatrix(camera.combined);
 		spriteBatch.begin();
-		for (int x = 0; x < 10; x++)
-			for (int y = 0; y < 10; y++) {
+		for (int x = -29; x < 30; x++)
+			for (int y = -29; y < 30; y++) {
 				sprite.setCenter(x, y);
 				sprite.draw(spriteBatch);
 			}
+//		sprite.draw(spriteBatch);
 		spriteBatch.end();
 
 		renderer.begin(ShapeRenderer.ShapeType.Filled);

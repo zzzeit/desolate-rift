@@ -1,21 +1,20 @@
-package com.mygdx.game.mob.hostile;
+package com.mygdx.game.entity.mob.hostile;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.mygdx.game.Main;
-import com.mygdx.game.mob.Mob;
+import com.mygdx.game.entity.mob.MobileEntity;
 
 import static com.mygdx.game.util.Settings.angleBetweenPoints;
 import static com.mygdx.game.Main.world;
 
-public class Zombie extends Mob {
+public class Zombie extends MobileEntity {
     public static int num_of_zom = 0;
     public static void instantiate(float x, float y) {
         num_of_zom++;
         mobs.add(new Zombie(x, y, "Zom".concat(Integer.toString(num_of_zom))));
     }
     public static Zombie getZombie(int n) {
-        for (Mob m : mobs) {
+        for (MobileEntity m : mobs) {
             if (m instanceof Zombie)
                 if (m.getName().equals("Zom".concat(Integer.toString(n))))
                     return (Zombie) m;
@@ -151,4 +150,8 @@ public class Zombie extends Mob {
     }
 
 
+    @Override
+    public void render() {
+
+    }
 }

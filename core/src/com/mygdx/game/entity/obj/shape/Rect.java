@@ -1,9 +1,9 @@
-package com.mygdx.game.obj.shape;
+package com.mygdx.game.entity.obj.shape;
 
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
-public class Rect extends Entity {
+public abstract class Rect extends BlockEntity {
     private PolygonShape Shape;
 
     public Rect(float x, float y, float width, float height, BodyDef.BodyType BT, float density) {

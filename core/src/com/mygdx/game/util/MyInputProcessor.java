@@ -81,14 +81,14 @@ public class MyInputProcessor implements InputProcessor {
         return true;
     }
 
-    public static float zoom = 1.5f;
+    public static float zoom = 1f, maxZoom = 1.5f;
     @Override
     public boolean scrolled(float v, float v1) {
         zoom += v1 * .05f;
         if (zoom < 1f)
             zoom = 1f;
-        else if (zoom > 1.5f)
-            zoom = 1.5f;
+        else if (zoom > maxZoom)
+            zoom = maxZoom;
         return false;
     }
 }

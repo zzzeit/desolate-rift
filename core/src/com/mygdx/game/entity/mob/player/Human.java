@@ -1,13 +1,12 @@
-package com.mygdx.game.mob.player;
+package com.mygdx.game.entity.mob.player;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.mygdx.game.mob.Mob;
-import com.mygdx.game.mob.hostile.Zombie;
+import com.mygdx.game.entity.mob.MobileEntity;
 
 import static com.mygdx.game.Main.world;
 
-public class Human extends Mob {
+public class Human extends MobileEntity {
     public static int num_of_hum = 0;
     public static void instantiate(float x, float y) {
         num_of_hum++;
@@ -15,7 +14,7 @@ public class Human extends Mob {
     }
 
     public static Human getHuman(int n) {
-        for (Mob m : mobs) {
+        for (MobileEntity m : mobs) {
             if (m instanceof Human)
                 if (m.getName().equals("Hum".concat(Integer.toString(n))))
                     return (Human) m;
@@ -86,6 +85,10 @@ public class Human extends Mob {
         if (visionAngle > Math.PI * 2)
             visionAngle -= (float) (Math.PI * 2);
     }
+    @Override
+    public void render() {
+
+    }
 
     public void turnLeft() {head.applyTorque(speed * .05f, true);}
     public void turnRight() {head.applyTorque(-speed * .05f, true);}
@@ -94,6 +97,7 @@ public class Human extends Mob {
     public void moveForward() {head.applyForceToCenter((float) (speed * Math.cos((getAngle(false) + Math.PI / 2))), (float) (speed * Math.sin((getAngle(false) + Math.PI / 2))), true);}
     public void moveBackward() {head.applyForceToCenter((float) (-speed * Math.cos((getAngle(false) + Math.PI / 2))), (float) (-speed * Math.sin((getAngle(false) + Math.PI / 2))), true);}
     public void rotate(float angle) {head.setTransform(head.getPosition().x, head.getPosition().y, (float) (head.getAngle() + Math.toRadians(angle)));}
+
 
 
 }
