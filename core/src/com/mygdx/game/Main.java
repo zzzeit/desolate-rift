@@ -99,10 +99,9 @@ public class Main extends ApplicationAdapter {
 		if (events.contains('D'))
 			getHuman(1).moveRight();
 
-		camera.position.set((float) ((Math.cos(getHuman(1).getAngle(false) + (Math.PI/2)) * 10) + getHuman(1).getHead().getPosition().x), (float) ((Math.sin(getHuman(1).getAngle(false) + (Math.PI/2)) * 10) + getHuman(1).getHead().getPosition().y), 0f);
+		camera.position.set((float) ((Math.cos(getHuman(1).getAngle(false) + (Math.PI/2)) * (10 + (7 * (zoom - 1.5f)))) + getHuman(1).getHead().getPosition().x), (float) ((Math.sin(getHuman(1).getAngle(false) + (Math.PI/2)) * (10 + (7 * (zoom - 1.5f)))) + getHuman(1).getHead().getPosition().y), 0f);
 //		camera.position.set(getHuman(1).getHead().getPosition().x, getHuman(1).getHead().getPosition().y + 12f, 0f);
 		camera.rotate((float) (1 * Math.toDegrees(getHuman(1).getDAngle())));
-
 //		camera.rotateAround(new Vector3(0, 0, 0), new Vector3(0, 0, 1), 1);
 //		camera.rotateAround(new Vector3(getHuman(1).getHead().getPosition().x, getHuman(1).getHead().getPosition().y, 0f), camera.position, (float) (1 * Math.toDegrees(getHuman(1).getDAngle())));
 		getHuman(1).rotate(-mouseRelative.x);
