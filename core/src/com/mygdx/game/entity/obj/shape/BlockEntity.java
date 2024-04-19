@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
 import com.mygdx.game.entity.Entity;
 import com.mygdx.game.entity.IEntity;
+import com.mygdx.game.entity.mob.MobileEntity;
 import com.mygdx.game.entity.obj.BeachBall;
 
 import java.util.ArrayList;
@@ -26,6 +27,14 @@ public abstract class BlockEntity extends Entity implements IEntity {
             spriteBatch.end();
 //            System.out.println("Hi");
         }
+    }
+    public static <T extends BlockEntity> T getBlockInstance(Class<T> c, int n) {
+        for (BlockEntity b : entities) {
+            if (c.isInstance(b))
+                if (b.getName(0) == Integer.toString(n).charAt(0))
+                    return (c.cast(b));
+        }
+        return null;
     }
 
     public BlockEntity(float x, float y, BodyDef.BodyType BT) {

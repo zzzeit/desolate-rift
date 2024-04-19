@@ -9,13 +9,13 @@ import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
 import com.mygdx.game.entity.Entity;
 import com.mygdx.game.entity.IEntity;
 import com.mygdx.game.entity.mob.hostile.Zombie;
+import com.mygdx.game.entity.mob.player.Human;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.mygdx.game.Main.*;
 import static com.mygdx.game.Main.spriteBatch;
-import static com.mygdx.game.entity.mob.player.Human.getHuman;
 
 public abstract class MobileEntity extends Entity implements IEntity {
     public static List<MobileEntity> mobs = new ArrayList<>();
@@ -27,9 +27,17 @@ public abstract class MobileEntity extends Entity implements IEntity {
             m.render();
             spriteBatch.end();
             if (m instanceof Zombie) {
-                ((Zombie) m).faceToPoint(((Zombie) m).getHead().getPosition(), getHuman(1).getHead().getPosition(), 30);
+                ((Zombie) m).faceToPoint(((Zombie) m).getHead().getPosition(), getMobInstance(Human.class, 1).getHead().getPosition(), 30);
             }
         }
+    }
+    public static <T extends MobileEntity> T getMobInstance(Class<T> c, int n) {
+        for (MobileEntity m : mobs) {
+            if (c.isInstance(m))
+                if (m.getName(0) == Integer.toString(n).charAt(0))
+                    return (c.cast(m));
+        }
+        return null;
     }
 
     public MobileEntity(float x, float y, BodyDef.BodyType BT) {

@@ -12,17 +12,8 @@ public class Zombie extends MobileEntity {
     public static int num_of_zom = 0;
     public static void instantiate(float x, float y) {
         num_of_zom++;
-        mobs.add(new Zombie(x, y, "Zom".concat(Integer.toString(num_of_zom))));
+        mobs.add(new Zombie(x, y, Integer.toString(num_of_zom).concat("_ZOM")));
     }
-    public static Zombie getZombie(int n) {
-        for (MobileEntity m : mobs) {
-            if (m instanceof Zombie)
-                if (m.getName().equals("Zom".concat(Integer.toString(n))))
-                    return (Zombie) m;
-        }
-        return null;
-    }
-
     private Shape shape;
     private Body head, torso, armLeft, armRight;
     private float speed = 10f, damp = 4f, angle, visionAngle, previousAngle = 0, dAngle = 0;

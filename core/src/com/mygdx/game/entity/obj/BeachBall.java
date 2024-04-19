@@ -14,11 +14,12 @@ public class BeachBall extends Disk {
     private static int num_of_bBalls = 0;
     public static void instantiate(float x, float y, float r, BodyDef.BodyType BT, float density) {
         num_of_bBalls++;
-        entities.add(new BeachBall(x, y, r, BT, density));
+        entities.add(new BeachBall(x, y, r, BT, density, Integer.toString(num_of_bBalls).concat("_BBALL")));
     }
 
-    public BeachBall(float x, float y, float r, BodyDef.BodyType BT, float density) {
+    public BeachBall(float x, float y, float r, BodyDef.BodyType BT, float density, String name) {
         super(x, y, r, BT, density);
+        setName(name);
         getBody().getFixtureList().first().setRestitution(4f);
         getBody().getFixtureList().first().setFriction(4f);
         setTexture(new Texture("beachball.png"));

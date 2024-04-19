@@ -10,17 +10,9 @@ public class Human extends MobileEntity {
     public static int num_of_hum = 0;
     public static void instantiate(float x, float y) {
         num_of_hum++;
-        mobs.add(new Human(x, y, "Hum".concat(Integer.toString(num_of_hum))));
+        mobs.add(new Human(x, y, Integer.toString(num_of_hum).concat("_HUM")));
     }
 
-    public static Human getHuman(int n) {
-        for (MobileEntity m : mobs) {
-            if (m instanceof Human)
-                if (m.getName().equals("Hum".concat(Integer.toString(n))))
-                    return (Human) m;
-        }
-        return null;
-    }
 
     private Shape shape;
     private Body head, torso;

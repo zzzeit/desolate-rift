@@ -1,8 +1,8 @@
 package com.mygdx.game;
 
 import static com.badlogic.gdx.physics.box2d.BodyDef.BodyType.*;
-import static com.mygdx.game.entity.mob.MobileEntity.mobs;
-import static com.mygdx.game.entity.mob.player.Human.getHuman;
+import static com.mygdx.game.entity.mob.MobileEntity.*;
+import static com.mygdx.game.entity.obj.shape.BlockEntity.*;
 import static com.mygdx.game.util.Settings.*;
 
 import com.badlogic.gdx.ApplicationAdapter;
@@ -73,6 +73,9 @@ public class Main extends ApplicationAdapter {
 
 		Human.instantiate(0f, 0f);
 
+		getMobInstance(Zombie.class, 2).getHead().setActive(false);
+		getBlockInstance(Box.class, 1).getBody().applyTorque(2f, true);
+
 	}
 	int i = 0;
 	@Override
@@ -97,24 +100,24 @@ public class Main extends ApplicationAdapter {
 		BlockEntity.upd();
 		MobileEntity.upd();
 
-//		getZombie(1).faceToPoint(getZombie(1).getHead().getPosition(), getHuman(1).getHead().getPosition(), 10);
+//		getZombie(1).faceToPoint(getZombie(1).getHead().getPosition(), getMobInstance(Human.class, 1).getHead().getPosition(), 10);
 		mouseRelative.set(Gdx.input.getDeltaX(), Gdx.input.getDeltaY());
 
 		if (events.contains('W'))
-			getHuman(1).moveForward();
+			getMobInstance(Human.class, 1).moveForward();
 		if (events.contains('A'))
-			getHuman(1).moveLeft();
+			getMobInstance(Human.class, 1).moveLeft();
 		if (events.contains('S'))
-			getHuman(1).moveBackward();
+			getMobInstance(Human.class, 1).moveBackward();
 		if (events.contains('D'))
-			getHuman(1).moveRight();
+			getMobInstance(Human.class, 1).moveRight();
 
-		camera.position.set((float) ((Math.cos(getHuman(1).getAngle(false) + (Math.PI/2)) * (8 + (5 * (zoom - maxZoom)))) + getHuman(1).getHead().getPosition().x), (float) ((Math.sin(getHuman(1).getAngle(false) + (Math.PI/2)) * (8 + (5 * (zoom - maxZoom)))) + getHuman(1).getHead().getPosition().y), 0f);
-//		camera.position.set(getHuman(1).getHead().getPosition().x, getHuman(1).getHead().getPosition().y + 12f, 0f);
-		camera.rotate((float) (1 * Math.toDegrees(getHuman(1).getDAngle())));
+		camera.position.set((float) ((Math.cos(getMobInstance(Human.class, 1).getAngle(false) + (Math.PI/2)) * (8 + (5 * (zoom - maxZoom)))) + getMobInstance(Human.class, 1).getHead().getPosition().x), (float) ((Math.sin(getMobInstance(Human.class, 1).getAngle(false) + (Math.PI/2)) * (8 + (5 * (zoom - maxZoom)))) + getMobInstance(Human.class, 1).getHead().getPosition().y), 0f);
+//		camera.position.set(getMobInstance(Human.class, 1).getHead().getPosition().x, getMobInstance(Human.class, 1).getHead().getPosition().y + 12f, 0f);
+		camera.rotate((float) (1 * Math.toDegrees(getMobInstance(Human.class, 1).getDAngle())));
 //		camera.rotateAround(new Vector3(0, 0, 0), new Vector3(0, 0, 1), 1);
-//		camera.rotateAround(new Vector3(getHuman(1).getHead().getPosition().x, getHuman(1).getHead().getPosition().y, 0f), camera.position, (float) (1 * Math.toDegrees(getHuman(1).getDAngle())));
-		getHuman(1).rotate(-(mouseRelative.x * .5f));
+//		camera.rotateAround(new Vector3(getMobInstance(Human.class, 1).getHead().getPosition().x, getMobInstance(Human.class, 1).getHead().getPosition().y, 0f), camera.position, (float) (1 * Math.toDegrees(getMobInstance(Human.class, 1).getDAngle())));
+		getMobInstance(Human.class, 1).rotate(-(mouseRelative.x * .5f));
 
 		camera.zoom = zoom;
 		camera.update();

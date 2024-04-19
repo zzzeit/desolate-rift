@@ -11,11 +11,11 @@ public class Box extends Rect {
     private static int num_of_boxes = 0;
     public static void instantiate(float x, float y, float width, float height, BodyDef.BodyType BT, float density) {
         num_of_boxes++;
-        entities.add(new Box(x, y, width, height, BT, density));
+        entities.add(new Box(x, y, width, height, BT, density, Integer.toString(num_of_boxes).concat("_BOX")));
     }
-    public Box(float x, float y, float width, float height, BodyDef.BodyType BT, float density) {
+    public Box(float x, float y, float width, float height, BodyDef.BodyType BT, float density, String name) {
         super(x, y, width, height, BT, density);
-        entities.add(this);
+        setName(name);
         setTexture(new Texture("box.png"));
         setSprite(new Sprite(getTexture()));
         getSprite().setScale(width/33f);

@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
 
 public abstract class Entity {
+
     public BodyDef bodyDef;
     public FixtureDef shapeDef = new FixtureDef();
     public WeldJointDef weldJointDef = new WeldJointDef();
@@ -39,6 +40,7 @@ public abstract class Entity {
     public float getDeltaAngle() {return deltaAngle;}
     public float getPrevAngle() {return prevAngle;}
     public String getName() {return name;}
+    public char getName(int n) {return name.charAt(n);}
     public Sprite getSprite() {return sprite;}
     public Texture getTexture() {return texture;}
 
