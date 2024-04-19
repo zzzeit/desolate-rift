@@ -39,6 +39,5 @@ public class BeachBall extends Disk {
     public void update() {
         setAngle(getBody().getAngle());
         calcDeltaAngle();
-        System.out.println(getDeltaAngle());
     }
 }

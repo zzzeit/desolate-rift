@@ -36,7 +36,7 @@ public abstract class Entity {
 
     // Getter
     public Body getBody() {return body;}
-    public float getAngle() {return angle;}
+    public float getAngle(boolean isDegree) {if (!isDegree) return angle; else return (float) Math.toDegrees(angle);}
     public float getDeltaAngle() {return deltaAngle;}
     public float getPrevAngle() {return prevAngle;}
     public String getName() {return name;}
@@ -45,5 +45,6 @@ public abstract class Entity {
     public Texture getTexture() {return texture;}
 
     public void calcDeltaAngle() {deltaAngle = prevAngle - angle; prevAngle = angle;}
+    public void addAngle(float a) {angle += a;}
 
 }

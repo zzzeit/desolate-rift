@@ -16,7 +16,7 @@ public class Human extends MobileEntity {
 
     private Shape shape;
     private Body head, torso;
-    private float speed = 20f, damp = 4f, angle, visionAngle, previousAngle = 0, dAngle = 0;
+    private float speed = 20f, damp = 4f, visionAngle;
     public Human(float x, float y, String name) {
         super(x, y, BodyDef.BodyType.DynamicBody);
         setName(name);
@@ -56,30 +56,25 @@ public class Human extends MobileEntity {
     // GETTER
     public Body getHead() {return head;}
     public Body getTorso() {return torso;}
-    public float getAngle(boolean d) {
-        if (!d) return angle;
-        else return (float) Math.toDegrees(angle);
-    }
-    public float getDAngle() {return dAngle;}
+
 
     @Override
     public void update() {
-        angle = head.getAngle(); // Get the current angle
-        dAngle = previousAngle - angle;
-        previousAngle = angle;
-        while (angle < 0) {
-            angle += (float) (Math.PI * 2);
+        setAngle(getHead().getAngle());
+        System.out.println(getAngle(true));
+        calcDeltaAngle();
+        while (getAngle(false) < 0) {
+            addAngle((float) (Math.PI * 2));
         }
-        while (angle >= Math.PI * 2) {
-            angle -= (float) (Math.PI * 2);
+        while (getAngle(false) >= Math.PI * 2) {
+            addAngle(-(float) (Math.PI * 2));
         }
-        visionAngle = (float) (angle + (Math.PI / 2));
+        visionAngle = (float) (getAngle(false) + (Math.PI / 2));
         if (visionAngle > Math.PI * 2)
             visionAngle -= (float) (Math.PI * 2);
     }
     @Override
     public void render() {
-
     }
 
     public void turnLeft() {head.applyTorque(speed * .05f, true);}

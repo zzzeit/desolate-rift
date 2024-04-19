@@ -114,7 +114,8 @@ public class Main extends ApplicationAdapter {
 
 		camera.position.set((float) ((Math.cos(getMobInstance(Human.class, 1).getAngle(false) + (Math.PI/2)) * (8 + (5 * (zoom - maxZoom)))) + getMobInstance(Human.class, 1).getHead().getPosition().x), (float) ((Math.sin(getMobInstance(Human.class, 1).getAngle(false) + (Math.PI/2)) * (8 + (5 * (zoom - maxZoom)))) + getMobInstance(Human.class, 1).getHead().getPosition().y), 0f);
 //		camera.position.set(getMobInstance(Human.class, 1).getHead().getPosition().x, getMobInstance(Human.class, 1).getHead().getPosition().y + 12f, 0f);
-		camera.rotate((float) (1 * Math.toDegrees(getMobInstance(Human.class, 1).getDAngle())));
+		camera.rotate((float) (1 * Math.toDegrees(getMobInstance(Human.class, 1).getDeltaAngle())));
+//		System.out.println(getMobInstance(Human.class, 1).getDeltaAngle());
 //		camera.rotateAround(new Vector3(0, 0, 0), new Vector3(0, 0, 1), 1);
 //		camera.rotateAround(new Vector3(getMobInstance(Human.class, 1).getHead().getPosition().x, getMobInstance(Human.class, 1).getHead().getPosition().y, 0f), camera.position, (float) (1 * Math.toDegrees(getMobInstance(Human.class, 1).getDAngle())));
 		getMobInstance(Human.class, 1).rotate(-(mouseRelative.x * .5f));

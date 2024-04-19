@@ -32,6 +32,5 @@ public class Box extends Rect {
     public void update() {
         setAngle(getBody().getAngle());
         calcDeltaAngle();
-        System.out.println(getDeltaAngle());
     }
 }
