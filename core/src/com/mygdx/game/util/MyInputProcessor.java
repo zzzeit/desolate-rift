@@ -85,8 +85,8 @@ public class MyInputProcessor implements InputProcessor {
     @Override
     public boolean scrolled(float v, float v1) {
         zoom += v1 * .05f;
-        if (zoom < 1f)
-            zoom = 1f;
+        if (zoom < .5f)
+            zoom = .5f;
         else if (zoom > maxZoom)
             zoom = maxZoom;
         return false;

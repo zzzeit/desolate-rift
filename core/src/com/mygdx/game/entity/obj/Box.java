@@ -2,6 +2,7 @@ package com.mygdx.game.entity.obj;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.mygdx.game.entity.obj.shape.Rect;
 
@@ -23,14 +24,19 @@ public class Box extends Rect {
 
     @Override
     public void render() {
-        getSprite().setCenter(getBody().getPosition().x, getBody().getPosition().y);
-        getSprite().rotate((float) (-1 * Math.toDegrees(getDeltaAngle())));
-        getSprite().draw(spriteBatch);
+//        getSprite().setCenter(getBody().getPosition().x, getBody().getPosition().y);
+//        getSprite().rotate((float) (-1 * Math.toDegrees(getDeltaAngle())));
+//        getSprite().draw(spriteBatch);
     }
 
     @Override
     public void update() {
         setAngle(getBody().getAngle());
         calcDeltaAngle();
+    }
+
+    @Override
+    public Vector2 getPosition() {
+        return null;
     }
 }

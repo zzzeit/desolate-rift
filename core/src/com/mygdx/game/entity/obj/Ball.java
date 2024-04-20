@@ -1,5 +1,6 @@
 package com.mygdx.game.entity.obj;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.mygdx.game.entity.obj.shape.Disk;
 
@@ -25,5 +26,10 @@ public class Ball extends Disk {
     @Override
     public void update() {
 
+    }
+
+    @Override
+    public Vector2 getPosition() {
+        return null;
     }
 }

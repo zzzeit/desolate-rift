@@ -106,6 +106,11 @@ public class Zombie extends MobileEntity {
             visionAngle -= (float) (Math.PI * 2);
     }
 
+    @Override
+    public Vector2 getPosition() {
+        return null;
+    }
+
 
     public void turnLeft() {head.applyTorque(speed * .8f, true);}
     public void turnRight() {head.applyTorque(-speed * .8f, true);}

@@ -73,6 +73,9 @@ public class Human extends MobileEntity {
         if (visionAngle > Math.PI * 2)
             visionAngle -= (float) (Math.PI * 2);
     }
+
+
+
     @Override
     public void render() {
     }
@@ -85,6 +88,9 @@ public class Human extends MobileEntity {
     public void moveBackward() {head.applyForceToCenter((float) (-speed * Math.cos((getAngle(false) + Math.PI / 2))), (float) (-speed * Math.sin((getAngle(false) + Math.PI / 2))), true);}
     public void rotate(float angle) {head.setTransform(head.getPosition().x, head.getPosition().y, (float) (head.getAngle() + Math.toRadians(angle)));}
 
-
+    @Override
+    public Vector2 getPosition() {
+        return getHead().getPosition();
+    }
 
 }

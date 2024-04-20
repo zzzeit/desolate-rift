@@ -65,6 +65,11 @@ public class Main extends ApplicationAdapter {
 		Box.instantiate(0, 0, 1f, 1f, DynamicBody, 1f);
 		MetalBox.instantiate(0, 0, 1f, StaticBody, 1f);
 
+		Box.instantiate(30, 0, 1f, 61f, StaticBody, 1f);
+		Box.instantiate(-30, 0, 1f, 61f, StaticBody, 1f);
+		Box.instantiate(0, 30, 61f, 1f, StaticBody, 1f);
+		Box.instantiate(0, -30, 61f, 1f, StaticBody, 1f);
+
 		Zombie.instantiate(10f, 4f);
 		Zombie.instantiate(0f, 3f);
 		Zombie.instantiate(-15f, -5f);
@@ -128,6 +133,11 @@ public class Main extends ApplicationAdapter {
 			for (float y = -30.5f; y < 30; y++) {
 				renderer.rect(x, y, 1, 1);
 			}
+		renderer.setColor(Color.BLUE);
+		Human h = getMobInstance(Human.class, 1);
+		Vector2 p = h.getPosition();
+		p = new Vector2(Math.round((p.x + (2 * Math.cos(h.getAngle(false) + (Math.PI/2)))) / .5f) * .5f, Math.round((p.y + (2 * Math.sin(h.getAngle(false) + (Math.PI/2)))) / .5f) * .5f);
+		renderer.rect(p.x - .5f, p.y - .5f, 1, 1);
 		// Render your game objects
 		renderer.end();
 //		events.clear();

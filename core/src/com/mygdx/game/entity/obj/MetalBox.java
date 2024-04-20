@@ -3,6 +3,7 @@ package com.mygdx.game.entity.obj;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.mygdx.game.entity.obj.shape.Rect;
 
@@ -36,5 +37,10 @@ public class MetalBox extends Rect {
     public void update() {
         setAngle(getBody().getAngle());
         calcDeltaAngle();
+    }
+
+    @Override
+    public Vector2 getPosition() {
+        return null;
     }
 }
