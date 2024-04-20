@@ -1,17 +1,11 @@
-package com.mygdx.game.entity.obj.shape;
+package com.mygdx.game.entity.obj;
 
 import static com.mygdx.game.Main.*;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
-import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
 import com.mygdx.game.entity.Entity;
 import com.mygdx.game.entity.IEntity;
-import com.mygdx.game.entity.mob.MobileEntity;
-import com.mygdx.game.entity.obj.BeachBall;
 
 import java.util.ArrayList;
 import java.util.List;

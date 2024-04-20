@@ -2,15 +2,12 @@ package com.mygdx.game;
 
 import static com.badlogic.gdx.physics.box2d.BodyDef.BodyType.*;
 import static com.mygdx.game.entity.mob.MobileEntity.*;
-import static com.mygdx.game.entity.obj.shape.BlockEntity.*;
+import static com.mygdx.game.entity.obj.BlockEntity.*;
 import static com.mygdx.game.util.Settings.*;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -21,10 +18,10 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.entity.mob.MobileEntity;
 import com.mygdx.game.entity.mob.hostile.Zombie;
 import com.mygdx.game.entity.mob.player.Human;
-import com.mygdx.game.entity.obj.Ball;
 import com.mygdx.game.entity.obj.BeachBall;
 import com.mygdx.game.entity.obj.Box;
-import com.mygdx.game.entity.obj.shape.BlockEntity;
+import com.mygdx.game.entity.obj.MetalBox;
+import com.mygdx.game.entity.obj.BlockEntity;
 import com.mygdx.game.util.MyInputProcessor;
 
 import static com.mygdx.game.util.MyInputProcessor.*;
@@ -53,7 +50,7 @@ public class Main extends ApplicationAdapter {
 		viewport.apply();
 
 		spriteBatch = new SpriteBatch();
-		texture = new Texture("grass.png");
+		texture = new Texture("plank2.png");
 		sprite = new Sprite(texture);
 		sprite.setScale(1/32f, 1/32f);
 		sprite.setCenter(0f, 0f);
@@ -66,6 +63,7 @@ public class Main extends ApplicationAdapter {
 
 		BeachBall.instantiate(1.5f, 6f, 1f, DynamicBody, 1f);
 		Box.instantiate(0, 0, 1f, 1f, DynamicBody, 1f);
+		MetalBox.instantiate(0, 0, 1f, StaticBody, 1f);
 
 		Zombie.instantiate(10f, 4f);
 		Zombie.instantiate(0f, 3f);
@@ -115,8 +113,6 @@ public class Main extends ApplicationAdapter {
 		camera.position.set((float) ((Math.cos(getMobInstance(Human.class, 1).getAngle(false) + (Math.PI/2)) * (8 + (5 * (zoom - maxZoom)))) + getMobInstance(Human.class, 1).getHead().getPosition().x), (float) ((Math.sin(getMobInstance(Human.class, 1).getAngle(false) + (Math.PI/2)) * (8 + (5 * (zoom - maxZoom)))) + getMobInstance(Human.class, 1).getHead().getPosition().y), 0f);
 //		camera.position.set(getMobInstance(Human.class, 1).getHead().getPosition().x, getMobInstance(Human.class, 1).getHead().getPosition().y + 12f, 0f);
 		camera.rotate((float) (1 * Math.toDegrees(getMobInstance(Human.class, 1).getDeltaAngle())));
-//		System.out.println(getMobInstance(Human.class, 1).getDeltaAngle());
-//		camera.rotateAround(new Vector3(0, 0, 0), new Vector3(0, 0, 1), 1);
 //		camera.rotateAround(new Vector3(getMobInstance(Human.class, 1).getHead().getPosition().x, getMobInstance(Human.class, 1).getHead().getPosition().y, 0f), camera.position, (float) (1 * Math.toDegrees(getMobInstance(Human.class, 1).getDAngle())));
 		getMobInstance(Human.class, 1).rotate(-(mouseRelative.x * .5f));
 
@@ -126,7 +122,12 @@ public class Main extends ApplicationAdapter {
 
 
 
-		renderer.begin(ShapeRenderer.ShapeType.Filled);
+		renderer.begin(ShapeRenderer.ShapeType.Line);
+		renderer.setColor(Color.SKY);
+		for (float x = -30.5f; x < 30; x++)
+			for (float y = -30.5f; y < 30; y++) {
+				renderer.rect(x, y, 1, 1);
+			}
 		// Render your game objects
 		renderer.end();
 //		events.clear();

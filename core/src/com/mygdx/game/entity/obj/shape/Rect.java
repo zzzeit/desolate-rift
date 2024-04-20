@@ -2,6 +2,7 @@ package com.mygdx.game.entity.obj.shape;
 
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.mygdx.game.entity.obj.BlockEntity;
 
 public abstract class Rect extends BlockEntity {
     private PolygonShape Shape;
