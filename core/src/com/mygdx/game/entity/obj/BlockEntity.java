@@ -20,6 +20,7 @@ public abstract class BlockEntity extends Entity implements IEntity {
             b.render();
             spriteBatch.end();
 //            System.out.println("Hi");
+            b.shapeRender();
         }
     }
     public static <T extends BlockEntity> T getBlockInstance(Class<T> c, int n) {

@@ -10,9 +10,10 @@ import static com.mygdx.game.Main.spriteBatch;
 
 public class Box extends Rect {
     private static int num_of_boxes = 0;
-    public static void instantiate(float x, float y, float width, float height, BodyDef.BodyType BT, float density) {
+    public static Box instantiate(float x, float y, float width, float height, BodyDef.BodyType BT, float density) {
         num_of_boxes++;
         entities.add(new Box(x, y, width, height, BT, density, Integer.toString(num_of_boxes).concat("_BOX")));
+        return getBlockInstance(Box.class, num_of_boxes);
     }
     public Box(float x, float y, float width, float height, BodyDef.BodyType BT, float density, String name) {
         super(x, y, width, height, BT, density);
@@ -27,6 +28,11 @@ public class Box extends Rect {
 //        getSprite().setCenter(getBody().getPosition().x, getBody().getPosition().y);
 //        getSprite().rotate((float) (-1 * Math.toDegrees(getDeltaAngle())));
 //        getSprite().draw(spriteBatch);
+    }
+
+    @Override
+    public void shapeRender() {
+
     }
 
     @Override

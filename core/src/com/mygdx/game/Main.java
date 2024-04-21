@@ -17,7 +17,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.entity.mob.MobileEntity;
 import com.mygdx.game.entity.mob.hostile.Zombie;
-import com.mygdx.game.entity.mob.player.Human;
+import com.mygdx.game.entity.mob.hostile.Human;
+import com.mygdx.game.entity.mob.player.PHuman;
 import com.mygdx.game.entity.obj.BeachBall;
 import com.mygdx.game.entity.obj.Box;
 import com.mygdx.game.entity.obj.MetalBox;
@@ -28,12 +29,12 @@ import static com.mygdx.game.util.MyInputProcessor.*;
 
 public class Main extends ApplicationAdapter {
 	private static OrthographicCamera camera;
-	private Viewport viewport;
-	private ShapeRenderer renderer;
-	public static World world;
-	private Box2DDebugRenderer debugRenderer;
+	private static ShapeRenderer renderer;
 	private static Vector2 mouseRelative = new Vector2();
 	public static SpriteBatch spriteBatch;
+	public static World world;
+	private Viewport viewport;
+	private Box2DDebugRenderer debugRenderer;
 	private Texture texture;
 	private Sprite sprite;
 
@@ -42,6 +43,10 @@ public class Main extends ApplicationAdapter {
 		// Set window size and make it not resizable
 		Gdx.graphics.setWindowedMode(WIN_WIDTH, WIN_HEIGHT);
 		Gdx.input.setInputProcessor(new MyInputProcessor());
+
+		// Enable blending for transparency
+//		Gdx.gl.glEnable(GL20.GL_BLEND);
+//		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 //		Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
 //		Gdx.graphics.setResizable(false);
 //		camera = new OrthographicCamera(20, 20 * ((float) WIN_HEIGHT /WIN_WIDTH));
@@ -50,6 +55,7 @@ public class Main extends ApplicationAdapter {
 		viewport.apply();
 
 		spriteBatch = new SpriteBatch();
+		spriteBatch.enableBlending();
 		texture = new Texture("plank2.png");
 		sprite = new Sprite(texture);
 		sprite.setScale(1/32f, 1/32f);
@@ -74,10 +80,9 @@ public class Main extends ApplicationAdapter {
 		Zombie.instantiate(0f, 3f);
 		Zombie.instantiate(-15f, -5f);
 
-		Human.instantiate(0f, 0f);
+		PHuman.instantiate(0f, 0f);
+		Human.instantiate(3, 0);
 
-		getMobInstance(Zombie.class, 2).getHead().setActive(false);
-		getBlockInstance(Box.class, 1).getBody().applyTorque(2f, true);
 
 	}
 	int i = 0;
@@ -106,14 +111,9 @@ public class Main extends ApplicationAdapter {
 //		getZombie(1).faceToPoint(getZombie(1).getHead().getPosition(), getMobInstance(Human.class, 1).getHead().getPosition(), 10);
 		mouseRelative.set(Gdx.input.getDeltaX(), Gdx.input.getDeltaY());
 
-		if (events.contains('W'))
-			getMobInstance(Human.class, 1).moveForward();
-		if (events.contains('A'))
-			getMobInstance(Human.class, 1).moveLeft();
-		if (events.contains('S'))
-			getMobInstance(Human.class, 1).moveBackward();
-		if (events.contains('D'))
-			getMobInstance(Human.class, 1).moveRight();
+
+//		if (events.contains(' '))
+
 
 		camera.position.set((float) ((Math.cos(getMobInstance(Human.class, 1).getAngle(false) + (Math.PI/2)) * (8 + (5 * (zoom - maxZoom)))) + getMobInstance(Human.class, 1).getHead().getPosition().x), (float) ((Math.sin(getMobInstance(Human.class, 1).getAngle(false) + (Math.PI/2)) * (8 + (5 * (zoom - maxZoom)))) + getMobInstance(Human.class, 1).getHead().getPosition().y), 0f);
 //		camera.position.set(getMobInstance(Human.class, 1).getHead().getPosition().x, getMobInstance(Human.class, 1).getHead().getPosition().y + 12f, 0f);
@@ -128,22 +128,20 @@ public class Main extends ApplicationAdapter {
 
 
 		renderer.begin(ShapeRenderer.ShapeType.Line);
-		renderer.setColor(Color.SKY);
-		for (float x = -30.5f; x < 30; x++)
-			for (float y = -30.5f; y < 30; y++) {
-				renderer.rect(x, y, 1, 1);
-			}
-		renderer.setColor(Color.BLUE);
-		Human h = getMobInstance(Human.class, 1);
-		Vector2 p = h.getPosition();
-		p = new Vector2(Math.round((p.x + (2 * Math.cos(h.getAngle(false) + (Math.PI/2)))) / .5f) * .5f, Math.round((p.y + (2 * Math.sin(h.getAngle(false) + (Math.PI/2)))) / .5f) * .5f);
-		renderer.rect(p.x - .5f, p.y - .5f, 1, 1);
+//		renderer.setColor(new Color(1, 1, 1, 0.1f));
+//		for (float x = -30.5f; x < 30; x++)
+//			for (float y = -30.5f; y < 30; y++) {
+//				renderer.rect(x, y, 1, 1);
+//			}
+
 		// Render your game objects
 		renderer.end();
 //		events.clear();
 		// Debug renderer
 		debugRenderer.render(world, camera.combined);
 		debugRenderer.setDrawJoints(false);
+		debugRenderer.setDrawBodies(false);
+		clickEvent.clear();
 	}
 
 	@Override
@@ -162,5 +160,6 @@ public class Main extends ApplicationAdapter {
 	}
 
 	public static Camera getCamera() {return camera;}
+	public static ShapeRenderer getRenderer() {return renderer;}
 
 }

@@ -1,10 +1,14 @@
 package com.mygdx.game.entity.mob.hostile;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.entity.mob.MobileEntity;
 import org.lwjgl.Sys;
 
+import static com.mygdx.game.Main.spriteBatch;
 import static com.mygdx.game.util.Settings.angleBetweenPoints;
 import static com.mygdx.game.Main.world;
 
@@ -77,19 +81,23 @@ public class Zombie extends MobileEntity {
 
         weldBodies2(head, torso, false);
 
+        setTexture(new Texture("human.png"));
+        setSSR(0);
+        getTextureRegionList().add(new TextureRegion(getTexture(), getSSR() * (1f/3), 0f, ((getSSR() + 1) / 3f), 1f));
+        getSpriteList().add(new Sprite(getTextureRegionList().get(0)));
+        getSpriteList().get(0).setScale(2/33f);
+        setSSR(1);
+        getTextureRegionList().add(new TextureRegion(getTexture(), getSSR() * (1f/3), 0f, ((getSSR() + 1) / 3f), 1f));
+        getSpriteList().add(new Sprite(getTextureRegionList().get(1)));
+        getSpriteList().get(1).setScale(2/33f);
+        setSSR(2);
+        getTextureRegionList().add(new TextureRegion(getTexture(), getSSR() * (1f/3), 0f, ((getSSR() + 1) / 3f), 1f));
+        getSpriteList().add(new Sprite(getTextureRegionList().get(2)));
+        getSpriteList().get(2).setScale(1.5f/33f);
+
 
     }
 
-    // SETTER
-
-
-    // GETTER
-    public Body getHead() {return head;}
-    public Body getTorso() {return torso;}
-    public float getVisionAngle(boolean d) {
-        if (!d) return visionAngle;
-        else return (float) Math.toDegrees(visionAngle);
-    }
 
     @Override
     public void update() {
@@ -104,6 +112,32 @@ public class Zombie extends MobileEntity {
         visionAngle = (float) (getAngle(false) + (Math.PI / 2));
         if (visionAngle > Math.PI * 2)
             visionAngle -= (float) (Math.PI * 2);
+    }
+
+
+    @Override
+    public void render() {
+        getSpriteList().get(1).setCenter(getHead().getPosition().x, getHead().getPosition().y);
+        getSpriteList().get(1).rotate((float) (-1 * Math.toDegrees(getDeltaAngle())));
+        getSpriteList().get(1).draw(spriteBatch);
+
+        getSpriteList().get(2).setCenter(armLeft.getPosition().x, armLeft.getPosition().y);
+        getSpriteList().get(2).setRotation((float) (Math.toDegrees(armLeft.getAngle())));
+        getSpriteList().get(2).draw(spriteBatch);
+
+        getSpriteList().get(2).setCenter(armRight.getPosition().x, armRight.getPosition().y);
+        getSpriteList().get(2).setRotation((float) (Math.toDegrees(armRight.getAngle())));
+        getSpriteList().get(2).draw(spriteBatch);
+
+        getSpriteList().get(0).setCenter(getHead().getPosition().x, getHead().getPosition().y);
+        getSpriteList().get(0).rotate((float) (-1 * Math.toDegrees(getDeltaAngle())));
+        getSpriteList().get(0).draw(spriteBatch);
+
+    }
+
+    @Override
+    public void shapeRender() {
+
     }
 
     @Override
@@ -141,7 +175,15 @@ public class Zombie extends MobileEntity {
     }
 
 
-    @Override
-    public void render() {
+    // SETTER
+
+
+    // GETTER
+    public Body getHead() {return head;}
+    public Body getTorso() {return torso;}
+    public float getVisionAngle(boolean d) {
+        if (!d) return visionAngle;
+        else return (float) Math.toDegrees(visionAngle);
     }
+
 }

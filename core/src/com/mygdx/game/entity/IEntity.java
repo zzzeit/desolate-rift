@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public interface IEntity {
     void render();
+    void shapeRender();
     void update();
     Vector2 getPosition();
 }

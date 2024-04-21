@@ -24,6 +24,11 @@ public class Ball extends Disk {
     }
 
     @Override
+    public void shapeRender() {
+
+    }
+
+    @Override
     public void update() {
 
     }

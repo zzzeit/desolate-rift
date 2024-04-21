@@ -1,5 +1,7 @@
 package com.mygdx.game.util;
 
+import static com.mygdx.game.util.IKeycodes.*;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
@@ -8,21 +10,24 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyInputProcessor implements InputProcessor {
-    public static List<Character> events = new ArrayList<>();
-    private void addEvent(Character c) {events.add(c);}
-    private void remEvent(Character c) {events.remove((Character) c);}
+public class MyInputProcessor implements InputProcessor{
+    public static List<Integer> events = new ArrayList<>();
+    public static List<Integer> clickEvent = new ArrayList<>();
+    private void addEvent(Integer i) {events.add(i);}
+    private void remEvent(Integer i) {events.remove((Integer) i);}
     @Override
     public boolean keyDown(int keycode) {
         // Handle key down event
         if (keycode == Input.Keys.W)
-            addEvent('W');
+            addEvent(W);
         if (keycode == Input.Keys.A)
-            addEvent('A');
+            addEvent(A);
         if (keycode == Input.Keys.S)
-            addEvent('S');
+            addEvent(S);
         if (keycode == Input.Keys.D)
-            addEvent('D');
+            addEvent(D);
+        if (keycode == Input.Keys.SPACE)
+            addEvent(SPACE);
 
         if (keycode == Input.Keys.ESCAPE) { // Check for the ESC key
             Gdx.app.exit(); // Exit the application
@@ -35,13 +40,15 @@ public class MyInputProcessor implements InputProcessor {
     @Override
     public boolean keyUp(int i) {
         if (i == Input.Keys.W)
-            remEvent('W');
+            remEvent(W);
         if (i == Input.Keys.A)
-            remEvent('A');
+            remEvent(A);
         if (i == Input.Keys.S)
-            remEvent('S');
+            remEvent(S);
         if (i == Input.Keys.D)
-            remEvent('D');
+            remEvent(D);
+        if (i == Input.Keys.SPACE)
+            remEvent(SPACE);
 
         return true;
     }
@@ -52,8 +59,10 @@ public class MyInputProcessor implements InputProcessor {
     }
 
     @Override
-    public boolean touchDown(int i, int i1, int i2, int i3) {
-        return false;
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        if (button == Input.Buttons.LEFT)
+            clickEvent.add(LEFTCLICK);
+        return true;
     }
 
     @Override

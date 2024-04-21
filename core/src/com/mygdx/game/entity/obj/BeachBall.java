@@ -37,6 +37,11 @@ public class BeachBall extends Disk {
     }
 
     @Override
+    public void shapeRender() {
+
+    }
+
+    @Override
     public void update() {
         setAngle(getBody().getAngle());
         calcDeltaAngle();
