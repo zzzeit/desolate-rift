@@ -71,10 +71,10 @@ public class Main extends ApplicationAdapter {
 		Box.instantiate(0, 0, 1f, 1f, DynamicBody, 1f);
 		MetalBox.instantiate(0, 0, 1f, StaticBody, 1f);
 
-		Box.instantiate(30, 0, 1f, 61f, StaticBody, 1f);
-		Box.instantiate(-30, 0, 1f, 61f, StaticBody, 1f);
-		Box.instantiate(0, 30, 61f, 1f, StaticBody, 1f);
-		Box.instantiate(0, -30, 61f, 1f, StaticBody, 1f);
+//		Box.instantiate(30, 0, 1f, 61f, StaticBody, 1f);
+//		Box.instantiate(-30, 0, 1f, 61f, StaticBody, 1f);
+//		Box.instantiate(0, 30, 61f, 1f, StaticBody, 1f);
+//		Box.instantiate(0, -30, 61f, 1f, StaticBody, 1f);
 
 		Zombie.instantiate(10f, 4f);
 		Zombie.instantiate(0f, 3f);

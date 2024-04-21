@@ -20,8 +20,8 @@ public class MetalBox extends Rect {
         super(x, y, width, width, BT, density);
         setSSR(0);
         setName(name);
-        setTexture(new Texture("metalbox.png"));
-        setTextureRegion(new TextureRegion(getTexture(), getSSR() * (1f/4), 0f, ((getSSR() + 1) / 4f), 1f));
+        setTexture(new Texture("metalbox165.png"));
+        setTextureRegion(new TextureRegion(getTexture(), getSSR() * (1f/5), 0f, ((getSSR() + 1) / 5f), 1/5f));
         setSprite(new Sprite(getTextureRegion()));
         getSprite().setScale(width/33f);
 

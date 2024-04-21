@@ -25,9 +25,9 @@ public class Box extends Rect {
 
     @Override
     public void render() {
-//        getSprite().setCenter(getBody().getPosition().x, getBody().getPosition().y);
-//        getSprite().rotate((float) (-1 * Math.toDegrees(getDeltaAngle())));
-//        getSprite().draw(spriteBatch);
+        getSprite().setCenter(getBody().getPosition().x, getBody().getPosition().y);
+        getSprite().rotate((float) (-1 * Math.toDegrees(getDeltaAngle())));
+        getSprite().draw(spriteBatch);
     }
 
     @Override

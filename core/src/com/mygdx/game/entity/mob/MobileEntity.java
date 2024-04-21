@@ -5,6 +5,8 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.mygdx.game.entity.Entity;
 import com.mygdx.game.entity.IEntity;
+import com.mygdx.game.entity.mob.hostile.Zombie;
+import com.mygdx.game.entity.mob.player.PHuman;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +23,9 @@ public abstract class MobileEntity extends Entity implements IEntity {
             spriteBatch.begin();
             m.render();
             spriteBatch.end();
-//            if (m instanceof Zombie) {
-//                ((Zombie) m).faceToPoint(((Zombie) m).getHead().getPosition(), getMobInstance(Human.class, 1).getHead().getPosition(), 30);
-//            }
+            if (m instanceof Zombie) {
+                ((Zombie) m).faceToPoint(((Zombie) m).getHead().getPosition(), getMobInstance(PHuman.class, 1).getHead().getPosition(), 30);
+            }
             m.shapeRender();
         }
     }

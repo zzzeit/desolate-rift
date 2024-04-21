@@ -15,6 +15,7 @@ import java.util.List;
 
 public abstract class Entity {
     public static int nPlayers = 0;
+    public static int err = 0;
 
 
     public BodyDef bodyDef;

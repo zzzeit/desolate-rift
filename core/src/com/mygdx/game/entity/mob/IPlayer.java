@@ -4,7 +4,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.entity.obj.BlockEntity;
 
 public interface IPlayer {
-    void placeBlock(BlockEntity block);
+    void placeBlock();
+    boolean canPlaceBlock();
 
     // getSilPos() for block placement silhouettes position
     default Vector2 getSilPos(Vector2 pos, float angle) {

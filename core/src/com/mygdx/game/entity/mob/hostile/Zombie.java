@@ -81,7 +81,7 @@ public class Zombie extends MobileEntity {
 
         weldBodies2(head, torso, false);
 
-        setTexture(new Texture("human.png"));
+        setTexture(new Texture("zombie.png"));
         setSSR(0);
         getTextureRegionList().add(new TextureRegion(getTexture(), getSSR() * (1f/3), 0f, ((getSSR() + 1) / 3f), 1f));
         getSpriteList().add(new Sprite(getTextureRegionList().get(0)));
@@ -122,10 +122,12 @@ public class Zombie extends MobileEntity {
         getSpriteList().get(1).draw(spriteBatch);
 
         getSpriteList().get(2).setCenter(armLeft.getPosition().x, armLeft.getPosition().y);
+        getSpriteList().get(2).flip(true, false);
         getSpriteList().get(2).setRotation((float) (Math.toDegrees(armLeft.getAngle())));
         getSpriteList().get(2).draw(spriteBatch);
 
         getSpriteList().get(2).setCenter(armRight.getPosition().x, armRight.getPosition().y);
+        getSpriteList().get(2).flip(true, false);
         getSpriteList().get(2).setRotation((float) (Math.toDegrees(armRight.getAngle())));
         getSpriteList().get(2).draw(spriteBatch);
 
