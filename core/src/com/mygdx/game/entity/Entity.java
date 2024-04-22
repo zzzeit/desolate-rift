@@ -4,19 +4,34 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
+import com.mygdx.game.util.MyQueryCallback;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.mygdx.game.Main.world;
+
 public abstract class Entity {
     public static int nPlayers = 0;
     public static int err = 0;
+    public static boolean bodyExists(Vector2 v) {
+        // Define the AABB around the position
+        float halfWidth = 0.1f; // Adjust this value based on the size of your bodies
+        float halfHeight = 0.1f; // Adjust this value based on the size of your bodies
+        Vector2 lowerBound = new Vector2(v.x - halfWidth, v.y - halfHeight);
+        Vector2 upperBound = new Vector2(v.x + halfWidth, v.y + halfHeight);
 
+        // Perform the query
+        MyQueryCallback callback = new MyQueryCallback();
+        world.QueryAABB(callback, lowerBound.x, lowerBound.y, upperBound.x, upperBound.y);
+        return callback.isBodyFound();
+    }
 
     public BodyDef bodyDef;
     public FixtureDef shapeDef = new FixtureDef();
@@ -64,5 +79,6 @@ public abstract class Entity {
 
     public void calcDeltaAngle() {deltaAngle = prevAngle - angle; prevAngle = angle;}
     public void addAngle(float a) {angle += a;}
+
 
 }

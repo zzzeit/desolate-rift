@@ -2,12 +2,12 @@ package com.mygdx.game;
 
 import static com.badlogic.gdx.physics.box2d.BodyDef.BodyType.*;
 import static com.mygdx.game.entity.mob.MobileEntity.*;
-import static com.mygdx.game.entity.obj.BlockEntity.*;
 import static com.mygdx.game.util.Settings.*;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -32,6 +32,7 @@ public class Main extends ApplicationAdapter {
 	private static ShapeRenderer renderer;
 	private static Vector2 mouseRelative = new Vector2();
 	public static SpriteBatch spriteBatch;
+	public static BitmapFont font;
 	public static World world;
 	private Viewport viewport;
 	private Box2DDebugRenderer debugRenderer;
@@ -56,7 +57,11 @@ public class Main extends ApplicationAdapter {
 
 		spriteBatch = new SpriteBatch();
 		spriteBatch.enableBlending();
-		texture = new Texture("plank2.png");
+		font = new BitmapFont();
+
+		font.setColor(Color.WHITE);
+		font.getData().setScale(.1f);
+		texture = new Texture("plank3.png");
 		sprite = new Sprite(texture);
 		sprite.setScale(1/32f, 1/32f);
 		sprite.setCenter(0f, 0f);
@@ -141,6 +146,7 @@ public class Main extends ApplicationAdapter {
 		debugRenderer.render(world, camera.combined);
 		debugRenderer.setDrawJoints(false);
 		debugRenderer.setDrawBodies(false);
+		debugRenderer.setDrawContacts(false);
 		clickEvent.clear();
 	}
 

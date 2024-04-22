@@ -42,7 +42,7 @@ public class PHuman extends Human implements IPlayer {
     @Override
     public void placeBlock() {
         // Check if any body was found
-        if (canPlaceBlock()) {
+        if (bodyExists(blockSilPos)) {
             System.out.println("Cant place a bock here [" + err + "]");
             err++;
         }
@@ -50,19 +50,6 @@ public class PHuman extends Human implements IPlayer {
             MetalBox.instantiate(blockSilPos.x, blockSilPos.y, 1, BodyDef.BodyType.StaticBody, 1f);
     }
 
-    @Override
-    public boolean canPlaceBlock() {
-        // Define the AABB around the position
-        float halfWidth = 0.1f; // Adjust this value based on the size of your bodies
-        float halfHeight = 0.1f; // Adjust this value based on the size of your bodies
-        Vector2 lowerBound = new Vector2(blockSilPos.x - halfWidth, blockSilPos.y - halfHeight);
-        Vector2 upperBound = new Vector2(blockSilPos.x + halfWidth, blockSilPos.y + halfHeight);
-
-        // Perform the query
-        MyQueryCallback callback = new MyQueryCallback();
-        world.QueryAABB(callback, lowerBound.x, lowerBound.y, upperBound.x, upperBound.y);
-        return callback.isBodyFound();
-    }
 
     @Override
     public void update() {
@@ -78,6 +65,8 @@ public class PHuman extends Human implements IPlayer {
             moveRight();
         if (clickEvent.contains(LEFTCLICK))
             placeBlock();
+        if (events.contains(SPACE))
+            placeBlock();
     }
 
     @Override
@@ -89,7 +78,7 @@ public class PHuman extends Human implements IPlayer {
     public void shapeRender() {
 
         getRenderer().begin(ShapeRenderer.ShapeType.Line);
-        if (canPlaceBlock())
+        if (bodyExists(blockSilPos))
             getRenderer().setColor(Color.RED);
         else
             getRenderer().setColor(Color.BLUE);

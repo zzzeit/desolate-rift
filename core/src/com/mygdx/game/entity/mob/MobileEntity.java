@@ -23,9 +23,9 @@ public abstract class MobileEntity extends Entity implements IEntity {
             spriteBatch.begin();
             m.render();
             spriteBatch.end();
-            if (m instanceof Zombie) {
-                ((Zombie) m).faceToPoint(((Zombie) m).getHead().getPosition(), getMobInstance(PHuman.class, 1).getHead().getPosition(), 30);
-            }
+//            if (m instanceof Zombie) {
+//                ((Zombie) m).faceToPoint(((Zombie) m).getHead().getPosition(), getMobInstance(PHuman.class, 1).getHead().getPosition(), 30);
+//            }
             m.shapeRender();
         }
     }
