@@ -3,6 +3,7 @@ package com.mygdx.game;
 import static com.badlogic.gdx.physics.box2d.BodyDef.BodyType.*;
 import static com.mygdx.game.entity.mob.MobileEntity.*;
 import static com.mygdx.game.util.Settings.*;
+import static com.mygdx.game.entity.Ground.*;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -15,6 +16,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.entity.Ground;
 import com.mygdx.game.entity.mob.MobileEntity;
 import com.mygdx.game.entity.mob.hostile.Zombie;
 import com.mygdx.game.entity.mob.hostile.Human;
@@ -23,6 +25,7 @@ import com.mygdx.game.entity.obj.BeachBall;
 import com.mygdx.game.entity.obj.Box;
 import com.mygdx.game.entity.obj.MetalBox;
 import com.mygdx.game.entity.obj.BlockEntity;
+import com.mygdx.game.util.FastNoiseLite;
 import com.mygdx.game.util.MyInputProcessor;
 
 import static com.mygdx.game.util.MyInputProcessor.*;
@@ -38,17 +41,19 @@ public class Main extends ApplicationAdapter {
 	private Box2DDebugRenderer debugRenderer;
 	private Texture texture;
 	private Sprite sprite;
+	Ground g;
+
 
 	@Override
 	public void create () {
 		// Set window size and make it not resizable
 		Gdx.graphics.setWindowedMode(WIN_WIDTH, WIN_HEIGHT);
+//		Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
 		Gdx.input.setInputProcessor(new MyInputProcessor());
 
 		// Enable blending for transparency
 //		Gdx.gl.glEnable(GL20.GL_BLEND);
 //		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-//		Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
 //		Gdx.graphics.setResizable(false);
 //		camera = new OrthographicCamera(20, 20 * ((float) WIN_HEIGHT /WIN_WIDTH));
 		camera = new OrthographicCamera();
@@ -61,7 +66,7 @@ public class Main extends ApplicationAdapter {
 
 		font.setColor(Color.WHITE);
 		font.getData().setScale(.1f);
-		texture = new Texture("plank3.png");
+		texture = new Texture("plank2.png");
 		sprite = new Sprite(texture);
 		sprite.setScale(1/32f, 1/32f);
 		sprite.setCenter(0f, 0f);
@@ -89,6 +94,8 @@ public class Main extends ApplicationAdapter {
 		Human.instantiate(3, 0);
 
 
+
+		g = new Ground();
 	}
 	int i = 0;
 	@Override
@@ -101,11 +108,8 @@ public class Main extends ApplicationAdapter {
 
 		spriteBatch.setProjectionMatrix(camera.combined);
 		spriteBatch.begin();
-		for (int x = -29; x < 30; x++)
-			for (int y = -29; y < 30; y++) {
-				sprite.setCenter(x, y);
-				sprite.draw(spriteBatch);
-			}
+
+		g.draw(spriteBatch);
 //		sprite.draw(spriteBatch);
 		spriteBatch.end();
 

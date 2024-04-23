@@ -82,7 +82,7 @@ public class PHuman extends Human implements IPlayer {
             getRenderer().setColor(Color.RED);
         else
             getRenderer().setColor(Color.BLUE);
-        getRenderer().rect(blockSilPos.x - .7f/2, blockSilPos.y - .7f/2, .7f, .7f);
+        getRenderer().rect(blockSilPos.x - .9f/2, blockSilPos.y - .9f/2, .9f, .9f);
         getRenderer().end();
     }
 
