@@ -21,8 +21,8 @@ public class BeachBall extends Disk {
     public BeachBall(float x, float y, float r, BodyDef.BodyType BT, float density, String name) {
         super(x, y, r, BT, density);
         setName(name);
-        getBody().getFixtureList().first().setRestitution(4f);
-        getBody().getFixtureList().first().setFriction(4f);
+        getBody().getFixtureList().first().setRestitution(1f);
+        getBody().getFixtureList().first().setFriction(.2f);
         setTexture(new Texture("beachball.png"));
         setSprite(new Sprite(getTexture()));
         getSprite().setScale((r * 2)/128f);

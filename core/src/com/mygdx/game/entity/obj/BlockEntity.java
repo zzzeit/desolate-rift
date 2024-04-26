@@ -41,6 +41,8 @@ public abstract class BlockEntity extends Entity implements IEntity, Block {
         getBody().setLinearDamping(.5f);
     }
 
+    public BlockEntity() {};
+
 
     private boolean[] adj = new boolean[8];
     @Override

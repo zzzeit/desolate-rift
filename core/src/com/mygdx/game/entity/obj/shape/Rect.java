@@ -15,6 +15,10 @@ public abstract class Rect extends BlockEntity {
         Shape.dispose();
     }
 
+    public Rect() {
+        super();
+    }
+
 
 
 }

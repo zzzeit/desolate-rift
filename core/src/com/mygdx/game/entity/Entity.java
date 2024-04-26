@@ -17,9 +17,18 @@ import java.util.List;
 
 import static com.mygdx.game.Main.world;
 
+/**
+ * The base class for entities
+ */
 public abstract class Entity {
     public static int nPlayers = 0;
     public static int err = 0;
+
+    /**
+     *
+     * @param v this is a vector 2 for the position you want to check
+     * @return TRUE if it detects a body from the desired location
+     */
     public static boolean bodyExists(Vector2 v) {
         // Define the AABB around the position
         float halfWidth = 0.1f; // Adjust this value based on the size of your bodies
@@ -34,7 +43,6 @@ public abstract class Entity {
     }
 
     public BodyDef bodyDef;
-    public FixtureDef shapeDef = new FixtureDef();
     public WeldJointDef weldJointDef = new WeldJointDef();
     public RevoluteJointDef revoluteJointDef = new RevoluteJointDef();
     private Body body;

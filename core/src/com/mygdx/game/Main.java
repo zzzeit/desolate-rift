@@ -3,7 +3,6 @@ package com.mygdx.game;
 import static com.badlogic.gdx.physics.box2d.BodyDef.BodyType.*;
 import static com.mygdx.game.entity.mob.MobileEntity.*;
 import static com.mygdx.game.util.Settings.*;
-import static com.mygdx.game.entity.Ground.*;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -16,16 +15,14 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.entity.Ground;
+import com.mygdx.game.map.MapGeneration;
 import com.mygdx.game.entity.mob.MobileEntity;
-import com.mygdx.game.entity.mob.hostile.Zombie;
 import com.mygdx.game.entity.mob.hostile.Human;
 import com.mygdx.game.entity.mob.player.PHuman;
 import com.mygdx.game.entity.obj.BeachBall;
 import com.mygdx.game.entity.obj.Box;
 import com.mygdx.game.entity.obj.MetalBox;
 import com.mygdx.game.entity.obj.BlockEntity;
-import com.mygdx.game.util.FastNoiseLite;
 import com.mygdx.game.util.MyInputProcessor;
 
 import static com.mygdx.game.util.MyInputProcessor.*;
@@ -41,7 +38,7 @@ public class Main extends ApplicationAdapter {
 	private Box2DDebugRenderer debugRenderer;
 	private Texture texture;
 	private Sprite sprite;
-	Ground g;
+	MapGeneration g;
 
 
 	@Override
@@ -51,11 +48,7 @@ public class Main extends ApplicationAdapter {
 //		Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
 		Gdx.input.setInputProcessor(new MyInputProcessor());
 
-		// Enable blending for transparency
-//		Gdx.gl.glEnable(GL20.GL_BLEND);
-//		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-//		Gdx.graphics.setResizable(false);
-//		camera = new OrthographicCamera(20, 20 * ((float) WIN_HEIGHT /WIN_WIDTH));
+		//
 		camera = new OrthographicCamera();
 		viewport = new FitViewport(20, 20 * ((float) WIN_HEIGHT /WIN_WIDTH), camera);
 		viewport.apply();
@@ -77,8 +70,8 @@ public class Main extends ApplicationAdapter {
 		debugRenderer = new Box2DDebugRenderer();
 
 
-		BeachBall.instantiate(1.5f, 6f, 1f, DynamicBody, 1f);
-		Box.instantiate(0, 0, 1f, 1f, DynamicBody, 1f);
+		BeachBall.instantiate(1.5f, 1.5f, 1f, DynamicBody, .2f);
+//		Box.instantiate(0, 0, 1f, 1f, DynamicBody, 1f);
 		MetalBox.instantiate(0, 0, 1f, StaticBody, 1f);
 
 //		Box.instantiate(30, 0, 1f, 61f, StaticBody, 1f);
@@ -86,16 +79,16 @@ public class Main extends ApplicationAdapter {
 //		Box.instantiate(0, 30, 61f, 1f, StaticBody, 1f);
 //		Box.instantiate(0, -30, 61f, 1f, StaticBody, 1f);
 
-		Zombie.instantiate(10f, 4f);
-		Zombie.instantiate(0f, 3f);
-		Zombie.instantiate(-15f, -5f);
+//		Zombie.instantiate(10f, 4f);
+//		Zombie.instantiate(0f, 3f);
+//		Zombie.instantiate(-15f, -5f);
 
 		PHuman.instantiate(0f, 0f);
 		Human.instantiate(3, 0);
 
 
 
-		g = new Ground();
+		g = new MapGeneration();
 	}
 	int i = 0;
 	@Override

@@ -7,9 +7,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.mygdx.game.entity.obj.shape.Rect;
 
+import java.io.Serializable;
+
 import static com.mygdx.game.Main.spriteBatch;
 
-public class MetalBox extends Rect {
+public class MetalBox extends Rect implements Serializable {
     public static int num_of_metbox = 0;
     public static MetalBox instantiate(float x, float y, float width, BodyDef.BodyType BT, float density) {
         num_of_metbox++;
@@ -51,6 +53,11 @@ public class MetalBox extends Rect {
         getSpriteList().add(new Sprite(getTextureRegionList().get(5)));
         getSpriteList().get(5).setScale(width/33f);
     }
+
+    public MetalBox() {
+        super();
+
+    };
 
     @Override
     public void render() {
