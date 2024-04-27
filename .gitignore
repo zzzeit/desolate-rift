@@ -26,3 +26,6 @@ replay_pid*
 *.lock
 *.probe
 desktop/build/resources/main/structures/New Text Document.txt
+*.lock
+*.bin
+*.lock
