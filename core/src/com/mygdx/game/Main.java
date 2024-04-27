@@ -98,6 +98,8 @@ public class Main extends ApplicationAdapter {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+		// Lock the mouse cursor to the center of the window
+		Gdx.input.setCursorPosition(WIN_WIDTH / 2, WIN_HEIGHT / 2);
 
 		spriteBatch.setProjectionMatrix(camera.combined);
 		spriteBatch.begin();
@@ -121,7 +123,7 @@ public class Main extends ApplicationAdapter {
 //		camera.position.set(getMobInstance(Human.class, 1).getHead().getPosition().x, getMobInstance(Human.class, 1).getHead().getPosition().y + 12f, 0f);
 		camera.rotate((float) (1 * Math.toDegrees(getMobInstance(Human.class, 1).getDeltaAngle())));
 //		camera.rotateAround(new Vector3(getMobInstance(Human.class, 1).getHead().getPosition().x, getMobInstance(Human.class, 1).getHead().getPosition().y, 0f), camera.position, (float) (1 * Math.toDegrees(getMobInstance(Human.class, 1).getDAngle())));
-		getMobInstance(Human.class, 1).rotate(-(mouseRelative.x * .5f));
+		getMobInstance(Human.class, 1).rotate((mouseRelative.x * .5f));
 
 		camera.zoom = zoom;
 		camera.update();

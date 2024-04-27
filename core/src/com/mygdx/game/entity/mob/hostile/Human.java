@@ -20,7 +20,7 @@ public class Human extends MobileEntity {
 
     private Shape shape;
     private Body head, torso;
-    private float speed = 20f, damp = 4f, visionAngle;
+    private float speed = 40f, damp = 4f, visionAngle;
     public Human(float x, float y, String name) {
         super(x, y, BodyDef.BodyType.DynamicBody);
         setName(name);
@@ -34,7 +34,8 @@ public class Human extends MobileEntity {
         head.createFixture(shape, 1f);
         shape.dispose();
         head.setAngularDamping(10);
-        head.setLinearDamping(damp);
+        head.getFixtureList().first().setFriction(0.1f);
+        head.setLinearDamping(8);
         head.setFixedRotation(true);
 
 
