@@ -32,3 +32,5 @@ desktop/build/resources/main/structures/New Text Document.txt
 *.bin
 .gradle/buildOutputCleanup/cache.properties
 desktop/build/tmp/compileJava/previous-compilation-data.bin
+*.bin
+/core/build/tmp/compileJava/compileTransaction/stash-dir
