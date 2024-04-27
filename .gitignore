@@ -30,3 +30,5 @@ desktop/build/resources/main/structures/New Text Document.txt
 *.bin
 *.lock
 *.bin
+.gradle/buildOutputCleanup/cache.properties
+desktop/build/tmp/compileJava/previous-compilation-data.bin
