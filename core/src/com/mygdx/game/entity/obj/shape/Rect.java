@@ -13,6 +13,7 @@ public abstract class Rect extends BlockEntity {
         Shape.setAsBox(width/2, height/2);
         getBody().createFixture(Shape, density);
         Shape.dispose();
+
     }
 
     public Rect() {

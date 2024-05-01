@@ -4,11 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.mygdx.game.Main;
 import com.mygdx.game.entity.obj.shape.Disk;
-import jdk.internal.org.jline.terminal.TerminalBuilder;
 
-import static com.mygdx.game.Main.getCamera;
 import static com.mygdx.game.Main.spriteBatch;
 
 public class BeachBall extends Disk {
@@ -37,11 +34,6 @@ public class BeachBall extends Disk {
     }
 
     @Override
-    public void shapeRender() {
-
-    }
-
-    @Override
     public void update() {
         setAngle(getBody().getAngle());
         calcDeltaAngle();
@@ -51,4 +43,6 @@ public class BeachBall extends Disk {
     public Vector2 getPosition() {
         return null;
     }
+
+
 }

@@ -1,0 +1,132 @@
+
+texturepack.png
+size: 512, 256
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+assets/0
+  rotate: false
+  xy: 400, 136
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
+assets/beachball
+  rotate: false
+  xy: 169, 111
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+assets/block
+  rotate: false
+  xy: 468, 171
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
+assets/block2
+  rotate: false
+  xy: 435, 136
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
+assets/box
+  rotate: false
+  xy: 470, 136
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
+assets/chunk
+  rotate: false
+  xy: 2, 2
+  size: 15, 15
+  orig: 15, 15
+  offset: 0, 0
+  index: -1
+assets/cobblestone
+  rotate: false
+  xy: 303, 38
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+assets/concrete
+  rotate: false
+  xy: 299, 107
+  size: 99, 132
+  orig: 99, 132
+  offset: 0, 0
+  index: -1
+assets/grass
+  rotate: false
+  xy: 163, 39
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
+assets/ground
+  rotate: false
+  xy: 2, 19
+  size: 159, 53
+  orig: 159, 53
+  offset: 0, 0
+  index: -1
+assets/human
+  rotate: false
+  xy: 169, 76
+  size: 99, 33
+  orig: 99, 33
+  offset: 0, 0
+  index: -1
+assets/metalbox
+  rotate: false
+  xy: 270, 72
+  size: 132, 33
+  orig: 132, 33
+  offset: 0, 0
+  index: -1
+assets/metalbox165
+  rotate: false
+  xy: 2, 74
+  size: 165, 165
+  orig: 165, 165
+  offset: 0, 0
+  index: -1
+assets/plank
+  rotate: false
+  xy: 198, 41
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
+assets/plank2
+  rotate: false
+  xy: 233, 41
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
+assets/plank3
+  rotate: false
+  xy: 268, 37
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
+assets/test
+  rotate: false
+  xy: 400, 171
+  size: 66, 33
+  orig: 66, 33
+  offset: 0, 0
+  index: -1
+assets/zombie
+  rotate: false
+  xy: 400, 206
+  size: 99, 33
+  orig: 99, 33
+  offset: 0, 0
+  index: -1

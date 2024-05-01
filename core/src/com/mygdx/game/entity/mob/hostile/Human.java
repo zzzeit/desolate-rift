@@ -98,11 +98,6 @@ public class Human extends MobileEntity {
 
     }
 
-    @Override
-    public void shapeRender() {
-
-    }
-
     public void turnLeft() {head.applyTorque(speed * .05f, true);}
     public void turnRight() {head.applyTorque(-speed * .05f, true);}
     public void moveLeft() {head.applyForceToCenter((float) (-speed * Math.cos(getAngle(false))), (float) (-speed * Math.sin(getAngle(false))), true);}

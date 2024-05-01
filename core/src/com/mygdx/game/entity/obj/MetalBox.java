@@ -15,7 +15,10 @@ public class MetalBox extends Rect implements Serializable {
     public static int num_of_metbox = 0;
     public static MetalBox instantiate(float x, float y, float width, BodyDef.BodyType BT, float density) {
         num_of_metbox++;
-        entities.add(new MetalBox(x, y, width, BT, density, Integer.toString(num_of_metbox).concat("_METBOX")));
+        MetalBox mb = new MetalBox(x, y, width, BT, density, Integer.toString(num_of_metbox).concat("_METBOX"));
+        entities.add(mb);
+//        mb.checkAdjBlocks();
+//        mb.updAdjBlocks(3);
         return getBlockInstance(MetalBox.class, num_of_metbox);
     }
     public MetalBox(float x, float y, float width, BodyDef.BodyType BT, float density, String name) {
@@ -52,6 +55,9 @@ public class MetalBox extends Rect implements Serializable {
         getTextureRegionList().add(new TextureRegion(getTexture(), getSSR() * (1f/5), 1/5f, ((getSSR() + 1) / 5f), 2/5f));
         getSpriteList().add(new Sprite(getTextureRegionList().get(5)));
         getSpriteList().get(5).setScale(width/33f);
+
+//        checkAdjBlocks();
+//        updAdjBlocks(3);
     }
 
     public MetalBox() {
@@ -135,15 +141,9 @@ public class MetalBox extends Rect implements Serializable {
     }
 
     @Override
-    public void shapeRender() {
-
-    }
-
-    @Override
     public void update() {
         setAngle(getBody().getAngle());
         calcDeltaAngle();
-        updCheckAdjBlocks();
     }
 
     @Override

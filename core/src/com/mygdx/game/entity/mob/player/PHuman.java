@@ -1,23 +1,11 @@
 package com.mygdx.game.entity.mob.player;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.QueryCallback;
 import com.mygdx.game.entity.mob.IPlayer;
 import com.mygdx.game.entity.mob.hostile.Human;
-import com.mygdx.game.entity.obj.BlockEntity;
 import com.mygdx.game.entity.obj.MetalBox;
-import com.mygdx.game.util.MyQueryCallback;
 
-import static com.mygdx.game.Main.*;
-import static com.mygdx.game.entity.obj.BlockEntity.getBlockInstance;
 import static com.mygdx.game.util.IKeycodes.*;
 import static com.mygdx.game.util.MyInputProcessor.clickEvent;
 import static com.mygdx.game.util.MyInputProcessor.events;
@@ -50,6 +38,11 @@ public class PHuman extends Human implements IPlayer {
             MetalBox.instantiate(blockSilPos.x, blockSilPos.y, 1, BodyDef.BodyType.StaticBody, 1f);
     }
 
+    @Override
+    public Vector2 getChunkPosition(int m) {
+        return new Vector2((getPosition().x / m) * m, (getPosition().x / m) * m);
+    }
+
 
     @Override
     public void update() {
@@ -67,23 +60,13 @@ public class PHuman extends Human implements IPlayer {
             placeBlock();
         if (events.contains(SPACE))
             placeBlock();
+
+        System.out.printf("X[%f]  Y[%f]\n", Math.round(getPosition().x / 15) * 15f, Math.round(getPosition().y / 15) * 15f);
     }
 
     @Override
     public void render() {
         super.render();
-    }
-
-    @Override
-    public void shapeRender() {
-
-        getRenderer().begin(ShapeRenderer.ShapeType.Line);
-        if (bodyExists(blockSilPos))
-            getRenderer().setColor(Color.RED);
-        else
-            getRenderer().setColor(Color.BLUE);
-        getRenderer().rect(blockSilPos.x - .9f/2, blockSilPos.y - .9f/2, .9f, .9f);
-        getRenderer().end();
     }
 
 

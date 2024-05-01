@@ -34,3 +34,4 @@ desktop/build/resources/main/structures/New Text Document.txt
 desktop/build/tmp/compileJava/previous-compilation-data.bin
 *.bin
 /core/build/tmp/compileJava/compileTransaction/stash-dir
+/desktop/build/tmp/compileJava/compileTransaction/stash-dir

@@ -42,7 +42,7 @@ public abstract class Entity {
         return callback.isBodyFound();
     }
 
-    public BodyDef bodyDef;
+    private BodyDef bodyDef;
     public WeldJointDef weldJointDef = new WeldJointDef();
     public RevoluteJointDef revoluteJointDef = new RevoluteJointDef();
     private Body body;
@@ -68,6 +68,7 @@ public abstract class Entity {
     public void setTexture(Texture t) {texture = t;}
     public void setTextureRegion(TextureRegion t) {textureRegion = t;}
     public void setSSR(int s) {ssr = s;}
+    public void setBodyDef(BodyDef bd) {bodyDef = bd;}
 
 
     // Getter
@@ -82,6 +83,7 @@ public abstract class Entity {
     public TextureRegion getTextureRegion() {return textureRegion;}
     public List<TextureRegion> getTextureRegionList() {return textureRegionList;}
     public List<Sprite> getSpriteList() {return spriteList;}
+    public BodyDef getBodyDef() {return bodyDef;}
 
     public int getSSR() {return ssr;}
 

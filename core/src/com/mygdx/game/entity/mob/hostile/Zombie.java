@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.entity.mob.MobileEntity;
-import org.lwjgl.Sys;
 
 import static com.mygdx.game.Main.spriteBatch;
 import static com.mygdx.game.util.Settings.angleBetweenPoints;
@@ -134,11 +133,6 @@ public class Zombie extends MobileEntity {
         getSpriteList().get(0).setCenter(getHead().getPosition().x, getHead().getPosition().y);
         getSpriteList().get(0).rotate((float) (-1 * Math.toDegrees(getDeltaAngle())));
         getSpriteList().get(0).draw(spriteBatch);
-
-    }
-
-    @Override
-    public void shapeRender() {
 
     }
 

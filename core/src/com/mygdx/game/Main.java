@@ -10,17 +10,17 @@ import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.map.MapGeneration;
+import com.mygdx.game.map.ChunkHandler;
 import com.mygdx.game.entity.mob.MobileEntity;
 import com.mygdx.game.entity.mob.hostile.Human;
 import com.mygdx.game.entity.mob.player.PHuman;
 import com.mygdx.game.entity.obj.BeachBall;
-import com.mygdx.game.entity.obj.Box;
 import com.mygdx.game.entity.obj.MetalBox;
 import com.mygdx.game.entity.obj.BlockEntity;
 import com.mygdx.game.util.MyInputProcessor;
@@ -34,11 +34,13 @@ public class Main extends ApplicationAdapter {
 	public static SpriteBatch spriteBatch;
 	public static BitmapFont font;
 	public static World world;
+	private static Vector2 playerPos = new Vector2(0, 0);
 	private Viewport viewport;
 	private Box2DDebugRenderer debugRenderer;
 	private Texture texture;
+	private static TextureAtlas textureAtlas;
 	private Sprite sprite;
-	MapGeneration g;
+	ChunkHandler g;
 
 
 	@Override
@@ -60,6 +62,7 @@ public class Main extends ApplicationAdapter {
 		font.setColor(Color.WHITE);
 		font.getData().setScale(.1f);
 		texture = new Texture("plank2.png");
+		textureAtlas = new TextureAtlas("./pack/texturepack.atlas");
 		sprite = new Sprite(texture);
 		sprite.setScale(1/32f, 1/32f);
 		sprite.setCenter(0f, 0f);
@@ -70,7 +73,7 @@ public class Main extends ApplicationAdapter {
 		debugRenderer = new Box2DDebugRenderer();
 
 
-		BeachBall.instantiate(1.5f, 1.5f, 1f, DynamicBody, .2f);
+		BeachBall.instantiate(6.5f, 6.5f, 1f, DynamicBody, .2f);
 //		Box.instantiate(0, 0, 1f, 1f, DynamicBody, 1f);
 		MetalBox.instantiate(0, 0, 1f, StaticBody, 1f);
 
@@ -84,11 +87,10 @@ public class Main extends ApplicationAdapter {
 //		Zombie.instantiate(-15f, -5f);
 
 		PHuman.instantiate(0f, 0f);
-		Human.instantiate(3, 0);
 
 
 
-		g = new MapGeneration();
+		g = new ChunkHandler();
 	}
 	int i = 0;
 	@Override
@@ -100,6 +102,7 @@ public class Main extends ApplicationAdapter {
 
 		// Lock the mouse cursor to the center of the window
 		Gdx.input.setCursorPosition(WIN_WIDTH / 2, WIN_HEIGHT / 2);
+		playerPos.set(getMobInstance(PHuman.class, 1).getPosition());
 
 		spriteBatch.setProjectionMatrix(camera.combined);
 		spriteBatch.begin();
@@ -137,8 +140,6 @@ public class Main extends ApplicationAdapter {
 //			for (float y = -30.5f; y < 30; y++) {
 //				renderer.rect(x, y, 1, 1);
 //			}
-
-		// Render your game objects
 		renderer.end();
 //		events.clear();
 		// Debug renderer
@@ -166,5 +167,6 @@ public class Main extends ApplicationAdapter {
 
 	public static Camera getCamera() {return camera;}
 	public static ShapeRenderer getRenderer() {return renderer;}
-
+	public static TextureAtlas getTextureAtlas() {return textureAtlas;}
+	public static Vector2 getPlayerPos() {return playerPos;}
 }

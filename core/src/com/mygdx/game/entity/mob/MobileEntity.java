@@ -26,7 +26,6 @@ public abstract class MobileEntity extends Entity implements IEntity {
             if (m instanceof Zombie) {
                 ((Zombie) m).faceToPoint(((Zombie) m).getHead().getPosition(), getMobInstance(PHuman.class, 1).getHead().getPosition(), 30);
             }
-            m.shapeRender();
         }
     }
     public static <T extends MobileEntity> T getMobInstance(Class<T> c, int n) {
@@ -51,6 +50,17 @@ public abstract class MobileEntity extends Entity implements IEntity {
         weldJointDef.bodyB = b2;
         weldJointDef.collideConnected = collide;
         world.createJoint(weldJointDef);
+    }
+
+
+    @Override
+    public void chunkLoad() {
+
+    }
+
+    @Override
+    public void chunkUnload() {
+
     }
 
 }

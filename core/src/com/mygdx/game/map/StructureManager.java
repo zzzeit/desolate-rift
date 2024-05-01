@@ -3,23 +3,17 @@ package com.mygdx.game.map;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.mygdx.game.Main;
 import com.mygdx.game.entity.obj.BlockEntity;
 import com.mygdx.game.entity.obj.MetalBox;
-import org.lwjgl.Sys;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.mygdx.game.entity.obj.BlockEntity.entities;
-import static java.lang.Math.cos;
-import static java.lang.Math.sin;
 
 
 /**
  * <p>This class is used for creating and loading {@link Structure},
- * also with a secondary function for reading and writing serialized {@link Structure}. {@link MapGeneration} will utilize this class
+ * also with a secondary function for reading and writing serialized {@link Structure}. {@link WorldGeneration} will utilize this class
  * for the games map generation.</p>
  * <ul>
  *      <li>{@link #create(String)} creates an instance of {@link Structure} and serialize it to 'assets/structures'.</li>
@@ -48,17 +42,19 @@ class StructureManager implements BlockList {
      */
     public static void create(String filename) throws IOException {
         map = new int[][] {
-                {MetalBox, MetalBox, MetalBox, MetalBox, Air, Air, Air, MetalBox, MetalBox, MetalBox, MetalBox},
-                {MetalBox, Air, Air, Air, Air, Air, Air, Air, Air, Air, MetalBox},
-                {MetalBox, Air, Air, Air, Air, Air, Air, Air, Air, Air, MetalBox},
-                {MetalBox, Air, Air, Air, Air, Air, Air, Air, Air, Air, MetalBox},
-                {MetalBox, Air, Air, Air, Air, Air, Air, Air, Air, Air, MetalBox},
-                {MetalBox, Air, Air, Air, Air, Air, Air, Air, Air, Air, MetalBox},
-                {MetalBox, Air, Air, Air, Air, Air, Air, Air, Air, Air, MetalBox},
-                {MetalBox, Air, Air, Air, Air, Air, Air, Air, Air, Air, MetalBox},
-                {MetalBox, Air, Air, Air, Air, Air, Air, Air, Air, Air, MetalBox},
-                {MetalBox, Air, Air, Air, Air, Air, Air, Air, Air, Air, MetalBox},
-                {MetalBox, MetalBox, MetalBox, MetalBox, Air, Air, Air, MetalBox, MetalBox, MetalBox, MetalBox}
+                {MetalBox, MetalBox, MetalBox, MetalBox, MetalBox, MetalBox, MetalBox, MetalBox, MetalBox, MetalBox, MetalBox, MetalBox, MetalBox},
+                {MetalBox, Air, Air, Air, Air, Air, Air, Air, Air, Air, Air, Air, MetalBox},
+                {Air, Air, Air, Air, Air, Air, Air, Air, Air, Air, Air, Air, MetalBox},
+                {Air, Air, Air, Air, Air, Air, Air, Air, Air, Air, Air, Air, MetalBox},
+                {Air, Air, Air, Air, Air, Air, Air, Air, Air, Air, Air, Air, MetalBox},
+                {MetalBox, Air, Air, Air, Air, Air, Air, Air, Air, Air, Air, Air, MetalBox},
+                {MetalBox, Air, Air, Air, Air, Air, Air, Air, Air, Air, Air, Air, MetalBox},
+                {MetalBox, Air, Air, Air, Air, Air, Air, Air, Air, Air, Air, Air, MetalBox},
+                {MetalBox, Air, Air, Air, Air, Air, Air, Air, Air, Air, Air, Air, Air},
+                {MetalBox, Air, Air, Air, Air, Air, Air, Air, Air, Air, Air, Air, Air},
+                {MetalBox, Air, Air, Air, Air, Air, Air, Air, Air, Air, Air, Air, Air},
+                {MetalBox, Air, Air, Air, Air, Air, Air, Air, Air, Air, Air, Air, MetalBox},
+                {MetalBox, MetalBox, MetalBox, MetalBox, MetalBox, MetalBox, MetalBox, MetalBox, MetalBox, MetalBox, MetalBox, MetalBox, MetalBox}
         };
         s = new Structure(0, 0, 0, map);
 
@@ -72,7 +68,14 @@ class StructureManager implements BlockList {
         System.out.println("Serialization successful");
     }
 
-    public static void load(String filename) throws IOException, ClassNotFoundException {
+    /**
+     * Deserializes the structure file and loads it into {@link BlockEntity#entities} with coordinates.
+     * @param position
+     * @param filename No need to include filetype  .ser
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    public static void load(Vector2 position, String filename) throws IOException, ClassNotFoundException {
         // Read the serialized structure
         fis = new FileInputStream("./structures/".concat(filename).concat(".ser"));
         ois = new ObjectInputStream(fis);
@@ -85,7 +88,7 @@ class StructureManager implements BlockList {
         for (int y = 0; y < bp.length; y++) {
             for (int x = 0; x < bp.length; x++) {
                 if (bp[y][x].z == 1)
-                    entities.add(new MetalBox(bp[y][x].x, bp[y][x].y, 1, BodyDef.BodyType.StaticBody, 1, "Box"));
+                    entities.add(new MetalBox(bp[y][x].x + position.x, bp[y][x].y + position.y, 1, BodyDef.BodyType.StaticBody, 1, "Box"));
             }
         }
 

@@ -31,11 +31,6 @@ public class Box extends Rect {
     }
 
     @Override
-    public void shapeRender() {
-
-    }
-
-    @Override
     public void update() {
         setAngle(getBody().getAngle());
         calcDeltaAngle();

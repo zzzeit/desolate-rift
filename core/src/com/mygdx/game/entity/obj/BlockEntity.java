@@ -19,8 +19,6 @@ public abstract class BlockEntity extends Entity implements IEntity, Block {
             spriteBatch.begin();
             b.render();
             spriteBatch.end();
-//            System.out.println("Hi");
-            b.shapeRender();
         }
     }
     public static <T extends BlockEntity> T getBlockInstance(Class<T> c, int n) {
@@ -33,12 +31,14 @@ public abstract class BlockEntity extends Entity implements IEntity, Block {
     }
 
     public BlockEntity(float x, float y, BodyDef.BodyType BT) {
-        bodyDef = new BodyDef();
-        bodyDef.type = BT;
-        bodyDef.position.set(new Vector2(x, y));
-        setBody(world.createBody(bodyDef));
+        setBodyDef(new BodyDef());
+        getBodyDef().type = BT;
+        getBodyDef().position.set(new Vector2(x, y));
+        setBody(world.createBody(getBodyDef()));
         getBody().setAngularDamping(.5f);
         getBody().setLinearDamping(.5f);
+
+
     }
 
     public BlockEntity() {};
@@ -46,7 +46,7 @@ public abstract class BlockEntity extends Entity implements IEntity, Block {
 
     private boolean[] adj = new boolean[8];
     @Override
-    public void updCheckAdjBlocks() {
+    public void checkAdjBlocks() {
         Vector2 pos = getBody().getPosition();
         adj = new boolean[8];
 
@@ -73,6 +73,38 @@ public abstract class BlockEntity extends Entity implements IEntity, Block {
         }
     }
 
+    @Override
+    public void updAdjBlocks(int r) {
+        if (r > 0)
+            for (int y = 0; y < 3; y++) {
+                for (int x = 0; x < 3; x++) {
+                    if (!(y == 1 && x == 1))
+                        if (bodyExists(new Vector2(getPosition().x + x - 1, getPosition().y + y - 1))) {
+                            for (BlockEntity be : entities) {
+                                if (be instanceof MetalBox)
+                                    if (be.getPosition().x == getPosition().x + x - 1 && be.getPosition().y == getPosition().y + y - 1) {
+                                        be.checkAdjBlocks();
+                                        be.updAdjBlocks(r - 1);
+                                        System.out.println("Updated Adjacent Blcoks");
+                                    }
+                            }
+    //                        System.out.println("Body Found");
+                        }
+                }
+            }
+    }
+
     public boolean getAdj(int i) {return adj[i];}
+
+    @Override
+    public void chunkLoad() {
+        world.createBody(getBodyDef());
+    }
+
+    @Override
+    public void chunkUnload() {
+        getTexture().dispose();
+        world.destroyBody(getBody());
+    }
 
 }
