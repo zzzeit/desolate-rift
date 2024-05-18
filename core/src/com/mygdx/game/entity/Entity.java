@@ -42,10 +42,10 @@ public abstract class Entity {
         return callback.isBodyFound();
     }
 
-    private BodyDef bodyDef;
+
+    private BodyDef bodyDef = new BodyDef();
     public WeldJointDef weldJointDef = new WeldJointDef();
     public RevoluteJointDef revoluteJointDef = new RevoluteJointDef();
-    private Body body;
     private String name;
 
     private float angle = 0, deltaAngle = 0, prevAngle = 0;
@@ -59,7 +59,6 @@ public abstract class Entity {
     private int ssr = 0;  // Sprite sheet region
 
     // Setter
-    public void setBody(Body b) {body = b;}
     public void setAngle(float a) {angle = a;}
     public void setDeltaAngle(float d) {deltaAngle = d;}
     public void setPrevAngle(float p) {prevAngle = p;}
@@ -72,7 +71,6 @@ public abstract class Entity {
 
 
     // Getter
-    public Body getBody() {return body;}
     public float getAngle(boolean isDegree) {if (!isDegree) return angle; else return (float) Math.toDegrees(angle);}
     public float getDeltaAngle() {return deltaAngle;}
     public float getPrevAngle() {return prevAngle;}

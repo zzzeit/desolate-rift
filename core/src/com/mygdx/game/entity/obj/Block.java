@@ -1,7 +1,9 @@
 package com.mygdx.game.entity.obj;
 
+import com.badlogic.gdx.physics.box2d.Body;
+
 public interface Block {
-    void checkAdjBlocks();
+    void checkAdjBlocks(Body b);
 
     /**
      *

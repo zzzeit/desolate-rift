@@ -22,13 +22,12 @@ public class Human extends MobileEntity {
     private Body head, torso;
     private float speed = 40f, damp = 4f, visionAngle;
     public Human(float x, float y, String name) {
-        super(x, y, BodyDef.BodyType.DynamicBody);
         setName(name);
         revoluteJointDef.enableLimit = true;
+        getBodyDef().type = BodyDef.BodyType.DynamicBody;
 
         // HEAD
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        head = world.createBody(bodyDef);
+        head = world.createBody(getBodyDef());
         shape = new CircleShape();
         shape.setRadius(.5f);
         head.createFixture(shape, 1f);
@@ -40,7 +39,7 @@ public class Human extends MobileEntity {
 
 
         // TORSO
-        torso = world.createBody(bodyDef);
+        torso = world.createBody(getBodyDef());
         shape = new PolygonShape();
         ((PolygonShape) shape).setAsBox(1f, .25f, new Vector2(0f, 0f), 0);
         torso.createFixture(shape, .1f);

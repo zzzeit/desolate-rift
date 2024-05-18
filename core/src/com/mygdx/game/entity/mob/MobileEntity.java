@@ -37,13 +37,6 @@ public abstract class MobileEntity extends Entity implements IEntity {
         return null;
     }
 
-    public MobileEntity(float x, float y, BodyDef.BodyType BT) {
-        bodyDef = new BodyDef();
-        bodyDef.type = BT;
-        bodyDef.position.set(new Vector2(x, y));
-        setBody(world.createBody(bodyDef));
-    }
-
 
     public void weldBodies2(Body b1, Body b2, Boolean collide) {
         weldJointDef.bodyA = b1;
@@ -53,14 +46,5 @@ public abstract class MobileEntity extends Entity implements IEntity {
     }
 
 
-    @Override
-    public void chunkLoad() {
-
-    }
-
-    @Override
-    public void chunkUnload() {
-
-    }
 
 }

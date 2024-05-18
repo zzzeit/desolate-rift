@@ -1,5 +1,7 @@
 package com.mygdx.game;
-
+// DELTASITE
+// ANNIHILATION
+// DESOLATE RIFT
 import static com.badlogic.gdx.physics.box2d.BodyDef.BodyType.*;
 import static com.mygdx.game.entity.mob.MobileEntity.*;
 import static com.mygdx.game.util.Settings.*;
@@ -16,7 +18,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.map.ChunkHandler;
+//import com.mygdx.game.map.ChunkHandler;
 import com.mygdx.game.entity.mob.MobileEntity;
 import com.mygdx.game.entity.mob.hostile.Human;
 import com.mygdx.game.entity.mob.player.PHuman;
@@ -40,7 +42,7 @@ public class Main extends ApplicationAdapter {
 	private Texture texture;
 	private static TextureAtlas textureAtlas;
 	private Sprite sprite;
-	ChunkHandler g;
+//	ChunkHandler g;
 
 
 	@Override
@@ -90,7 +92,7 @@ public class Main extends ApplicationAdapter {
 
 
 
-		g = new ChunkHandler();
+//		g = new ChunkHandler();
 	}
 	int i = 0;
 	@Override
@@ -107,7 +109,7 @@ public class Main extends ApplicationAdapter {
 		spriteBatch.setProjectionMatrix(camera.combined);
 		spriteBatch.begin();
 
-		g.draw(spriteBatch);
+//		g.draw(spriteBatch);
 //		sprite.draw(spriteBatch);
 		spriteBatch.end();
 

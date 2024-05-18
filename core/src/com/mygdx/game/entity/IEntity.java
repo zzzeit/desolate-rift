@@ -10,6 +10,6 @@ public interface IEntity {
 
     void update();
     Vector2 getPosition();
-    void chunkLoad();
-    void chunkUnload();
+//    void chunkLoad();
+//    void chunkUnload();
 }

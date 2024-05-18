@@ -60,82 +60,80 @@ public class MetalBox extends Rect implements Serializable {
 //        updAdjBlocks(3);
     }
 
-    public MetalBox() {
-        super();
-
-    };
 
     @Override
     public void render() {
-        if (getAdj(0) && getAdj(2) && getAdj(4) && getAdj(6)) { // right up left down
-            getSpriteList().get(5).setCenter(getBody().getPosition().x, getBody().getPosition().y);
-            getSpriteList().get(5).draw(spriteBatch);
-        } else if (getAdj(0) && getAdj(2) && getAdj(4)) { // right up left
-            getSpriteList().get(2).setCenter(getBody().getPosition().x, getBody().getPosition().y);
-            getSpriteList().get(2).flip(false, true);
-            getSpriteList().get(2).draw(spriteBatch);
-            getSpriteList().get(2).flip(false, true);
-        } else if (getAdj(0) && getAdj(4) && getAdj(6)) { // right left down
-            getSpriteList().get(2).setCenter(getBody().getPosition().x, getBody().getPosition().y);
-            getSpriteList().get(2).draw(spriteBatch);
-        } else if (getAdj(0) && getAdj(2) && getAdj(6)) { // right up down
-            getSpriteList().get(2).setCenter(getBody().getPosition().x, getBody().getPosition().y);
-            getSpriteList().get(2).rotate(90);
-            getSpriteList().get(2).draw(spriteBatch);
-            getSpriteList().get(2).rotate(-90);
-        } else if (getAdj(2) && getAdj(4) && getAdj(6)) { // up left down
-            getSpriteList().get(2).setCenter(getBody().getPosition().x, getBody().getPosition().y);
-            getSpriteList().get(2).rotate(270);
-            getSpriteList().get(2).draw(spriteBatch);
-            getSpriteList().get(2).rotate(-270);
-        } else if (getAdj(0) && getAdj(4)) { // right left
-            getSpriteList().get(3).setCenter(getBody().getPosition().x, getBody().getPosition().y);
-            getSpriteList().get(3).draw(spriteBatch);
-        } else if (getAdj(2) && getAdj(6)) { // up down
-            getSpriteList().get(3).setCenter(getBody().getPosition().x, getBody().getPosition().y);
-            getSpriteList().get(3).rotate(90);
-            getSpriteList().get(3).draw(spriteBatch);
-            getSpriteList().get(3).rotate(-90);
-         } else if (getAdj(0) && getAdj(2)) { // right up
-            getSpriteList().get(4).setCenter(getBody().getPosition().x, getBody().getPosition().y);
-            getSpriteList().get(4).rotate(180);
-            getSpriteList().get(4).draw(spriteBatch);
-            getSpriteList().get(4).rotate(-180);
-        } else if (getAdj(2) && getAdj(4)) { // up left
-            getSpriteList().get(4).setCenter(getBody().getPosition().x, getBody().getPosition().y);
-            getSpriteList().get(4).rotate(270);
-            getSpriteList().get(4).draw(spriteBatch);
-            getSpriteList().get(4).rotate(-270);
-        } else if (getAdj(0) && getAdj(6)) { // right down
-            getSpriteList().get(4).setCenter(getBody().getPosition().x, getBody().getPosition().y);
-            getSpriteList().get(4).rotate(90);
-            getSpriteList().get(4).draw(spriteBatch);
-            getSpriteList().get(4).rotate(-90);
-        } else if (getAdj(4) && getAdj(6)) { // left down
-            getSpriteList().get(4).setCenter(getBody().getPosition().x, getBody().getPosition().y);
-            getSpriteList().get(4).draw(spriteBatch);
-        } else if (getAdj(0)) { // right
-            getSpriteList().get(1).setCenter(getBody().getPosition().x, getBody().getPosition().y);
-            getSpriteList().get(1).draw(spriteBatch);
-        } else if (getAdj(2)) { // up
-            getSpriteList().get(1).setCenter(getBody().getPosition().x, getBody().getPosition().y);
-            getSpriteList().get(1).rotate(90);
-            getSpriteList().get(1).draw(spriteBatch);
-            getSpriteList().get(1).rotate(-90);
-        } else if (getAdj(4)) { // left
-            getSpriteList().get(1).setCenter(getBody().getPosition().x, getBody().getPosition().y);
-            getSpriteList().get(1).flip(true, false);
-            getSpriteList().get(1).draw(spriteBatch);
-            getSpriteList().get(1).flip(true, false);
-        } else if (getAdj(6)) { // down
-            getSpriteList().get(1).setCenter(getBody().getPosition().x, getBody().getPosition().y);
-            getSpriteList().get(1).rotate(-90);
-            getSpriteList().get(1).draw(spriteBatch);
-            getSpriteList().get(1).rotate(90);
-        } else {
-            getSpriteList().get(0).setCenter(getBody().getPosition().x, getBody().getPosition().y);
-            getSpriteList().get(0).draw(spriteBatch);
-        }
+        getSpriteList().get(0).setCenter(getPosition().x, getPosition().y);
+        getSpriteList().get(0).draw(spriteBatch);
+//        if (getAdj(0) && getAdj(2) && getAdj(4) && getAdj(6)) { // right up left down
+//            getSpriteList().get(5).setCenter(getBody().getPosition().x, getBody().getPosition().y);
+//            getSpriteList().get(5).draw(spriteBatch);
+//        } else if (getAdj(0) && getAdj(2) && getAdj(4)) { // right up left
+//            getSpriteList().get(2).setCenter(getBody().getPosition().x, getBody().getPosition().y);
+//            getSpriteList().get(2).flip(false, true);
+//            getSpriteList().get(2).draw(spriteBatch);
+//            getSpriteList().get(2).flip(false, true);
+//        } else if (getAdj(0) && getAdj(4) && getAdj(6)) { // right left down
+//            getSpriteList().get(2).setCenter(getBody().getPosition().x, getBody().getPosition().y);
+//            getSpriteList().get(2).draw(spriteBatch);
+//        } else if (getAdj(0) && getAdj(2) && getAdj(6)) { // right up down
+//            getSpriteList().get(2).setCenter(getBody().getPosition().x, getBody().getPosition().y);
+//            getSpriteList().get(2).rotate(90);
+//            getSpriteList().get(2).draw(spriteBatch);
+//            getSpriteList().get(2).rotate(-90);
+//        } else if (getAdj(2) && getAdj(4) && getAdj(6)) { // up left down
+//            getSpriteList().get(2).setCenter(getBody().getPosition().x, getBody().getPosition().y);
+//            getSpriteList().get(2).rotate(270);
+//            getSpriteList().get(2).draw(spriteBatch);
+//            getSpriteList().get(2).rotate(-270);
+//        } else if (getAdj(0) && getAdj(4)) { // right left
+//            getSpriteList().get(3).setCenter(getBody().getPosition().x, getBody().getPosition().y);
+//            getSpriteList().get(3).draw(spriteBatch);
+//        } else if (getAdj(2) && getAdj(6)) { // up down
+//            getSpriteList().get(3).setCenter(getBody().getPosition().x, getBody().getPosition().y);
+//            getSpriteList().get(3).rotate(90);
+//            getSpriteList().get(3).draw(spriteBatch);
+//            getSpriteList().get(3).rotate(-90);
+//         } else if (getAdj(0) && getAdj(2)) { // right up
+//            getSpriteList().get(4).setCenter(getBody().getPosition().x, getBody().getPosition().y);
+//            getSpriteList().get(4).rotate(180);
+//            getSpriteList().get(4).draw(spriteBatch);
+//            getSpriteList().get(4).rotate(-180);
+//        } else if (getAdj(2) && getAdj(4)) { // up left
+//            getSpriteList().get(4).setCenter(getBody().getPosition().x, getBody().getPosition().y);
+//            getSpriteList().get(4).rotate(270);
+//            getSpriteList().get(4).draw(spriteBatch);
+//            getSpriteList().get(4).rotate(-270);
+//        } else if (getAdj(0) && getAdj(6)) { // right down
+//            getSpriteList().get(4).setCenter(getBody().getPosition().x, getBody().getPosition().y);
+//            getSpriteList().get(4).rotate(90);
+//            getSpriteList().get(4).draw(spriteBatch);
+//            getSpriteList().get(4).rotate(-90);
+//        } else if (getAdj(4) && getAdj(6)) { // left down
+//            getSpriteList().get(4).setCenter(getBody().getPosition().x, getBody().getPosition().y);
+//            getSpriteList().get(4).draw(spriteBatch);
+//        } else if (getAdj(0)) { // right
+//            getSpriteList().get(1).setCenter(getBody().getPosition().x, getBody().getPosition().y);
+//            getSpriteList().get(1).draw(spriteBatch);
+//        } else if (getAdj(2)) { // up
+//            getSpriteList().get(1).setCenter(getBody().getPosition().x, getBody().getPosition().y);
+//            getSpriteList().get(1).rotate(90);
+//            getSpriteList().get(1).draw(spriteBatch);
+//            getSpriteList().get(1).rotate(-90);
+//        } else if (getAdj(4)) { // left
+//            getSpriteList().get(1).setCenter(getBody().getPosition().x, getBody().getPosition().y);
+//            getSpriteList().get(1).flip(true, false);
+//            getSpriteList().get(1).draw(spriteBatch);
+//            getSpriteList().get(1).flip(true, false);
+//        } else if (getAdj(6)) { // down
+//            getSpriteList().get(1).setCenter(getBody().getPosition().x, getBody().getPosition().y);
+//            getSpriteList().get(1).rotate(-90);
+//            getSpriteList().get(1).draw(spriteBatch);
+//            getSpriteList().get(1).rotate(90);
+//        } else {
+//            getSpriteList().get(0).setCenter(getBody().getPosition().x, getBody().getPosition().y);
+//            getSpriteList().get(0).draw(spriteBatch);
+//        }
 
 
     }

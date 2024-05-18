@@ -21,13 +21,12 @@ public class Zombie extends MobileEntity {
     private Body head, torso, armLeft, armRight;
     private float speed = 10f, damp = 4f, visionAngle;
     public Zombie(float x, float y, String name) {
-        super(x, y, BodyDef.BodyType.DynamicBody);
         setName(name);
         revoluteJointDef.enableLimit = true;
+        getBodyDef().type = BodyDef.BodyType.DynamicBody;
 
         // HEAD
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        head = world.createBody(bodyDef);
+        head = world.createBody(getBodyDef());
         shape = new CircleShape();
         shape.setRadius(.5f);
         head.createFixture(shape, 1f);
@@ -37,7 +36,7 @@ public class Zombie extends MobileEntity {
 
 
         // TORSO
-        torso = world.createBody(bodyDef);
+        torso = world.createBody(getBodyDef());
         shape = new PolygonShape();
         ((PolygonShape) shape).setAsBox(1f, .25f, new Vector2(0f, 0f), 0);
         torso.createFixture(shape, .1f);
@@ -45,7 +44,7 @@ public class Zombie extends MobileEntity {
         torso.setLinearDamping(damp);
 
         // ARM
-        armLeft = world.createBody(bodyDef);
+        armLeft = world.createBody(getBodyDef());
         ((PolygonShape) shape).setAsBox(.25f, .75f);
         armLeft.createFixture(shape, .1f);
         armLeft.setAngularDamping(damp);
@@ -60,7 +59,7 @@ public class Zombie extends MobileEntity {
         revoluteJointDef.lowerAngle = -(float) Math.toRadians(20);
         world.createJoint(revoluteJointDef);
 
-        armRight = world.createBody(bodyDef);
+        armRight = world.createBody(getBodyDef());
         ((PolygonShape) shape).setAsBox(.25f, .75f);
         armRight.createFixture(shape, .1f);
         armRight.setAngularDamping(damp);
