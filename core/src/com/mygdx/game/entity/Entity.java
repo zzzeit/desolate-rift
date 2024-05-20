@@ -42,6 +42,10 @@ public abstract class Entity {
         return callback.isBodyFound();
     }
 
+    public void render() {};
+    public void update() {};
+    public abstract Vector2 getPosition();
+
 
     private BodyDef bodyDef = new BodyDef();
     public WeldJointDef weldJointDef = new WeldJointDef();

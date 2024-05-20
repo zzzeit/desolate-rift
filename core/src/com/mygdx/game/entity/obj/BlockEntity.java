@@ -11,7 +11,7 @@ import com.mygdx.game.entity.IEntity;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BlockEntity extends Entity implements IEntity {
+public abstract class BlockEntity extends Entity {
     public static List<BlockEntity> entities = new ArrayList<>();
     public static void upd() {
         for (BlockEntity b : entities){

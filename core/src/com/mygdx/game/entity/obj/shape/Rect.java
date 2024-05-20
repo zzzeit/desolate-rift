@@ -8,7 +8,7 @@ import com.mygdx.game.entity.obj.BlockEntity;
 
 import static com.mygdx.game.Main.world;
 
-public abstract class Rect extends BlockEntity {
+public class Rect extends BlockEntity {
     private PolygonShape Shape;
     private Body body;
     public Rect(float x, float y, float width, float height, BodyDef.BodyType BT, float density) {
@@ -27,5 +27,6 @@ public abstract class Rect extends BlockEntity {
     }
 
     public Body getBody() {return body;}
-
+    @Override
+    public Vector2 getPosition() {return body.getPosition();}
 }

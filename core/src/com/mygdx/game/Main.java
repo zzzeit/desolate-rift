@@ -27,9 +27,12 @@ import com.mygdx.game.entity.obj.MetalBox;
 import com.mygdx.game.entity.obj.BlockEntity;
 import com.mygdx.game.util.MyInputProcessor;
 
+import java.util.Random;
+
 import static com.mygdx.game.util.MyInputProcessor.*;
 
 public class Main extends ApplicationAdapter {
+	public static Random random = new Random();
 	private static OrthographicCamera camera;
 	private static ShapeRenderer renderer;
 	private static Vector2 mouseRelative = new Vector2();
@@ -146,9 +149,9 @@ public class Main extends ApplicationAdapter {
 //		events.clear();
 		// Debug renderer
 		debugRenderer.render(world, camera.combined);
-		debugRenderer.setDrawJoints(false);
-		debugRenderer.setDrawBodies(false);
-		debugRenderer.setDrawContacts(false);
+//		debugRenderer.setDrawJoints(false);
+//		debugRenderer.setDrawBodies(false);
+//		debugRenderer.setDrawContacts(false);
 		clickEvent.clear();
 	}
 

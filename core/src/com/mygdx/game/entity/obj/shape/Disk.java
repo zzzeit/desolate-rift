@@ -8,7 +8,7 @@ import com.mygdx.game.entity.obj.BlockEntity;
 
 import static com.mygdx.game.Main.world;
 
-public abstract class Disk extends BlockEntity {
+public class Disk extends BlockEntity {
     private CircleShape Shape;
     private Body body;
     public Disk(float x, float y, float r, BodyDef.BodyType BT, float density) {
@@ -26,4 +26,6 @@ public abstract class Disk extends BlockEntity {
 
     public Body getBody() {return body;}
 
+    @Override
+    public Vector2 getPosition() {return body.getPosition();}
 }

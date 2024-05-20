@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.entity.mob.MobileEntity;
+import com.mygdx.game.entity.obj.shape.Disk;
+import com.mygdx.game.entity.obj.shape.Rect;
 
 import static com.mygdx.game.Main.spriteBatch;
 import static com.mygdx.game.Main.world;
@@ -16,10 +18,9 @@ public class Human extends MobileEntity {
         num_of_hum++;
         mobs.add(new Human(x, y, Integer.toString(num_of_hum).concat("_HUM")));
     }
-
-
-    private Shape shape;
-    private Body head, torso;
+    
+    private Disk head = new Disk(0, 0, .5f, BodyDef.BodyType.DynamicBody, 1f);
+    private Rect torso = new Rect(0, 0, 2f, .5f, BodyDef.BodyType.DynamicBody, 1f);
     private float speed = 40f, damp = 4f, visionAngle;
     public Human(float x, float y, String name) {
         setName(name);
@@ -27,31 +28,21 @@ public class Human extends MobileEntity {
         getBodyDef().type = BodyDef.BodyType.DynamicBody;
 
         // HEAD
-        head = world.createBody(getBodyDef());
-        shape = new CircleShape();
-        shape.setRadius(.5f);
-        head.createFixture(shape, 1f);
-        shape.dispose();
-        head.setAngularDamping(10);
-        head.getFixtureList().first().setFriction(0.1f);
-        head.setLinearDamping(8);
-        head.setFixedRotation(true);
+        head.getBody().setAngularDamping(10);
+        head.getBody().getFixtureList().first().setFriction(0.1f);
+        head.getBody().setLinearDamping(8);
+        head.getBody().setFixedRotation(true);
 
 
         // TORSO
-        torso = world.createBody(getBodyDef());
-        shape = new PolygonShape();
-        ((PolygonShape) shape).setAsBox(1f, .25f, new Vector2(0f, 0f), 0);
-        torso.createFixture(shape, .1f);
-        torso.setAngularDamping(damp);
-        torso.setLinearDamping(damp);
-        torso.setSleepingAllowed(false);
+        torso.getBody().setAngularDamping(damp);
+        torso.getBody().setLinearDamping(damp);
+        torso.getBody().setSleepingAllowed(false);
 
 
-        shape.dispose();
 
 
-        weldBodies2(head, torso, false);
+        weldBodies2(head.getBody(), torso.getBody(), false);
 
 
         setTexture(new Texture("human.png"));
@@ -70,8 +61,9 @@ public class Human extends MobileEntity {
 
     @Override
     public void update() {
-        setAngle(getHead().getAngle());
+        setAngle(getHead().getBody().getAngle());
         calcDeltaAngle();
+        System.out.println(getDeltaAngle());
         while (getAngle(false) < 0) {
             addAngle((float) (Math.PI * 2));
         }
@@ -88,22 +80,22 @@ public class Human extends MobileEntity {
     @Override
     public void render() {
         getSpriteList().get(1).setCenter(getTorso().getPosition().x, getTorso().getPosition().y);
-        getSpriteList().get(1).setRotation((float) (Math.toDegrees(getTorso().getAngle())));
+        getSpriteList().get(1).setRotation((float) (Math.toDegrees(getTorso().getBody().getAngle())));
         getSpriteList().get(1).draw(spriteBatch);
 
         getSpriteList().get(0).setCenter(getHead().getPosition().x, getHead().getPosition().y);
-        getSpriteList().get(0).setRotation((float) (Math.toDegrees(getHead().getAngle())));
+        getSpriteList().get(0).setRotation((float) (Math.toDegrees(getHead().getAngle(false))));
         getSpriteList().get(0).draw(spriteBatch);
 
     }
 
-    public void turnLeft() {head.applyTorque(speed * .05f, true);}
-    public void turnRight() {head.applyTorque(-speed * .05f, true);}
-    public void moveLeft() {head.applyForceToCenter((float) (-speed * Math.cos(getAngle(false))), (float) (-speed * Math.sin(getAngle(false))), true);}
-    public void moveRight() {head.applyForceToCenter((float) (speed * Math.cos(getAngle(false))), (float) (speed * Math.sin(getAngle(false))), true);}
-    public void moveForward() {head.applyForceToCenter((float) (speed * Math.cos((getAngle(false) + Math.PI / 2))), (float) (speed * Math.sin((getAngle(false) + Math.PI / 2))), true);}
-    public void moveBackward() {head.applyForceToCenter((float) (-speed * Math.cos((getAngle(false) + Math.PI / 2))), (float) (-speed * Math.sin((getAngle(false) + Math.PI / 2))), true);}
-    public void rotate(float angle) {head.setTransform(head.getPosition().x, head.getPosition().y, (float) (head.getAngle() + Math.toRadians(angle)));}
+    public void turnLeft() {head.getBody().applyTorque(speed * .05f, true);}
+    public void turnRight() {head.getBody().applyTorque(-speed * .05f, true);}
+    public void moveLeft() {head.getBody().applyForceToCenter((float) (-speed * Math.cos(getAngle(false))), (float) (-speed * Math.sin(getAngle(false))), true);}
+    public void moveRight() {head.getBody().applyForceToCenter((float) (speed * Math.cos(getAngle(false))), (float) (speed * Math.sin(getAngle(false))), true);}
+    public void moveForward() {head.getBody().applyForceToCenter((float) (speed * Math.cos((getAngle(false) + Math.PI / 2))), (float) (speed * Math.sin((getAngle(false) + Math.PI / 2))), true);}
+    public void moveBackward() {head.getBody().applyForceToCenter((float) (-speed * Math.cos((getAngle(false) + Math.PI / 2))), (float) (-speed * Math.sin((getAngle(false) + Math.PI / 2))), true);}
+    public void rotate(float angle) {head.getBody().setTransform(head.getBody().getPosition().x, head.getBody().getPosition().y, (float) (head.getBody().getAngle() + Math.toRadians(angle)));}
 
     @Override
     public Vector2 getPosition() {
@@ -116,6 +108,6 @@ public class Human extends MobileEntity {
 
 
     // GETTER
-    public Body getHead() {return head;}
-    public Body getTorso() {return torso;}
+    public Disk getHead() {return head;}
+    public Rect getTorso() {return torso;}
 }

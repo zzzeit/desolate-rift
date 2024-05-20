@@ -61,7 +61,7 @@ public class PHuman extends Human implements IPlayer {
         if (events.contains(SPACE))
             placeBlock();
 
-        System.out.printf("X[%f]  Y[%f]\n", Math.round(getPosition().x / 15) * 15f, Math.round(getPosition().y / 15) * 15f);
+//        System.out.printf("X[%f]  Y[%f]\n", Math.round(getPosition().x / 15) * 15f, Math.round(getPosition().y / 15) * 15f);
     }
 
     @Override

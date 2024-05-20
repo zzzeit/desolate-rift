@@ -35,3 +35,6 @@ desktop/build/tmp/compileJava/previous-compilation-data.bin
 *.bin
 /core/build/tmp/compileJava/compileTransaction/stash-dir
 /desktop/build/tmp/compileJava/compileTransaction/stash-dir
+core/build/tmp/compileJava/previous-compilation-data.bin
+.gradle/file-system.probe
+/core/build/tmp
