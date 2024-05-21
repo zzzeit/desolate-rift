@@ -42,6 +42,24 @@ public abstract class Entity {
         return callback.isBodyFound();
     }
 
+    public void weldBodies2(Body b1, Body b2, Boolean collide) {
+        weldJointDef.bodyA = b1;
+        weldJointDef.bodyB = b2;
+        weldJointDef.collideConnected = collide;
+        world.createJoint(weldJointDef);
+    }
+
+    public void revoluteBodies2(Body b1, Body b2, Vector2 anchor1, Vector2 anchor2, Boolean collide) {
+        revoluteJointDef.bodyA = b1;
+        revoluteJointDef.bodyB = b2;
+        revoluteJointDef.collideConnected = collide;
+        revoluteJointDef.localAnchorA.set(anchor1);
+        revoluteJointDef.localAnchorB.set(anchor2);
+        revoluteJointDef.upperAngle = (float) Math.toRadians(20);
+        revoluteJointDef.lowerAngle = -(float) Math.toRadians(20);
+        world.createJoint(revoluteJointDef);
+    }
+
     public void render() {};
     public void update() {};
     public abstract Vector2 getPosition();

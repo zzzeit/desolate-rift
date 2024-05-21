@@ -21,6 +21,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 //import com.mygdx.game.map.ChunkHandler;
 import com.mygdx.game.entity.mob.MobileEntity;
 import com.mygdx.game.entity.mob.hostile.Human;
+import com.mygdx.game.entity.mob.hostile.Zombie;
 import com.mygdx.game.entity.mob.player.PHuman;
 import com.mygdx.game.entity.obj.BeachBall;
 import com.mygdx.game.entity.obj.MetalBox;
@@ -87,7 +88,7 @@ public class Main extends ApplicationAdapter {
 //		Box.instantiate(0, 30, 61f, 1f, StaticBody, 1f);
 //		Box.instantiate(0, -30, 61f, 1f, StaticBody, 1f);
 
-//		Zombie.instantiate(10f, 4f);
+		Zombie.instantiate(10f, 4f);
 //		Zombie.instantiate(0f, 3f);
 //		Zombie.instantiate(-15f, -5f);
 

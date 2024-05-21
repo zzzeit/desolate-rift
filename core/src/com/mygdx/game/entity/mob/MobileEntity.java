@@ -38,12 +38,7 @@ public abstract class MobileEntity extends Entity implements IEntity {
     }
 
 
-    public void weldBodies2(Body b1, Body b2, Boolean collide) {
-        weldJointDef.bodyA = b1;
-        weldJointDef.bodyB = b2;
-        weldJointDef.collideConnected = collide;
-        world.createJoint(weldJointDef);
-    }
+
 
 
 

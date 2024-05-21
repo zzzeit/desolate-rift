@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.entity.mob.MobileEntity;
+import com.mygdx.game.entity.obj.shape.Disk;
+import com.mygdx.game.entity.obj.shape.Rect;
 
 import static com.mygdx.game.Main.spriteBatch;
 import static com.mygdx.game.util.Settings.angleBetweenPoints;
@@ -17,8 +19,9 @@ public class Zombie extends MobileEntity {
         num_of_zom++;
         mobs.add(new Zombie(x, y, Integer.toString(num_of_zom).concat("_ZOM")));
     }
-    private Shape shape;
-    private Body head, torso, armLeft, armRight;
+//    private Body head, torso, armLeft, armRight;
+    private Disk head;
+    private Rect torso, armLeft, armRight;
     private float speed = 10f, damp = 4f, visionAngle;
     public Zombie(float x, float y, String name) {
         setName(name);
@@ -26,58 +29,31 @@ public class Zombie extends MobileEntity {
         getBodyDef().type = BodyDef.BodyType.DynamicBody;
 
         // HEAD
-        head = world.createBody(getBodyDef());
-        shape = new CircleShape();
-        shape.setRadius(.5f);
-        head.createFixture(shape, 1f);
-        shape.dispose();
-        head.setAngularDamping(damp);
-        head.setLinearDamping(damp);
+        head = new Disk(0, 0, .5f, BodyDef.BodyType.DynamicBody, 1f);
+        head.getBody().setAngularDamping(damp);
+        head.getBody().setLinearDamping(damp);
 
 
         // TORSO
-        torso = world.createBody(getBodyDef());
-        shape = new PolygonShape();
-        ((PolygonShape) shape).setAsBox(1f, .25f, new Vector2(0f, 0f), 0);
-        torso.createFixture(shape, .1f);
-        torso.setAngularDamping(damp);
-        torso.setLinearDamping(damp);
+        torso = new Rect(0, 0, 2f, .5f, BodyDef.BodyType.DynamicBody, .1f);
+        torso.getBody().setAngularDamping(damp);
+        torso.getBody().setLinearDamping(damp);
+
+        weldBodies2(head.getBody(), torso.getBody(), false);
 
         // ARM
-        armLeft = world.createBody(getBodyDef());
-        ((PolygonShape) shape).setAsBox(.25f, .75f);
-        armLeft.createFixture(shape, .1f);
-        armLeft.setAngularDamping(damp);
-        armLeft.setLinearDamping(damp);
+        armLeft = new Rect(0, 0, .5f, 1.5f, BodyDef.BodyType.DynamicBody, .1f);
+        armLeft.getBody().setAngularDamping(damp);
+        armLeft.getBody().setLinearDamping(damp);
+        revoluteBodies2(torso.getBody(), armLeft.getBody(), new Vector2(-.75f, 0), new Vector2(0, -.5f), false);
 
-        revoluteJointDef.bodyA = torso;
-        revoluteJointDef.bodyB = armLeft;
-        revoluteJointDef.collideConnected = false;
-        revoluteJointDef.localAnchorA.set(-.75f, 0);
-        revoluteJointDef.localAnchorB.set(0f, -.50f);
-        revoluteJointDef.upperAngle = (float) Math.toRadians(20);
-        revoluteJointDef.lowerAngle = -(float) Math.toRadians(20);
-        world.createJoint(revoluteJointDef);
-
-        armRight = world.createBody(getBodyDef());
-        ((PolygonShape) shape).setAsBox(.25f, .75f);
-        armRight.createFixture(shape, .1f);
-        armRight.setAngularDamping(damp);
-        armRight.setLinearDamping(damp);
-
-        revoluteJointDef.bodyA = torso;
-        revoluteJointDef.bodyB = armRight;
-        revoluteJointDef.collideConnected = false;
-        revoluteJointDef.localAnchorA.set(.75f, 0);
-        revoluteJointDef.localAnchorB.set(0f, -.50f);
-        revoluteJointDef.upperAngle = (float) Math.toRadians(20);
-        revoluteJointDef.lowerAngle = -(float) Math.toRadians(20);
-
-        world.createJoint(revoluteJointDef);
-        shape.dispose();
+        armRight = new Rect(0, 0, .5f, 1.5f, BodyDef.BodyType.DynamicBody, .1f);
+        armRight.getBody().setAngularDamping(damp);
+        armRight.getBody().setLinearDamping(damp);
+        revoluteBodies2(torso.getBody(), armRight.getBody(), new Vector2(.75f, 0), new Vector2(0, -.5f), false);
 
 
-        weldBodies2(head, torso, false);
+
 
         setTexture(new Texture("zombie.png"));
         setSSR(0);
@@ -99,7 +75,7 @@ public class Zombie extends MobileEntity {
 
     @Override
     public void update() {
-        setAngle(getHead().getAngle());
+        setAngle(getHead().getBody().getAngle());
         calcDeltaAngle();
         while (getAngle(false) < 0) {
             addAngle((float) (Math.PI * 2));
@@ -121,12 +97,12 @@ public class Zombie extends MobileEntity {
 
         getSpriteList().get(2).setCenter(armLeft.getPosition().x, armLeft.getPosition().y);
         getSpriteList().get(2).flip(true, false);
-        getSpriteList().get(2).setRotation((float) (Math.toDegrees(armLeft.getAngle())));
+        getSpriteList().get(2).setRotation((float) (Math.toDegrees(armLeft.getBody().getAngle())));
         getSpriteList().get(2).draw(spriteBatch);
 
         getSpriteList().get(2).setCenter(armRight.getPosition().x, armRight.getPosition().y);
         getSpriteList().get(2).flip(true, false);
-        getSpriteList().get(2).setRotation((float) (Math.toDegrees(armRight.getAngle())));
+        getSpriteList().get(2).setRotation((float) (Math.toDegrees(armRight.getBody().getAngle())));
         getSpriteList().get(2).draw(spriteBatch);
 
         getSpriteList().get(0).setCenter(getHead().getPosition().x, getHead().getPosition().y);
@@ -141,10 +117,10 @@ public class Zombie extends MobileEntity {
     }
 
 
-    public void turnLeft() {head.applyTorque(speed * .8f, true);}
-    public void turnRight() {head.applyTorque(-speed * .8f, true);}
-    public void moveForward() {head.applyForceToCenter((float) (speed * Math.cos((getAngle(false) + Math.PI / 2))), (float) (speed * Math.sin((getAngle(false) + Math.PI / 2))), true);}
-    public void moveBackward() {head.applyForceToCenter((float) (-speed * Math.cos((getAngle(false) + Math.PI / 2))), (float) (-speed * Math.sin((getAngle(false) + Math.PI / 2))), true);}
+    public void turnLeft() {head.getBody().applyTorque(speed * .8f, true);}
+    public void turnRight() {head.getBody().applyTorque(-speed * .8f, true);}
+    public void moveForward() {head.getBody().applyForceToCenter((float) (speed * Math.cos((getAngle(false) + Math.PI / 2))), (float) (speed * Math.sin((getAngle(false) + Math.PI / 2))), true);}
+    public void moveBackward() {head.getBody().applyForceToCenter((float) (-speed * Math.cos((getAngle(false) + Math.PI / 2))), (float) (-speed * Math.sin((getAngle(false) + Math.PI / 2))), true);}
 
     private float haD;
     public void faceToPoint(Vector2 center, Vector2 p2, float FOV) {
@@ -174,8 +150,10 @@ public class Zombie extends MobileEntity {
 
 
     // GETTER
-    public Body getHead() {return head;}
-    public Body getTorso() {return torso;}
+    public Disk getHead() {return head;}
+    public Rect getTorso() {return torso;}
+    public Rect getArmLeft() {return armLeft;}
+    public Rect getArmRight() {return armRight;}
     public float getVisionAngle(boolean d) {
         if (!d) return visionAngle;
         else return (float) Math.toDegrees(visionAngle);
