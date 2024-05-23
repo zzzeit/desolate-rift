@@ -26,7 +26,7 @@ public class Zombie extends MobileEntity {
     public Zombie(float x, float y, String name) {
         setName(name);
         revoluteJointDef.enableLimit = true;
-        getBodyDef().type = BodyDef.BodyType.DynamicBody;
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
 
         // HEAD
         head = new Disk(0, 0, .5f, BodyDef.BodyType.DynamicBody, 1f);
@@ -123,6 +123,13 @@ public class Zombie extends MobileEntity {
     public void moveBackward() {head.getBody().applyForceToCenter((float) (-speed * Math.cos((getAngle(false) + Math.PI / 2))), (float) (-speed * Math.sin((getAngle(false) + Math.PI / 2))), true);}
 
     private float haD;
+
+    /**
+     *
+     * @param center The mobile entity
+     * @param p2 Where the mobile entity faces
+     * @param FOV Amount of fov for triggered faced point
+     */
     public void faceToPoint(Vector2 center, Vector2 p2, float FOV) {
         float headAngle = getVisionAngle(false), angleBetween = (float) angleBetweenPoints(center, p2, false);
         haD = headAngle - angleBetween;

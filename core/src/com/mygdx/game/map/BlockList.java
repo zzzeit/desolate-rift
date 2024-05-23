@@ -6,8 +6,11 @@ package com.mygdx.game.map;
 interface BlockList {
     int
     Air = 0,
-    MetalBox = 1,
-    Box = 2;
+    Grass = 1,
+    Sand = 2,
+    Water = 3,
+    MetalBox = 4,
+    Box = 5;
 
     String
     H1 = "house1",

@@ -12,10 +12,10 @@ public class Disk extends BlockEntity {
     private CircleShape Shape;
     private Body body;
     public Disk(float x, float y, float r, BodyDef.BodyType BT, float density) {
-        setBodyDef(new BodyDef());
-        getBodyDef().type = BT;
-        getBodyDef().position.set(new Vector2(x, y));
-        body = world.createBody(getBodyDef());
+
+        bodyDef.type = BT;
+        bodyDef.position.set(new Vector2(x, y));
+        body = world.createBody(bodyDef);
         body.setAngularDamping(.5f);
         body.setLinearDamping(.5f);
         Shape = new CircleShape();
@@ -25,6 +25,11 @@ public class Disk extends BlockEntity {
     }
 
     public Body getBody() {return body;}
+
+    @Override
+    public void render() {
+
+    }
 
     @Override
     public Vector2 getPosition() {return body.getPosition();}

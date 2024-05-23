@@ -1,7 +1,6 @@
 package com.mygdx.game.entity.mob;
 
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.entity.obj.BlockEntity;
 
 public interface IPlayer {
     void placeBlock();

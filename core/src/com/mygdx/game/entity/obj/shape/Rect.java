@@ -12,10 +12,9 @@ public class Rect extends BlockEntity {
     private PolygonShape Shape;
     private Body body;
     public Rect(float x, float y, float width, float height, BodyDef.BodyType BT, float density) {
-        setBodyDef(new BodyDef());
-        getBodyDef().type = BT;
-        getBodyDef().position.set(new Vector2(x, y));
-        body = world.createBody(getBodyDef());
+        bodyDef.type = BT;
+        bodyDef.position.set(new Vector2(x, y));
+        body = world.createBody(bodyDef);
         body.setAngularDamping(.5f);
         body.setLinearDamping(.5f);
 
@@ -27,6 +26,12 @@ public class Rect extends BlockEntity {
     }
 
     public Body getBody() {return body;}
+
+    @Override
+    public void render() {
+
+    }
+
     @Override
     public Vector2 getPosition() {return body.getPosition();}
 }

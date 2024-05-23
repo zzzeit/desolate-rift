@@ -2,25 +2,28 @@ package com.mygdx.game.entity.obj;
 
 import static com.mygdx.game.Main.*;
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.entity.Entity;
-import com.mygdx.game.entity.IEntity;
+import com.mygdx.game.entity.obj.grounds.Ground;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class BlockEntity extends Entity {
-    public static List<BlockEntity> entities = new ArrayList<>();
+    public static Array<BlockEntity> entities = new Array<>();
+    public static Array<Ground> grounds = new Array<>();
     public static void upd() {
         for (BlockEntity b : entities){
             b.update();
-            spriteBatch.setProjectionMatrix(getCamera().combined);
-            spriteBatch.begin();
-            b.render();
-            spriteBatch.end();
         }
+    }
+    public static void ren() {
+        for (Ground g : grounds) {
+            g.render();
+        }
+        for (BlockEntity b : entities)
+            b.render();
     }
     public static <T extends BlockEntity> T getBlockInstance(Class<T> c, int n) {
         for (BlockEntity b : entities) {

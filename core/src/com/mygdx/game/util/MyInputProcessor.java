@@ -6,15 +6,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.Main;
 
 import java.util.ArrayList;
 import java.util.List;
+import static com.mygdx.game.util.Settings.*;
 
 public class MyInputProcessor implements InputProcessor{
     public static List<Integer> events = new ArrayList<>();
     public static List<Integer> clickEvent = new ArrayList<>();
     private void addEvent(Integer i) {events.add(i);}
     private void remEvent(Integer i) {events.remove((Integer) i);}
+    public static float mouseAngle = 0, deltaMouseAngle = 0;
+    public static Vector2 mousePosition;
     @Override
     public boolean keyDown(int keycode) {
         // Handle key down event
@@ -85,15 +89,13 @@ public class MyInputProcessor implements InputProcessor{
 
     @Override
     public boolean mouseMoved(int x, int y) {
-
-
         return true;
     }
 
-    public static float zoom = 8f, maxZoom = 1.5f;
+    public static float zoom = 20f, maxZoom = 3f;
     @Override
     public boolean scrolled(float v, float v1) {
-        zoom += v1 * .05f;
+        zoom += v1 * .1f;
         if (zoom < .5f)
             zoom = .5f;
         else if (zoom > maxZoom)

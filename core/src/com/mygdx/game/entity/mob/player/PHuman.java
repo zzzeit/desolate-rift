@@ -4,11 +4,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.mygdx.game.entity.mob.IPlayer;
 import com.mygdx.game.entity.mob.hostile.Human;
-import com.mygdx.game.entity.obj.MetalBox;
+import com.mygdx.game.entity.obj.blocks.MetalBox;
 
 import static com.mygdx.game.util.IKeycodes.*;
-import static com.mygdx.game.util.MyInputProcessor.clickEvent;
-import static com.mygdx.game.util.MyInputProcessor.events;
+import static com.mygdx.game.util.MyInputProcessor.*;
 
 public class PHuman extends Human implements IPlayer {
     public static void instantiate(float x, float y) {
@@ -60,8 +59,33 @@ public class PHuman extends Human implements IPlayer {
             placeBlock();
         if (events.contains(SPACE))
             placeBlock();
-
+        getHead().getBody().setTransform(getPosition(), (float) Math.toRadians(mouseAngle));
 //        System.out.printf("X[%f]  Y[%f]\n", Math.round(getPosition().x / 15) * 15f, Math.round(getPosition().y / 15) * 15f);
+    }
+
+    private void move(float angle) {
+        float headAngle = getAngle(true), dif = Math.abs(angle - headAngle), fov = 40;
+        if (headAngle > 180) {
+            headAngle -= 180;
+            if (headAngle < (angle - (fov/2f)))
+                turnRight();
+            else if (headAngle > (angle + (fov/2f)))
+                turnLeft();
+            else
+                moveForward();
+        }
+        else {
+            if (headAngle < (angle - (fov/2f)))
+                turnLeft();
+            else if (headAngle > (angle + (fov/2f)))
+                turnRight();
+            else
+                moveForward();
+        }
+
+
+
+
     }
 
     @Override

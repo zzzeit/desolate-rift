@@ -1,304 +1,69 @@
 
 my_texture_atlas.png
-size: 512, 256
+size: 128, 128
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-assets/0
+0
   rotate: false
-  xy: 400, 136
+  xy: 2, 72
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
-assets/beachball
+box
   rotate: false
-  xy: 169, 111
-  size: 128, 128
-  orig: 128, 128
-  offset: 0, 0
-  index: -1
-assets/block
-  rotate: false
-  xy: 468, 171
+  xy: 2, 37
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
-assets/block2
+cobblestone
   rotate: false
-  xy: 435, 136
-  size: 33, 33
-  orig: 33, 33
-  offset: 0, 0
-  index: -1
-assets/box
-  rotate: false
-  xy: 470, 136
-  size: 33, 33
-  orig: 33, 33
-  offset: 0, 0
-  index: -1
-assets/chunk
-  rotate: false
-  xy: 2, 2
-  size: 15, 15
-  orig: 15, 15
-  offset: 0, 0
-  index: -1
-assets/cobblestone
-  rotate: false
-  xy: 303, 38
+  xy: 72, 3
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-assets/concrete
+grass
   rotate: false
-  xy: 299, 107
-  size: 99, 132
-  orig: 99, 132
-  offset: 0, 0
-  index: -1
-assets/grass
-  rotate: false
-  xy: 163, 39
+  xy: 37, 72
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
-assets/ground
-  rotate: false
-  xy: 2, 19
-  size: 159, 53
-  orig: 159, 53
-  offset: 0, 0
-  index: -1
-assets/human
-  rotate: false
-  xy: 169, 76
-  size: 99, 33
-  orig: 99, 33
-  offset: 0, 0
-  index: -1
-assets/metalbox
-  rotate: false
-  xy: 270, 72
-  size: 132, 33
-  orig: 132, 33
-  offset: 0, 0
-  index: -1
-assets/metalbox165
-  rotate: false
-  xy: 2, 74
-  size: 165, 165
-  orig: 165, 165
-  offset: 0, 0
-  index: -1
-assets/plank
-  rotate: false
-  xy: 198, 41
-  size: 33, 33
-  orig: 33, 33
-  offset: 0, 0
-  index: -1
-assets/plank2
-  rotate: false
-  xy: 233, 41
-  size: 33, 33
-  orig: 33, 33
-  offset: 0, 0
-  index: -1
-assets/plank3
-  rotate: false
-  xy: 268, 37
-  size: 33, 33
-  orig: 33, 33
-  offset: 0, 0
-  index: -1
-assets/test
-  rotate: false
-  xy: 400, 171
-  size: 66, 33
-  orig: 66, 33
-  offset: 0, 0
-  index: -1
-assets/zombie
-  rotate: false
-  xy: 400, 206
-  size: 99, 33
-  orig: 99, 33
-  offset: 0, 0
-  index: -1
-
-my_texture_atlas2.png
-size: 1024, 512
-format: RGBA8888
-filter: Nearest, Nearest
-repeat: none
-assets/pack/texturepack
+plank
   rotate: false
   xy: 2, 2
-  size: 512, 256
-  orig: 512, 256
-  offset: 0, 0
-  index: -1
-
-my_texture_atlas3.png
-size: 512, 512
-format: RGBA8888
-filter: Nearest, Nearest
-repeat: none
-desktop/build/resources/main/0
-  rotate: false
-  xy: 169, 154
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
-desktop/build/resources/main/badlogic
+plank2
   rotate: false
-  xy: 2, 224
-  size: 256, 256
-  orig: 256, 256
-  offset: 0, 0
-  index: -1
-desktop/build/resources/main/beachball
-  rotate: false
-  xy: 260, 352
-  size: 128, 128
-  orig: 128, 128
-  offset: 0, 0
-  index: -1
-desktop/build/resources/main/block
-  rotate: false
-  xy: 169, 119
+  xy: 37, 37
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
-desktop/build/resources/main/block2
+plank3
   rotate: false
-  xy: 169, 84
+  xy: 72, 72
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
-desktop/build/resources/main/box
+sand
   rotate: false
-  xy: 361, 247
+  xy: 37, 2
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
-desktop/build/resources/main/chunk
+water
   rotate: false
-  xy: 491, 465
-  size: 15, 15
-  orig: 15, 15
-  offset: 0, 0
-  index: -1
-desktop/build/resources/main/cobblestone
-  rotate: false
-  xy: 204, 50
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: -1
-desktop/build/resources/main/concrete
-  rotate: false
-  xy: 390, 348
-  size: 99, 132
-  orig: 99, 132
-  offset: 0, 0
-  index: -1
-desktop/build/resources/main/grass
-  rotate: false
-  xy: 204, 154
+  xy: 72, 37
   size: 33, 33
   orig: 33, 33
-  offset: 0, 0
-  index: -1
-desktop/build/resources/main/ground
-  rotate: false
-  xy: 2, 2
-  size: 159, 53
-  orig: 159, 53
-  offset: 0, 0
-  index: -1
-desktop/build/resources/main/human
-  rotate: false
-  xy: 260, 317
-  size: 99, 33
-  orig: 99, 33
-  offset: 0, 0
-  index: -1
-desktop/build/resources/main/metalbox
-  rotate: false
-  xy: 260, 282
-  size: 132, 33
-  orig: 132, 33
-  offset: 0, 0
-  index: -1
-desktop/build/resources/main/metalbox165
-  rotate: false
-  xy: 2, 57
-  size: 165, 165
-  orig: 165, 165
-  offset: 0, 0
-  index: -1
-desktop/build/resources/main/plank
-  rotate: false
-  xy: 204, 119
-  size: 33, 33
-  orig: 33, 33
-  offset: 0, 0
-  index: -1
-desktop/build/resources/main/plank2
-  rotate: false
-  xy: 204, 84
-  size: 33, 33
-  orig: 33, 33
-  offset: 0, 0
-  index: -1
-desktop/build/resources/main/plank3
-  rotate: false
-  xy: 169, 49
-  size: 33, 33
-  orig: 33, 33
-  offset: 0, 0
-  index: -1
-desktop/build/resources/main/test
-  rotate: false
-  xy: 169, 189
-  size: 66, 33
-  orig: 66, 33
-  offset: 0, 0
-  index: -1
-desktop/build/resources/main/zombie
-  rotate: false
-  xy: 260, 247
-  size: 99, 33
-  orig: 99, 33
-  offset: 0, 0
-  index: -1
-
-my_texture_atlas4.png
-size: 1024, 1024
-format: RGBA8888
-filter: Nearest, Nearest
-repeat: none
-desktop/build/resources/main/pack/my_texture_atlas
-  rotate: false
-  xy: 2, 2
-  size: 512, 512
-  orig: 512, 512
-  offset: 0, 0
-  index: -1
-desktop/build/resources/main/pack/my_texture_atlas2
-  rotate: false
-  xy: 2, 2
-  size: 512, 512
-  orig: 512, 512
   offset: 0, 0
   index: -1

@@ -1,7 +1,6 @@
 package com.mygdx.game.map;
 
 import com.badlogic.gdx.math.Vector3;
-import com.mygdx.game.entity.obj.MetalBox;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,7 +14,7 @@ import java.util.List;
  * </p>
  */
 class Structure implements BlockList, Serializable {
-    private static List<com.mygdx.game.entity.obj.MetalBox> structure = new ArrayList<>();
+    private static List<com.mygdx.game.entity.obj.blocks.MetalBox> structure = new ArrayList<>();
     private Vector3[][] blockpositions;
     private int[] position = new int[2];
     private int angle = 0, canvas_size, hCanvasSize;

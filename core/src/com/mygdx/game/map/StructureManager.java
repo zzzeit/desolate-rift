@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.mygdx.game.entity.obj.BlockEntity;
-import com.mygdx.game.entity.obj.MetalBox;
+import com.mygdx.game.entity.obj.blocks.MetalBox;
 
 import java.io.*;
 

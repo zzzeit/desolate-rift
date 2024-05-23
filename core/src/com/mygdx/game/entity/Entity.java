@@ -3,6 +3,7 @@ package com.mygdx.game.entity;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -23,7 +24,9 @@ import static com.mygdx.game.Main.world;
 public abstract class Entity {
     public static int nPlayers = 0;
     public static int err = 0;
-
+    public static BodyDef bodyDef = new BodyDef();
+    public static WeldJointDef weldJointDef = new WeldJointDef();
+    public static RevoluteJointDef revoluteJointDef = new RevoluteJointDef();
     /**
      *
      * @param v this is a vector 2 for the position you want to check
@@ -42,14 +45,14 @@ public abstract class Entity {
         return callback.isBodyFound();
     }
 
-    public void weldBodies2(Body b1, Body b2, Boolean collide) {
+    public static void weldBodies2(Body b1, Body b2, Boolean collide) {
         weldJointDef.bodyA = b1;
         weldJointDef.bodyB = b2;
         weldJointDef.collideConnected = collide;
         world.createJoint(weldJointDef);
     }
 
-    public void revoluteBodies2(Body b1, Body b2, Vector2 anchor1, Vector2 anchor2, Boolean collide) {
+    public static void revoluteBodies2(Body b1, Body b2, Vector2 anchor1, Vector2 anchor2, Boolean collide) {
         revoluteJointDef.bodyA = b1;
         revoluteJointDef.bodyB = b2;
         revoluteJointDef.collideConnected = collide;
@@ -60,14 +63,13 @@ public abstract class Entity {
         world.createJoint(revoluteJointDef);
     }
 
-    public void render() {};
+    public abstract void render();
     public void update() {};
     public abstract Vector2 getPosition();
 
 
-    private BodyDef bodyDef = new BodyDef();
-    public WeldJointDef weldJointDef = new WeldJointDef();
-    public RevoluteJointDef revoluteJointDef = new RevoluteJointDef();
+
+
     private String name;
 
     private float angle = 0, deltaAngle = 0, prevAngle = 0;
@@ -89,7 +91,6 @@ public abstract class Entity {
     public void setTexture(Texture t) {texture = t;}
     public void setTextureRegion(TextureRegion t) {textureRegion = t;}
     public void setSSR(int s) {ssr = s;}
-    public void setBodyDef(BodyDef bd) {bodyDef = bd;}
 
 
     // Getter
@@ -103,7 +104,6 @@ public abstract class Entity {
     public TextureRegion getTextureRegion() {return textureRegion;}
     public List<TextureRegion> getTextureRegionList() {return textureRegionList;}
     public List<Sprite> getSpriteList() {return spriteList;}
-    public BodyDef getBodyDef() {return bodyDef;}
 
     public int getSSR() {return ssr;}
 

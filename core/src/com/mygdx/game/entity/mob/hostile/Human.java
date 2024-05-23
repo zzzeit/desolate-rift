@@ -11,6 +11,7 @@ import com.mygdx.game.entity.obj.shape.Rect;
 
 import static com.mygdx.game.Main.spriteBatch;
 import static com.mygdx.game.Main.world;
+import static com.mygdx.game.util.Settings.angleBetweenPoints;
 
 public class Human extends MobileEntity {
     public static int num_of_hum = 0;
@@ -25,13 +26,13 @@ public class Human extends MobileEntity {
     public Human(float x, float y, String name) {
         setName(name);
         revoluteJointDef.enableLimit = true;
-        getBodyDef().type = BodyDef.BodyType.DynamicBody;
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
 
         // HEAD
         head.getBody().setAngularDamping(10);
         head.getBody().getFixtureList().first().setFriction(0.1f);
         head.getBody().setLinearDamping(8);
-        head.getBody().setFixedRotation(true);
+//        head.getBody().setFixedRotation(true);
 
 
         // TORSO
@@ -63,7 +64,6 @@ public class Human extends MobileEntity {
     public void update() {
         setAngle(getHead().getBody().getAngle());
         calcDeltaAngle();
-        System.out.println(getDeltaAngle());
         while (getAngle(false) < 0) {
             addAngle((float) (Math.PI * 2));
         }
@@ -84,13 +84,13 @@ public class Human extends MobileEntity {
         getSpriteList().get(1).draw(spriteBatch);
 
         getSpriteList().get(0).setCenter(getHead().getPosition().x, getHead().getPosition().y);
-        getSpriteList().get(0).setRotation((float) (Math.toDegrees(getHead().getAngle(false))));
+        getSpriteList().get(0).setRotation((float) (Math.toDegrees(getHead().getBody().getAngle())));
         getSpriteList().get(0).draw(spriteBatch);
 
     }
 
-    public void turnLeft() {head.getBody().applyTorque(speed * .05f, true);}
-    public void turnRight() {head.getBody().applyTorque(-speed * .05f, true);}
+    public void turnLeft() {head.getBody().applyTorque(speed * .1f, true);}
+    public void turnRight() {head.getBody().applyTorque(-speed * .1f, true);}
     public void moveLeft() {head.getBody().applyForceToCenter((float) (-speed * Math.cos(getAngle(false))), (float) (-speed * Math.sin(getAngle(false))), true);}
     public void moveRight() {head.getBody().applyForceToCenter((float) (speed * Math.cos(getAngle(false))), (float) (speed * Math.sin(getAngle(false))), true);}
     public void moveForward() {head.getBody().applyForceToCenter((float) (speed * Math.cos((getAngle(false) + Math.PI / 2))), (float) (speed * Math.sin((getAngle(false) + Math.PI / 2))), true);}

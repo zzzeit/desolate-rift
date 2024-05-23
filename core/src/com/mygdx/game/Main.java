@@ -23,9 +23,12 @@ import com.mygdx.game.entity.mob.MobileEntity;
 import com.mygdx.game.entity.mob.hostile.Human;
 import com.mygdx.game.entity.mob.hostile.Zombie;
 import com.mygdx.game.entity.mob.player.PHuman;
-import com.mygdx.game.entity.obj.BeachBall;
-import com.mygdx.game.entity.obj.MetalBox;
+import com.mygdx.game.entity.obj.blocks.BeachBall;
+import com.mygdx.game.entity.obj.blocks.MetalBox;
 import com.mygdx.game.entity.obj.BlockEntity;
+import com.mygdx.game.entity.obj.grounds.Grass;
+import com.mygdx.game.entity.obj.grounds.Ground;
+import com.mygdx.game.map.maps.Plains;
 import com.mygdx.game.util.MyInputProcessor;
 
 import java.util.Random;
@@ -37,6 +40,7 @@ public class Main extends ApplicationAdapter {
 	private static OrthographicCamera camera;
 	private static ShapeRenderer renderer;
 	private static Vector2 mouseRelative = new Vector2();
+
 	public static SpriteBatch spriteBatch;
 	public static BitmapFont font;
 	public static World world;
@@ -68,7 +72,7 @@ public class Main extends ApplicationAdapter {
 		font.setColor(Color.WHITE);
 		font.getData().setScale(.1f);
 		texture = new Texture("plank2.png");
-		textureAtlas = new TextureAtlas("./pack/texturepack.atlas");
+		textureAtlas = new TextureAtlas("./pack/my_texture_atlas.atlas");
 		sprite = new Sprite(texture);
 		sprite.setScale(1/32f, 1/32f);
 		sprite.setCenter(0f, 0f);
@@ -88,12 +92,15 @@ public class Main extends ApplicationAdapter {
 //		Box.instantiate(0, 30, 61f, 1f, StaticBody, 1f);
 //		Box.instantiate(0, -30, 61f, 1f, StaticBody, 1f);
 
-		Zombie.instantiate(10f, 4f);
+//		Zombie.instantiate(10f, 4f);
 //		Zombie.instantiate(0f, 3f);
 //		Zombie.instantiate(-15f, -5f);
 
 		PHuman.instantiate(0f, 0f);
+		Plains p = new Plains(200, 200);
+		p.genMap();
 
+		Ground.instantiate(new Grass(new Vector2(10, 0)));
 
 
 //		g = new ChunkHandler();
@@ -101,20 +108,37 @@ public class Main extends ApplicationAdapter {
 	int i = 0;
 	@Override
 	public void render () {
+		// Mouse
+		mousePosition = new Vector2(Gdx.input.getX(), Gdx.input.getY());
+		float prevAngle = mouseAngle;
+		mouseAngle = (float) Math.toDegrees(Math.atan2(mousePosition.x - WIN_WIDTH/2, mousePosition.y - WIN_HEIGHT/2));
+		deltaMouseAngle = mouseAngle - prevAngle;
+		System.out.println(deltaMouseAngle);
+
+
 		float deltaTime = Gdx.graphics.getDeltaTime();
 		world.step(deltaTime, 6, 2);
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		// Lock the mouse cursor to the center of the window
-		Gdx.input.setCursorPosition(WIN_WIDTH / 2, WIN_HEIGHT / 2);
+//		// Lock the mouse cursor to the center of the window
+//		Gdx.input.setCursorPosition(WIN_WIDTH / 2, WIN_HEIGHT / 2);
 		playerPos.set(getMobInstance(PHuman.class, 1).getPosition());
 
 		spriteBatch.setProjectionMatrix(camera.combined);
 		spriteBatch.begin();
 
 //		g.draw(spriteBatch);
+//		for (int x = 0; x < 50; x++)
+//			for (int y = 0; y < 50; y++) {
+//				sprite.setCenter(y, x);
+//				sprite.draw(spriteBatch);
+//			}
 //		sprite.draw(spriteBatch);
+//		BlockEntity.ren();
+//		for (Sprite s : Ground.sprites)
+//			s.draw(spriteBatch);
+		BlockEntity.ren();
 		spriteBatch.end();
 
 
@@ -128,11 +152,11 @@ public class Main extends ApplicationAdapter {
 //		if (events.contains(' '))
 
 
-		camera.position.set((float) ((Math.cos(getMobInstance(Human.class, 1).getAngle(false) + (Math.PI/2)) * (8 + (5 * (zoom - maxZoom)))) + getMobInstance(Human.class, 1).getHead().getPosition().x), (float) ((Math.sin(getMobInstance(Human.class, 1).getAngle(false) + (Math.PI/2)) * (8 + (5 * (zoom - maxZoom)))) + getMobInstance(Human.class, 1).getHead().getPosition().y), 0f);
-//		camera.position.set(getMobInstance(Human.class, 1).getHead().getPosition().x, getMobInstance(Human.class, 1).getHead().getPosition().y + 12f, 0f);
-		camera.rotate((float) (1 * Math.toDegrees(getMobInstance(Human.class, 1).getDeltaAngle())));
+//		camera.position.set((float) ((Math.cos(getMobInstance(Human.class, 1).getAngle(false) + (Math.PI/2)) * (8 + (5 * (zoom - maxZoom)))) + getMobInstance(Human.class, 1).getHead().getPosition().x), (float) ((Math.sin(getMobInstance(Human.class, 1).getAngle(false) + (Math.PI/2)) * (8 + (5 * (zoom - maxZoom)))) + getMobInstance(Human.class, 1).getHead().getPosition().y), 0f);
+		camera.position.set(getMobInstance(Human.class, 1).getHead().getPosition().x, getMobInstance(Human.class, 1).getHead().getPosition().y, 0f);
+//		camera.rotate((float) (1 * Math.toDegrees(getMobInstance(Human.class, 1).getDeltaAngle())));
 //		camera.rotateAround(new Vector3(getMobInstance(Human.class, 1).getHead().getPosition().x, getMobInstance(Human.class, 1).getHead().getPosition().y, 0f), camera.position, (float) (1 * Math.toDegrees(getMobInstance(Human.class, 1).getDAngle())));
-		getMobInstance(Human.class, 1).rotate((mouseRelative.x * .5f));
+//		getMobInstance(Human.class, 1).rotate((mouseRelative.x * .5f));
 
 		camera.zoom = zoom;
 		camera.update();
@@ -151,9 +175,10 @@ public class Main extends ApplicationAdapter {
 		// Debug renderer
 		debugRenderer.render(world, camera.combined);
 //		debugRenderer.setDrawJoints(false);
-//		debugRenderer.setDrawBodies(false);
+		debugRenderer.setDrawBodies(false);
 //		debugRenderer.setDrawContacts(false);
 		clickEvent.clear();
+		System.out.println("FPS: " + Gdx.graphics.getFramesPerSecond());
 	}
 
 	@Override
