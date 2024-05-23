@@ -10,7 +10,7 @@ import static com.mygdx.game.Main.spriteBatch;
 
 public abstract class Ground extends BlockEntity {
     private Vector2 position;
-    private static TextureAtlas textureAtlas = new TextureAtlas("./pack/ground.atlas");
+    public static TextureAtlas textureAtlas = new TextureAtlas("./pack/ground.atlas");
     public static void instantiate(Ground g) {
         grounds.add(g);
     }
@@ -31,7 +31,7 @@ public abstract class Ground extends BlockEntity {
 
     @Override
     public void render() {
-
         getSprite().draw(spriteBatch);
     }
+
 }

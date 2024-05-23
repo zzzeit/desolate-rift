@@ -1,14 +1,12 @@
 package com.mygdx.game.map;
 
-import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.util.FastNoiseLite;
-import org.lwjgl.Sys;
 
 import static com.mygdx.game.Main.random;
 
 public abstract class Map implements  BlockList {
     private final int WIDTH, HEIGHT;
-    private int[][] map;
+    private int[][] groundData;
 
     private final int seed = random.nextInt(-9999, 9999);
     private FastNoiseLite noise = new FastNoiseLite();
@@ -18,21 +16,29 @@ public abstract class Map implements  BlockList {
     public Map(int w, int h) {
         WIDTH = w;
         HEIGHT = h;
-        map = new int[HEIGHT][WIDTH];
+        groundData = new int[HEIGHT][WIDTH];
+        noiseData = new float[WIDTH][HEIGHT];
         for (int row = 0; row < HEIGHT; row++)
             for (int col = 0; col < WIDTH; col++)
-                map[row][col] = 0;
+                groundData[row][col] = 0;
 
-        noise.SetNoiseType(FastNoiseLite.NoiseType.OpenSimplex2);
         noise.SetSeed(seed);
-        noise.SetFrequency(0.001f);
-        noise.SetFractalType(FastNoiseLite.FractalType.FBm);
-        noise.SetFractalOctaves(5);
-        noise.SetFractalLacunarity(1.390f);
-        noise.SetFractalGain(5.71f);
-        noise.SetFractalWeightedStrength(3.11f);
 
-        noiseData = new float[WIDTH][HEIGHT];
+
+
+    }
+
+    public void modifyNoise(FastNoiseLite.NoiseType noiseType, float frequency, FastNoiseLite.FractalType fractalType, int fractalOctaves, float fractalLacunarity, float fractalGain, float fractalWeightedStrength) {
+        noise.SetNoiseType(noiseType);
+        noise.SetFrequency(frequency);
+        noise.SetFractalType(fractalType);
+        noise.SetFractalOctaves(fractalOctaves);
+        noise.SetFractalLacunarity(fractalLacunarity);
+        noise.SetFractalGain(fractalGain);
+        noise.SetFractalWeightedStrength(fractalWeightedStrength);
+    }
+
+    public void updateNoiseData() {
         for (int y = 0; y < HEIGHT; y++)
             for(int x = 0; x < WIDTH; x++) {
                 noiseData[y][x] = noise.GetNoise(x, y);
@@ -46,17 +52,21 @@ public abstract class Map implements  BlockList {
     public abstract void genMap();
 
     /**
-     * Modifies the {@link Map#map}
+     * Modifies the {@link Map#groundData}
      */
     protected abstract void proceduralGeneration();
 
     // SETTER
-    public void setMap(int[][] data) {map = data;}
-    public void setMap(int x, int y, int v) {map[y][x] = v;}
+    public void setGroundData(int[][] data) {
+        groundData = data;}
+    public void setGroundData(int x, int y, int v) {
+        groundData[y][x] = v;}
+    public void setNoise(FastNoiseLite noise) {this.noise = noise;}
 
     // GETTER
-    public int[][] getMap() {return map;}
+    public int[][] getGroundData() {return groundData;}
     public int getSeed() {return seed;}
+    public FastNoiseLite getNoise() {return noise;}
     public float[][] getNoiseData() {return noiseData;}
     public float[] getNoiseHighLow() {return noiseHighLow;}
     public int getWIDTH() {return WIDTH;}

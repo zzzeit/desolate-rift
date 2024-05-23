@@ -48,18 +48,19 @@ public class PHuman extends Human implements IPlayer {
         super.update();
         blockSilPos = getSilPos(getPosition(), getAngle(false));
         if (events.contains(W))
-            moveForward();
+            moveNorth();
         if (events.contains(A))
-            moveLeft();
+            moveWest();
         if (events.contains(S))
-            moveBackward();
+            moveSouth();
         if (events.contains(D))
-            moveRight();
+            moveEast();
         if (clickEvent.contains(LEFTCLICK))
             placeBlock();
         if (events.contains(SPACE))
             placeBlock();
         getHead().getBody().setTransform(getPosition(), (float) Math.toRadians(mouseAngle));
+        getTorso().getBody().setTransform(getPosition(), (float) Math.toRadians(mouseAngle));
 //        System.out.printf("X[%f]  Y[%f]\n", Math.round(getPosition().x / 15) * 15f, Math.round(getPosition().y / 15) * 15f);
     }
 

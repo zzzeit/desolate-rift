@@ -64,12 +64,12 @@ public class Human extends MobileEntity {
     public void update() {
         setAngle(getHead().getBody().getAngle());
         calcDeltaAngle();
-        while (getAngle(false) < 0) {
-            addAngle((float) (Math.PI * 2));
-        }
-        while (getAngle(false) >= Math.PI * 2) {
-            addAngle(-(float) (Math.PI * 2));
-        }
+//        while (getAngle(false) < 0) {
+//            addAngle((float) (Math.PI * 2));
+//        }
+//        while (getAngle(false) >= Math.PI * 2) {
+//            addAngle(-(float) (Math.PI * 2));
+//        }
         visionAngle = (float) (getAngle(false) + (Math.PI / 2));
         if (visionAngle > Math.PI * 2)
             visionAngle -= (float) (Math.PI * 2);
@@ -95,6 +95,11 @@ public class Human extends MobileEntity {
     public void moveRight() {head.getBody().applyForceToCenter((float) (speed * Math.cos(getAngle(false))), (float) (speed * Math.sin(getAngle(false))), true);}
     public void moveForward() {head.getBody().applyForceToCenter((float) (speed * Math.cos((getAngle(false) + Math.PI / 2))), (float) (speed * Math.sin((getAngle(false) + Math.PI / 2))), true);}
     public void moveBackward() {head.getBody().applyForceToCenter((float) (-speed * Math.cos((getAngle(false) + Math.PI / 2))), (float) (-speed * Math.sin((getAngle(false) + Math.PI / 2))), true);}
+    public void moveNorth() {head.getBody().applyForceToCenter(0, speed, true);}
+    public void moveSouth() {head.getBody().applyForceToCenter(0, -speed, true);}
+    public void moveEast() {head.getBody().applyForceToCenter(speed, 0, true);}
+    public void moveWest() {head.getBody().applyForceToCenter(-speed, 0, true);}
+
     public void rotate(float angle) {head.getBody().setTransform(head.getBody().getPosition().x, head.getBody().getPosition().y, (float) (head.getBody().getAngle() + Math.toRadians(angle)));}
 
     @Override

@@ -56,8 +56,8 @@ public class Main extends ApplicationAdapter {
 	@Override
 	public void create () {
 		// Set window size and make it not resizable
-		Gdx.graphics.setWindowedMode(WIN_WIDTH, WIN_HEIGHT);
-//		Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+//		Gdx.graphics.setWindowedMode(WIN_WIDTH, WIN_HEIGHT);
+		Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
 		Gdx.input.setInputProcessor(new MyInputProcessor());
 
 		//
@@ -72,7 +72,6 @@ public class Main extends ApplicationAdapter {
 		font.setColor(Color.WHITE);
 		font.getData().setScale(.1f);
 		texture = new Texture("plank2.png");
-		textureAtlas = new TextureAtlas("./pack/my_texture_atlas.atlas");
 		sprite = new Sprite(texture);
 		sprite.setScale(1/32f, 1/32f);
 		sprite.setCenter(0f, 0f);
@@ -100,7 +99,7 @@ public class Main extends ApplicationAdapter {
 		Plains p = new Plains(200, 200);
 		p.genMap();
 
-		Ground.instantiate(new Grass(new Vector2(10, 0)));
+		Ground.instantiate(new Grass(new Vector2(-10, 0), 2));
 
 
 //		g = new ChunkHandler();
@@ -111,10 +110,8 @@ public class Main extends ApplicationAdapter {
 		// Mouse
 		mousePosition = new Vector2(Gdx.input.getX(), Gdx.input.getY());
 		float prevAngle = mouseAngle;
-		mouseAngle = (float) Math.toDegrees(Math.atan2(mousePosition.x - WIN_WIDTH/2, mousePosition.y - WIN_HEIGHT/2));
+		mouseAngle = (float) Math.toDegrees(Math.atan2(mousePosition.x - Gdx.graphics.getWidth()/2f, mousePosition.y - Gdx.graphics.getHeight()/2f)) + 180;
 		deltaMouseAngle = mouseAngle - prevAngle;
-		System.out.println(deltaMouseAngle);
-
 
 		float deltaTime = Gdx.graphics.getDeltaTime();
 		world.step(deltaTime, 6, 2);
@@ -178,7 +175,7 @@ public class Main extends ApplicationAdapter {
 		debugRenderer.setDrawBodies(false);
 //		debugRenderer.setDrawContacts(false);
 		clickEvent.clear();
-		System.out.println("FPS: " + Gdx.graphics.getFramesPerSecond());
+//		System.out.println("FPS: " + Gdx.graphics.getFramesPerSecond());
 	}
 
 	@Override
