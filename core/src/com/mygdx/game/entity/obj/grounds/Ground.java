@@ -15,6 +15,7 @@ public abstract class Ground extends BlockEntity {
         grounds.add(g);
     }
     public static Sprite[] sprites = new Sprite[0];
+
     public Ground(String image, float resolution, Vector2 pos) {
         setSprite(textureAtlas.createSprite(image));
         getSprite().setScale(1 / resolution);

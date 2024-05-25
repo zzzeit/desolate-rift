@@ -18,15 +18,22 @@ public class Grass extends Ground {
         this.decorator = decorator;
     }
 
+    private int randomInt = random.nextInt(0, 10);
     @Override
     public void render() {
         super.render();
         if (decorator != 0)
             if (decorator == 1) {
-                setDecoratorSprite("smallSprite1", getPosition(), 1/33f);
+                if (randomInt > 5)
+                    setDecoratorSprite("smallSprite1", getPosition(), 1/33f);
+                else
+                    setDecoratorSprite("smallSprite5", getPosition(), 1/33f);
                 decoratorSprite.draw(spriteBatch);
             } else if (decorator == 2) {
-                setDecoratorSprite("smallSprite2", getPosition(), 1/33f);
+                if (randomInt > 5)
+                    setDecoratorSprite("smallSprite7", getPosition(), 1/33f);
+                else
+                    setDecoratorSprite("smallSprite6", getPosition(), 1/33f);
                 decoratorSprite.draw(spriteBatch);
             } else if (decorator == 3) {
                 setDecoratorSprite("smallSprite3", getPosition(), 1/33f);

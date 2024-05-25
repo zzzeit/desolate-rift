@@ -47,9 +47,7 @@ public class Main extends ApplicationAdapter {
 	private static Vector2 playerPos = new Vector2(0, 0);
 	private Viewport viewport;
 	private Box2DDebugRenderer debugRenderer;
-	private Texture texture;
 	public static TextureAtlas textureAtlas;
-	private Sprite sprite;
 //	ChunkHandler g;
 
 
@@ -122,17 +120,8 @@ public class Main extends ApplicationAdapter {
 		spriteBatch.setProjectionMatrix(camera.combined);
 		spriteBatch.begin();
 
-//		g.draw(spriteBatch);
-//		for (int x = 0; x < 50; x++)
-//			for (int y = 0; y < 50; y++) {
-//				sprite.setCenter(y, x);
-//				sprite.draw(spriteBatch);
-//			}
-//		sprite.draw(spriteBatch);
-//		BlockEntity.ren();
-//		for (Sprite s : Ground.sprites)
-//			s.draw(spriteBatch);
 		BlockEntity.ren();
+		
 		spriteBatch.end();
 
 
@@ -168,9 +157,9 @@ public class Main extends ApplicationAdapter {
 //		events.clear();
 		// Debug renderer
 		debugRenderer.render(world, camera.combined);
-//		debugRenderer.setDrawJoints(false);
+		debugRenderer.setDrawJoints(false);
 		debugRenderer.setDrawBodies(false);
-//		debugRenderer.setDrawContacts(false);
+		debugRenderer.setDrawContacts(false);
 		clickEvent.clear();
 //		System.out.println("FPS: " + Gdx.graphics.getFramesPerSecond());
 	}
@@ -181,7 +170,6 @@ public class Main extends ApplicationAdapter {
 		debugRenderer.dispose();
 		renderer.dispose();
 		spriteBatch.dispose();
-		texture.dispose();
 
 	}
 

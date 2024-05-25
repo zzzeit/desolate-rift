@@ -80,13 +80,16 @@ public class Plains extends Map {
                     grassDecorator[y][x] = 1;
                 else if (nD[y][x] > (getNoiseHighLow()[0] * .1f))
                     grassDecorator[y][x] = 2;
-                else if (nD[y][x] > (getNoiseHighLow()[0] * .9f))
+                else if (nD[y][x] > (getNoiseHighLow()[0] * .09f))
                     grassDecorator[y][x] = 3;
+                else if (nD[y][x] > (getNoiseHighLow()[0] * .087f))
+                    grassDecorator[y][x] = 4;
 
         // Nature Blocks
         for (int y = 0; y < h; y++)
             for(int x = 0; x < w; x++)
                 if (nD[y][x] > (3))
                     natureBlocks[y][x] = Tree;
+
     }
 }

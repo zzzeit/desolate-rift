@@ -20,7 +20,7 @@ box
   index: -1
 cobblestone
   rotate: false
-  xy: 37, 3
+  xy: 206, 172
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -88,6 +88,27 @@ smallSprite4
   orig: 33, 33
   offset: 0, 0
   index: -1
+smallSprite5
+  rotate: false
+  xy: 206, 206
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
+smallSprite6
+  rotate: false
+  xy: 37, 2
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
+smallSprite7
+  rotate: false
+  xy: 72, 37
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
 tree
   rotate: false
   xy: 2, 107
@@ -97,7 +118,7 @@ tree
   index: -1
 water
   rotate: false
-  xy: 206, 206
+  xy: 171, 136
   size: 33, 33
   orig: 33, 33
   offset: 0, 0

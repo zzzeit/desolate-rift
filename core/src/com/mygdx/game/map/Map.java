@@ -5,6 +5,7 @@ import com.mygdx.game.util.FastNoiseLite;
 import static com.mygdx.game.Main.random;
 
 public abstract class Map implements  BlockList {
+    public static int[] mapSize = new int[2];
     private final int WIDTH, HEIGHT;
     private int[][] groundData;
 
@@ -24,8 +25,8 @@ public abstract class Map implements  BlockList {
 
         noise.SetSeed(seed);
 
-
-
+        mapSize[0] = WIDTH;
+        mapSize[1] = HEIGHT;
     }
 
     public void modifyNoise(FastNoiseLite.NoiseType noiseType, float frequency, FastNoiseLite.FractalType fractalType, int fractalOctaves, float fractalLacunarity, float fractalGain, float fractalWeightedStrength) {
