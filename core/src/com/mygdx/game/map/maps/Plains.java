@@ -88,7 +88,7 @@ public class Plains extends Map {
         // Nature Blocks
         for (int y = 0; y < h; y++)
             for(int x = 0; x < w; x++)
-                if (nD[y][x] > (3))
+                if (nD[y][x] > (2))
                     natureBlocks[y][x] = Tree;
 
     }

@@ -24,7 +24,7 @@ public class Box extends Rect {
     }
 
     @Override
-    public void render() {
+    public void render(int layer) {
         getSprite().setCenter(getBody().getPosition().x, getBody().getPosition().y);
         getSprite().rotate((float) (-1 * Math.toDegrees(getDeltaAngle())));
         getSprite().draw(spriteBatch);

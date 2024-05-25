@@ -14,7 +14,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -102,6 +104,9 @@ public class Main extends ApplicationAdapter {
 	int i = 0;
 	@Override
 	public void render () {
+
+
+
 		// Mouse
 		mousePosition = new Vector2(Gdx.input.getX(), Gdx.input.getY());
 		float prevAngle = mouseAngle;
@@ -113,6 +118,9 @@ public class Main extends ApplicationAdapter {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+		camera.position.set(getMobInstance(Human.class, 1).getHead().getPosition().x, getMobInstance(Human.class, 1).getHead().getPosition().y, 0f);
+		camera.update();
+
 //		// Lock the mouse cursor to the center of the window
 //		Gdx.input.setCursorPosition(WIN_WIDTH / 2, WIN_HEIGHT / 2);
 		playerPos.set(getMobInstance(PHuman.class, 1).getPosition());
@@ -120,8 +128,8 @@ public class Main extends ApplicationAdapter {
 		spriteBatch.setProjectionMatrix(camera.combined);
 		spriteBatch.begin();
 
-		BlockEntity.ren();
-		
+		entityRender();
+
 		spriteBatch.end();
 
 
@@ -136,13 +144,13 @@ public class Main extends ApplicationAdapter {
 
 
 //		camera.position.set((float) ((Math.cos(getMobInstance(Human.class, 1).getAngle(false) + (Math.PI/2)) * (8 + (5 * (zoom - maxZoom)))) + getMobInstance(Human.class, 1).getHead().getPosition().x), (float) ((Math.sin(getMobInstance(Human.class, 1).getAngle(false) + (Math.PI/2)) * (8 + (5 * (zoom - maxZoom)))) + getMobInstance(Human.class, 1).getHead().getPosition().y), 0f);
-		camera.position.set(getMobInstance(Human.class, 1).getHead().getPosition().x, getMobInstance(Human.class, 1).getHead().getPosition().y, 0f);
+
 //		camera.rotate((float) (1 * Math.toDegrees(getMobInstance(Human.class, 1).getDeltaAngle())));
 //		camera.rotateAround(new Vector3(getMobInstance(Human.class, 1).getHead().getPosition().x, getMobInstance(Human.class, 1).getHead().getPosition().y, 0f), camera.position, (float) (1 * Math.toDegrees(getMobInstance(Human.class, 1).getDAngle())));
 //		getMobInstance(Human.class, 1).rotate((mouseRelative.x * .5f));
 
 		camera.zoom = zoom;
-		camera.update();
+
 		renderer.setProjectionMatrix(camera.combined);
 
 
@@ -158,10 +166,11 @@ public class Main extends ApplicationAdapter {
 		// Debug renderer
 		debugRenderer.render(world, camera.combined);
 		debugRenderer.setDrawJoints(false);
-		debugRenderer.setDrawBodies(false);
+//		debugRenderer.setDrawBodies(false);
 		debugRenderer.setDrawContacts(false);
 		clickEvent.clear();
-//		System.out.println("FPS: " + Gdx.graphics.getFramesPerSecond());
+		System.out.println("FPS: " + Gdx.graphics.getFramesPerSecond());
+
 	}
 
 	@Override
@@ -179,6 +188,17 @@ public class Main extends ApplicationAdapter {
 	}
 
 	public static Camera getCamera() {return camera;}
+	public static boolean inCameraFrustum(Sprite s) {
+		Rectangle boundingBox = s.getBoundingRectangle();
+		float centerX = boundingBox.x + boundingBox.width / 2;
+		float centerY = boundingBox.y + boundingBox.height / 2;
+		float halfWidth = boundingBox.width / 2;
+		float halfHeight = boundingBox.height / 2;
+
+		if (camera.frustum.boundsInFrustum(centerX, centerY, 0, halfWidth, halfHeight, 0))
+			return true;
+		return false;
+	}
 	public static ShapeRenderer getRenderer() {return renderer;}
 	public static TextureAtlas getTextureAtlas() {return textureAtlas;}
 	public static Vector2 getPlayerPos() {return playerPos;}

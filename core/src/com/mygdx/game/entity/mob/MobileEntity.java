@@ -19,10 +19,12 @@ public abstract class MobileEntity extends Entity implements IEntity {
     public static void upd() {
         for (MobileEntity m : mobs){
             m.update();
-            spriteBatch.setProjectionMatrix(getCamera().combined);
-            spriteBatch.begin();
-            m.render();
-            spriteBatch.end();
+        }
+    }
+
+    public static void ren(int layer) {
+        for (MobileEntity m : mobs) {
+            m.render(layer);
             if (m instanceof Zombie) {
                 ((Zombie) m).faceToPoint(((Zombie) m).getHead().getPosition(), getMobInstance(PHuman.class, 1).getHead().getPosition(), 30);
             }

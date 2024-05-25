@@ -1,6 +1,6 @@
 
 textures_single.png
-size: 256, 256
+size: 1024, 256
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
@@ -13,98 +13,98 @@ repeat: none
   index: -1
 box
   rotate: false
-  xy: 136, 206
+  xy: 806, 206
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
 cobblestone
   rotate: false
-  xy: 206, 172
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: -1
-grass
-  rotate: false
   xy: 2, 37
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
-plank
+grass
   rotate: false
   xy: 37, 72
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
+plank
+  rotate: false
+  xy: 806, 171
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
 plank2
   rotate: false
-  xy: 136, 171
+  xy: 841, 206
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
 plank3
   rotate: false
-  xy: 171, 206
+  xy: 2, 2
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
 sand
   rotate: false
-  xy: 2, 2
+  xy: 37, 37
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
 smallSprite1
   rotate: false
-  xy: 37, 37
+  xy: 72, 72
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
 smallSprite2
   rotate: false
-  xy: 72, 72
+  xy: 806, 136
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
 smallSprite3
   rotate: false
-  xy: 136, 136
+  xy: 841, 171
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
 smallSprite4
   rotate: false
-  xy: 171, 171
+  xy: 876, 206
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
 smallSprite5
   rotate: false
-  xy: 206, 206
+  xy: 37, 2
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
 smallSprite6
   rotate: false
-  xy: 37, 2
+  xy: 72, 37
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
 smallSprite7
   rotate: false
-  xy: 72, 37
+  xy: 107, 72
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
@@ -116,9 +116,44 @@ tree
   orig: 132, 132
   offset: 0, 0
   index: -1
+tree1-1
+  rotate: false
+  xy: 136, 107
+  size: 132, 132
+  orig: 132, 132
+  offset: 0, 0
+  index: -1
+tree1-2
+  rotate: false
+  xy: 270, 107
+  size: 132, 132
+  orig: 132, 132
+  offset: 0, 0
+  index: -1
+tree1-3
+  rotate: false
+  xy: 404, 107
+  size: 132, 132
+  orig: 132, 132
+  offset: 0, 0
+  index: -1
+tree1-4
+  rotate: false
+  xy: 538, 107
+  size: 132, 132
+  orig: 132, 132
+  offset: 0, 0
+  index: -1
+tree1-5
+  rotate: false
+  xy: 672, 107
+  size: 132, 132
+  orig: 132, 132
+  offset: 0, 0
+  index: -1
 water
   rotate: false
-  xy: 171, 136
+  xy: 841, 136
   size: 33, 33
   orig: 33, 33
   offset: 0, 0

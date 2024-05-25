@@ -77,14 +77,18 @@ public class Human extends MobileEntity {
 
 
     @Override
-    public void render() {
-        getSpriteList().get(1).setCenter(getTorso().getPosition().x, getTorso().getPosition().y);
-        getSpriteList().get(1).setRotation((float) (Math.toDegrees(getTorso().getBody().getAngle())));
-        getSpriteList().get(1).draw(spriteBatch);
+    public void render(int layer) {
+        if (layer == 2) {
+            // Torso
+            getSpriteList().get(1).setCenter(getPosition().x, getPosition().y);
+            getSpriteList().get(1).setRotation((float) (Math.toDegrees(getTorso().getBody().getAngle())));
+            getSpriteList().get(1).draw(spriteBatch);
 
-        getSpriteList().get(0).setCenter(getHead().getPosition().x, getHead().getPosition().y);
-        getSpriteList().get(0).setRotation((float) (Math.toDegrees(getHead().getBody().getAngle())));
-        getSpriteList().get(0).draw(spriteBatch);
+            // Head
+            getSpriteList().get(0).setCenter(getPosition().x, getPosition().y);
+            getSpriteList().get(0).setRotation((float) (Math.toDegrees(getHead().getBody().getAngle())));
+            getSpriteList().get(0).draw(spriteBatch);
+        }
 
     }
 

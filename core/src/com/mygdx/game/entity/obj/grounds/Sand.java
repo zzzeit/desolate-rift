@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Sand extends Ground {
     public Sand(Vector2 pos) {
-        super("sand", 33f, pos);
+        super("cobblestone", 33f, pos);
     }
 
 }

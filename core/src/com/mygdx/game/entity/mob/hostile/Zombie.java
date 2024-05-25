@@ -90,7 +90,7 @@ public class Zombie extends MobileEntity {
 
 
     @Override
-    public void render() {
+    public void render(int layer) {
         getSpriteList().get(1).setCenter(getHead().getPosition().x, getHead().getPosition().y);
         getSpriteList().get(1).rotate((float) (-1 * Math.toDegrees(getDeltaAngle())));
         getSpriteList().get(1).draw(spriteBatch);

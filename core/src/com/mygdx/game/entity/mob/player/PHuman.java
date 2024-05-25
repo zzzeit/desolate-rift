@@ -80,8 +80,8 @@ public class PHuman extends Human implements IPlayer {
     }
 
     @Override
-    public void render() {
-        super.render();
+    public void render(int layer) {
+        super.render(layer);
     }
 
 

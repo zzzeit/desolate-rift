@@ -3,9 +3,11 @@ package com.mygdx.game.entity.obj;
 import static com.mygdx.game.Main.*;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.entity.Entity;
 import com.mygdx.game.entity.obj.grounds.Ground;
+import com.mygdx.game.entity.obj.resourceblock.Tree;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,24 +15,33 @@ import java.util.List;
 public abstract class BlockEntity extends Entity {
     public static Array<BlockEntity> entities = new Array<>();
     public static Array<Ground> grounds = new Array<>();
-    public static void upd() {
-        for (BlockEntity b : entities){
-            b.update();
-        }
-    }
-    public static void ren() {
-        for (Ground g : grounds) {
-            g.render();
-        }
-        for (BlockEntity b : entities)
-            b.render();
-    }
     public static void create(BlockEntity b) {
         if (b instanceof Ground)
             grounds.add((Ground) b);
         else
             entities.add(b);
     }
+    public static void upd() {
+        for (BlockEntity b : entities){
+            b.update();
+        }
+    }
+    public static void ren(int layer) {
+        if (layer == 0)
+            for (Ground g : grounds) {
+                g.render(layer);
+            }
+
+        if (layer == 3)
+            for (BlockEntity b : entities)
+                if (!(b instanceof Tree) && !(b instanceof Ground))
+                    b.render(layer);
+
+        for (BlockEntity b : entities)
+            if (b instanceof Tree)
+                b.render(layer);
+    }
+
     public static <T extends BlockEntity> T getBlockInstance(Class<T> c, int n) {
         for (BlockEntity b : entities) {
             if (c.isInstance(b))

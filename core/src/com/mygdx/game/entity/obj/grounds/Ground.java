@@ -6,8 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.entity.obj.BlockEntity;
 
-import static com.mygdx.game.Main.spriteBatch;
-import static com.mygdx.game.Main.textureAtlas;
+import static com.mygdx.game.Main.*;
 
 public abstract class Ground extends BlockEntity {
     private Vector2 position;
@@ -30,9 +29,16 @@ public abstract class Ground extends BlockEntity {
         return position;
     }
 
+    protected boolean spriteInCameraFrustum;
     @Override
-    public void render() {
-        getSprite().draw(spriteBatch);
+    public void render(int layer) {
+        if (inCameraFrustum(getSprite()))
+            spriteInCameraFrustum = true;
+        else
+            spriteInCameraFrustum = false;
+
+        if (spriteInCameraFrustum)
+            getSprite().draw(spriteBatch);
     }
 
 }

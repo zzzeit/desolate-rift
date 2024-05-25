@@ -62,9 +62,11 @@ public class MetalBox extends Rect implements Serializable {
 
 
     @Override
-    public void render() {
-        getSpriteList().get(0).setCenter(getPosition().x, getPosition().y);
-        getSpriteList().get(0).draw(spriteBatch);
+    public void render(int layer) {
+        if (layer == 3) {
+            getSpriteList().get(0).setCenter(getPosition().x, getPosition().y);
+            getSpriteList().get(0).draw(spriteBatch);
+        }
 //        if (getAdj(0) && getAdj(2) && getAdj(4) && getAdj(6)) { // right up left down
 //            getSpriteList().get(5).setCenter(getBody().getPosition().x, getBody().getPosition().y);
 //            getSpriteList().get(5).draw(spriteBatch);

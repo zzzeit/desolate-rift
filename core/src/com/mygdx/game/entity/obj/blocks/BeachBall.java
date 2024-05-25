@@ -26,7 +26,7 @@ public class BeachBall extends Disk {
     }
 
     @Override
-    public void render() {
+    public void render(int layer) {
         getSprite().setCenter(getBody().getPosition().x, getBody().getPosition().y);
         getSprite().setRotation((float) Math.toDegrees(getBody().getAngle()));
         getSprite().draw(spriteBatch);

@@ -11,6 +11,9 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
+import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.entity.mob.MobileEntity;
+import com.mygdx.game.entity.obj.BlockEntity;
 import com.mygdx.game.util.MyQueryCallback;
 
 import java.util.ArrayList;
@@ -63,7 +66,14 @@ public abstract class Entity {
         world.createJoint(revoluteJointDef);
     }
 
-    public abstract void render();
+    public static void entityRender() {
+        for (int i = 0; i < 10; i++) {
+            BlockEntity.ren(i);
+            MobileEntity.ren(i);
+        }
+    }
+
+    public abstract void render(int layer);
     public void update() {};
     public abstract Vector2 getPosition();
 
@@ -79,7 +89,7 @@ public abstract class Entity {
     private Texture texture;
     private TextureRegion textureRegion;
     private List<TextureRegion> textureRegionList = new ArrayList<>();
-    private List<Sprite> spriteList = new ArrayList<>();
+    private Array<Sprite> spriteList = new Array<>();
     private int ssr = 0;  // Sprite sheet region
 
     // Setter
@@ -103,7 +113,7 @@ public abstract class Entity {
     public Texture getTexture() {return texture;}
     public TextureRegion getTextureRegion() {return textureRegion;}
     public List<TextureRegion> getTextureRegionList() {return textureRegionList;}
-    public List<Sprite> getSpriteList() {return spriteList;}
+    public Array<Sprite> getSpriteList() {return spriteList;}
 
     public int getSSR() {return ssr;}
 
