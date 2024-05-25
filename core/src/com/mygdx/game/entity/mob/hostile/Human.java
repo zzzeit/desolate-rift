@@ -42,7 +42,6 @@ public class Human extends MobileEntity {
 
 
 
-
         weldBodies2(head.getBody(), torso.getBody(), false);
 
 

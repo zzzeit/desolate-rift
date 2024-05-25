@@ -19,7 +19,8 @@ public class PHuman extends Human implements IPlayer {
     public PHuman(float x, float y, String name) {
         super(x, y, name);
         setName(name);
-
+        getTorso().getBody().setActive(false);
+        getHead().getBody().getFixtureList().first().setFriction(5f);
     }
 
 
@@ -64,30 +65,6 @@ public class PHuman extends Human implements IPlayer {
 //        System.out.printf("X[%f]  Y[%f]\n", Math.round(getPosition().x / 15) * 15f, Math.round(getPosition().y / 15) * 15f);
     }
 
-    private void move(float angle) {
-        float headAngle = getAngle(true), dif = Math.abs(angle - headAngle), fov = 40;
-        if (headAngle > 180) {
-            headAngle -= 180;
-            if (headAngle < (angle - (fov/2f)))
-                turnRight();
-            else if (headAngle > (angle + (fov/2f)))
-                turnLeft();
-            else
-                moveForward();
-        }
-        else {
-            if (headAngle < (angle - (fov/2f)))
-                turnLeft();
-            else if (headAngle > (angle + (fov/2f)))
-                turnRight();
-            else
-                moveForward();
-        }
-
-
-
-
-    }
 
     @Override
     public void render() {

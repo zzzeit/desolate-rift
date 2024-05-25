@@ -5,8 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.entity.obj.BlockEntity;
 
-import static com.mygdx.game.Main.getTextureAtlas;
-import static com.mygdx.game.Main.spriteBatch;
+import static com.mygdx.game.Main.*;
 
 public class Grass extends Ground {
     public int decorator = 0;

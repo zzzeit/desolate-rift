@@ -92,7 +92,7 @@ public class MyInputProcessor implements InputProcessor{
         return true;
     }
 
-    public static float zoom = 30f, maxZoom = 3f;
+    public static float zoom = 16f, maxZoom = 3f;
     @Override
     public boolean scrolled(float v, float v1) {
         zoom += v1 * .1f;

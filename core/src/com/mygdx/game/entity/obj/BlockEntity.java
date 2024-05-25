@@ -25,6 +25,12 @@ public abstract class BlockEntity extends Entity {
         for (BlockEntity b : entities)
             b.render();
     }
+    public static void create(BlockEntity b) {
+        if (b instanceof Ground)
+            grounds.add((Ground) b);
+        else
+            entities.add(b);
+    }
     public static <T extends BlockEntity> T getBlockInstance(Class<T> c, int n) {
         for (BlockEntity b : entities) {
             if (c.isInstance(b))

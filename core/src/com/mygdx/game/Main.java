@@ -28,6 +28,7 @@ import com.mygdx.game.entity.obj.blocks.MetalBox;
 import com.mygdx.game.entity.obj.BlockEntity;
 import com.mygdx.game.entity.obj.grounds.Grass;
 import com.mygdx.game.entity.obj.grounds.Ground;
+import com.mygdx.game.entity.obj.resourceblock.Tree;
 import com.mygdx.game.map.maps.Plains;
 import com.mygdx.game.util.MyInputProcessor;
 
@@ -40,7 +41,6 @@ public class Main extends ApplicationAdapter {
 	private static OrthographicCamera camera;
 	private static ShapeRenderer renderer;
 	private static Vector2 mouseRelative = new Vector2();
-
 	public static SpriteBatch spriteBatch;
 	public static BitmapFont font;
 	public static World world;
@@ -48,7 +48,7 @@ public class Main extends ApplicationAdapter {
 	private Viewport viewport;
 	private Box2DDebugRenderer debugRenderer;
 	private Texture texture;
-	private static TextureAtlas textureAtlas;
+	public static TextureAtlas textureAtlas;
 	private Sprite sprite;
 //	ChunkHandler g;
 
@@ -56,8 +56,8 @@ public class Main extends ApplicationAdapter {
 	@Override
 	public void create () {
 		// Set window size and make it not resizable
-//		Gdx.graphics.setWindowedMode(WIN_WIDTH, WIN_HEIGHT);
-		Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+		Gdx.graphics.setWindowedMode(WIN_WIDTH, WIN_HEIGHT);
+//		Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
 		Gdx.input.setInputProcessor(new MyInputProcessor());
 
 		//
@@ -71,10 +71,7 @@ public class Main extends ApplicationAdapter {
 
 		font.setColor(Color.WHITE);
 		font.getData().setScale(.1f);
-		texture = new Texture("plank2.png");
-		sprite = new Sprite(texture);
-		sprite.setScale(1/32f, 1/32f);
-		sprite.setCenter(0f, 0f);
+		textureAtlas = new TextureAtlas("./pack/textures_single.atlas");
 
 
 		renderer = new ShapeRenderer();

@@ -6,13 +6,16 @@ package com.mygdx.game.map;
 interface BlockList {
     int
     Air = 0,
+
+    // Ground Entity
     Grass = 1,
     Sand = 2,
     Water = 3,
-    MetalBox = 4,
-    Box = 5;
 
-    String
-    H1 = "house1",
-    H2 = "house2";
+    // Block Entity
+    MetalBox = 4,
+    Box = 5,
+    Tree = 6;
+
+
 }

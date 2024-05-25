@@ -7,10 +7,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.entity.obj.BlockEntity;
 
 import static com.mygdx.game.Main.spriteBatch;
+import static com.mygdx.game.Main.textureAtlas;
 
 public abstract class Ground extends BlockEntity {
     private Vector2 position;
-    public static TextureAtlas textureAtlas = new TextureAtlas("./pack/ground.atlas");
     public static void instantiate(Ground g) {
         grounds.add(g);
     }
