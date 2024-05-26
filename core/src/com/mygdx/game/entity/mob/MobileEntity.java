@@ -39,7 +39,18 @@ public abstract class MobileEntity extends Entity implements IEntity {
         return null;
     }
 
+    private float health = 0;
 
+
+    // Setter
+    public void setHealth(float health) {
+        this.health = health;
+    }
+
+    // Getter
+    public float getHealth() {
+        return health;
+    }
 
 
 

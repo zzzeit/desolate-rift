@@ -11,100 +11,121 @@ repeat: none
   orig: 33, 33
   offset: 0, 0
   index: -1
-box
+bound1
   rotate: false
   xy: 806, 206
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
-cobblestone
+bound2
   rotate: false
   xy: 2, 37
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
-grass
+box
   rotate: false
   xy: 37, 72
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
-plank
+cobblestone
   rotate: false
   xy: 806, 171
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
-plank2
+deepwater
   rotate: false
   xy: 841, 206
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
-plank3
+grass
   rotate: false
   xy: 2, 2
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
-sand
+plank
   rotate: false
   xy: 37, 37
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
-smallSprite1
+plank2
   rotate: false
   xy: 72, 72
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
-smallSprite2
+plank3
   rotate: false
   xy: 806, 136
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
-smallSprite3
+sand
   rotate: false
   xy: 841, 171
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
-smallSprite4
+smallSprite1
   rotate: false
   xy: 876, 206
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
-smallSprite5
+smallSprite2
   rotate: false
   xy: 37, 2
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
-smallSprite6
+smallSprite3
   rotate: false
   xy: 72, 37
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
-smallSprite7
+smallSprite4
   rotate: false
   xy: 107, 72
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
+smallSprite5
+  rotate: false
+  xy: 841, 136
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
+smallSprite6
+  rotate: false
+  xy: 876, 171
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
+smallSprite7
+  rotate: false
+  xy: 911, 206
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
@@ -153,7 +174,7 @@ tree1-5
   index: -1
 water
   rotate: false
-  xy: 841, 136
+  xy: 72, 2
   size: 33, 33
   orig: 33, 33
   offset: 0, 0

@@ -12,8 +12,11 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.Main;
 import com.mygdx.game.entity.mob.MobileEntity;
 import com.mygdx.game.entity.obj.BlockEntity;
+import com.mygdx.game.map.Map;
+import com.mygdx.game.map.maps.Plains;
 import com.mygdx.game.util.MyQueryCallback;
 
 import java.util.ArrayList;
@@ -71,6 +74,7 @@ public abstract class Entity {
             BlockEntity.ren(i);
             MobileEntity.ren(i);
         }
+        Main.map.renderBounds();
     }
 
     public abstract void render(int layer);

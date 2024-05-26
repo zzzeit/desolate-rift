@@ -31,6 +31,7 @@ import com.mygdx.game.entity.obj.BlockEntity;
 import com.mygdx.game.entity.obj.grounds.Grass;
 import com.mygdx.game.entity.obj.grounds.Ground;
 import com.mygdx.game.entity.obj.resourceblock.Tree;
+import com.mygdx.game.map.Map;
 import com.mygdx.game.map.maps.Plains;
 import com.mygdx.game.util.MyInputProcessor;
 
@@ -50,6 +51,7 @@ public class Main extends ApplicationAdapter {
 	private Viewport viewport;
 	private Box2DDebugRenderer debugRenderer;
 	public static TextureAtlas textureAtlas;
+	public static Map map;
 //	ChunkHandler g;
 
 
@@ -93,8 +95,8 @@ public class Main extends ApplicationAdapter {
 //		Zombie.instantiate(-15f, -5f);
 
 		PHuman.instantiate(0f, 0f);
-		Plains p = new Plains(200, 200);
-		p.genMap();
+		map = new Plains(200, 200);
+		map.genMap();
 
 		Ground.instantiate(new Grass(new Vector2(-10, 0), 2));
 
@@ -166,7 +168,7 @@ public class Main extends ApplicationAdapter {
 		// Debug renderer
 		debugRenderer.render(world, camera.combined);
 		debugRenderer.setDrawJoints(false);
-//		debugRenderer.setDrawBodies(false);
+		debugRenderer.setDrawBodies(false);
 		debugRenderer.setDrawContacts(false);
 		clickEvent.clear();
 		System.out.println("FPS: " + Gdx.graphics.getFramesPerSecond());

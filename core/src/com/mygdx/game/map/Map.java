@@ -1,8 +1,9 @@
 package com.mygdx.game.map;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.util.FastNoiseLite;
 
-import static com.mygdx.game.Main.random;
+import static com.mygdx.game.Main.*;
 
 public abstract class Map implements  BlockList {
     public static int[] mapSize = new int[2];
@@ -51,6 +52,8 @@ public abstract class Map implements  BlockList {
     }
 
     public abstract void genMap();
+
+    public abstract void renderBounds();
 
     /**
      * Modifies the {@link Map#groundData}
