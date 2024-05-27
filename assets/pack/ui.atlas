@@ -1,0 +1,27 @@
+
+ui.png
+size: 128, 64
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+clock
+  rotate: false
+  xy: 2, 2
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
+clock_border
+  rotate: false
+  xy: 37, 2
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
+clock_pointer
+  rotate: false
+  xy: 72, 2
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1

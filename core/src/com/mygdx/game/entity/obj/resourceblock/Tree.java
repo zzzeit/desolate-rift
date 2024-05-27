@@ -17,11 +17,12 @@ public class Tree extends Disk {
         getSpriteList().get(1).setCenter(getPosition().x, getPosition().y);
     }
 
-    private float var = random.nextFloat(0f, 2f), str = .2f;  // max str = .6f
+    private float var = random.nextFloat(0f, 180f), str = .2f;  // max str = .6f
     @Override
     public void render(int layer) {
         if (inCameraFrustum(getSpriteList().get(0))) {
-
+            if (var > 360)
+                var = 0;
             if (layer == 5) {
                 var += .02f;
                 getSpriteList().get(0).draw(spriteBatch);

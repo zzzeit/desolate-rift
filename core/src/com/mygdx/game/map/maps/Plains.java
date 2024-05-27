@@ -75,6 +75,14 @@ public class Plains extends Map {
                     boundSprite2.setRotation(180);
                     boundSprite2.setCenter(pos.x, pos.y);
                     boundSprite2.draw(spriteBatch);
+                } else if (x == getWIDTH() - 1 && y == getHEIGHT() - 1) {
+                    boundSprite2.setRotation(270);
+                    boundSprite2.setCenter(pos.x, pos.y);
+                    boundSprite2.draw(spriteBatch);
+                } else if (x == 0 && y == getHEIGHT()-1) {
+                    boundSprite2.setRotation(0);
+                    boundSprite2.setCenter(pos.x, pos.y);
+                    boundSprite2.draw(spriteBatch);
                 } else if (y == getHEIGHT() - 1) {
                     boundSprite.setRotation(0);
                     boundSprite.setCenter(pos.x, pos.y);

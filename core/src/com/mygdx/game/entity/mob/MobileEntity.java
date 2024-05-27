@@ -1,20 +1,13 @@
 package com.mygdx.game.entity.mob;
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.mygdx.game.entity.Entity;
-import com.mygdx.game.entity.IEntity;
 import com.mygdx.game.entity.mob.hostile.Zombie;
 import com.mygdx.game.entity.mob.player.PHuman;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.mygdx.game.Main.*;
-import static com.mygdx.game.Main.spriteBatch;
-
-public abstract class MobileEntity extends Entity implements IEntity {
+public abstract class MobileEntity extends Entity {
     public static List<MobileEntity> mobs = new ArrayList<>();
     public static void upd() {
         for (MobileEntity m : mobs){

@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -33,15 +34,19 @@ import com.mygdx.game.entity.obj.grounds.Ground;
 import com.mygdx.game.entity.obj.resourceblock.Tree;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.map.maps.Plains;
+import com.mygdx.game.ui.UI;
 import com.mygdx.game.util.MyInputProcessor;
 
 import java.util.Random;
 
 import static com.mygdx.game.util.MyInputProcessor.*;
+import static com.mygdx.game.util.shaders.PixelShader.pixelShader;
+
+import com.mygdx.game.util.shaders.*;
 
 public class Main extends ApplicationAdapter {
 	public static Random random = new Random();
-	private static OrthographicCamera camera;
+	private static OrthographicCamera camera, uiCamera;
 	private static ShapeRenderer renderer;
 	private static Vector2 mouseRelative = new Vector2();
 	public static SpriteBatch spriteBatch;
@@ -52,6 +57,7 @@ public class Main extends ApplicationAdapter {
 	private Box2DDebugRenderer debugRenderer;
 	public static TextureAtlas textureAtlas;
 	public static Map map;
+    public static FrameBuffer frameBuffer;
 //	ChunkHandler g;
 
 
@@ -64,23 +70,27 @@ public class Main extends ApplicationAdapter {
 
 		//
 		camera = new OrthographicCamera();
+		uiCamera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+//		uiCamera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+//		uiCamera.zoom = Gdx.graphics.getHeight()/Gdx.graphics.getWidth() * 100f;
 		viewport = new FitViewport(20, 20 * ((float) WIN_HEIGHT /WIN_WIDTH), camera);
 		viewport.apply();
+//		viewport = new FitViewport(20, 20 * ((float) WIN_HEIGHT /WIN_WIDTH), uiCamera);
+//		viewport.apply();
 
 		spriteBatch = new SpriteBatch();
 		spriteBatch.enableBlending();
 		font = new BitmapFont();
 
 		font.setColor(Color.WHITE);
-		font.getData().setScale(.1f);
 		textureAtlas = new TextureAtlas("./pack/textures_single.atlas");
 
 
 		renderer = new ShapeRenderer();
 		world = new World(new Vector2(0, 0f), true); // Gravity downwards
 		debugRenderer = new Box2DDebugRenderer();
-
-
+		frameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, 33, 33, false);
+		UI.init();
 		BeachBall.instantiate(6.5f, 6.5f, 1f, DynamicBody, .2f);
 //		Box.instantiate(0, 0, 1f, 1f, DynamicBody, 1f);
 		MetalBox.instantiate(0, 0, 1f, StaticBody, 1f);
@@ -95,7 +105,7 @@ public class Main extends ApplicationAdapter {
 //		Zombie.instantiate(-15f, -5f);
 
 		PHuman.instantiate(0f, 0f);
-		map = new Plains(200, 200);
+		map = new Plains(201, 201);
 		map.genMap();
 
 		Ground.instantiate(new Grass(new Vector2(-10, 0), 2));
@@ -134,6 +144,19 @@ public class Main extends ApplicationAdapter {
 
 		spriteBatch.end();
 
+		// Render UI
+		spriteBatch.setProjectionMatrix(uiCamera.combined);
+		spriteBatch.begin();
+
+		font.getData().setScale(1f);
+		font.draw(spriteBatch, "FPS: " + Gdx.graphics.getFramesPerSecond(), Gdx.graphics.getWidth()/2 * .9f, Gdx.graphics.getHeight()/2 * .95f);
+
+
+		spriteBatch.end();
+
+		UI.uiRender();
+
+
 
 		BlockEntity.upd();
 		MobileEntity.upd();
@@ -164,14 +187,13 @@ public class Main extends ApplicationAdapter {
 //				renderer.rect(x, y, 1, 1);
 //			}
 		renderer.end();
-//		events.clear();
 		// Debug renderer
 		debugRenderer.render(world, camera.combined);
 		debugRenderer.setDrawJoints(false);
 		debugRenderer.setDrawBodies(false);
 		debugRenderer.setDrawContacts(false);
 		clickEvent.clear();
-		System.out.println("FPS: " + Gdx.graphics.getFramesPerSecond());
+//		System.out.println("FPS: " + Gdx.graphics.getFramesPerSecond());
 
 	}
 
@@ -181,7 +203,9 @@ public class Main extends ApplicationAdapter {
 		debugRenderer.dispose();
 		renderer.dispose();
 		spriteBatch.dispose();
-
+        font.dispose();
+        frameBuffer.dispose();
+		pixelShader.dispose();
 	}
 
 	@Override
@@ -190,6 +214,7 @@ public class Main extends ApplicationAdapter {
 	}
 
 	public static Camera getCamera() {return camera;}
+	public static Camera getUICamera() {return uiCamera;}
 	public static boolean inCameraFrustum(Sprite s) {
 		Rectangle boundingBox = s.getBoundingRectangle();
 		float centerX = boundingBox.x + boundingBox.width / 2;
