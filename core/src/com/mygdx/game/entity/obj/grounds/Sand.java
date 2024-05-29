@@ -7,4 +7,8 @@ public class Sand extends Ground {
         super("sand", 33f, pos);
     }
 
+    @Override
+    public void update() {
+
+    }
 }

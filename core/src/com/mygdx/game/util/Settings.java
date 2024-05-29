@@ -1,9 +1,11 @@
 package com.mygdx.game.util;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector2;
 
 public class Settings {
-    public static int WIN_WIDTH = 1000, WIN_HEIGHT = 800;
+    public static int WIN_WIDTH = 1422, WIN_HEIGHT = 800;
 
     public static float angleBetweenPoints(Vector2 center, Vector2 p2, Boolean oneDirection){
         float angle = (float) Math.atan2(p2.y - center.y, p2.x - center.x);
@@ -19,3 +21,4 @@ public class Settings {
             return angle;
     }
 }
+

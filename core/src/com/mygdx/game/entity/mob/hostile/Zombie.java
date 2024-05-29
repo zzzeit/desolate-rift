@@ -86,28 +86,32 @@ public class Zombie extends MobileEntity {
         visionAngle = (float) (getAngle(false) + (Math.PI / 2));
         if (visionAngle > Math.PI * 2)
             visionAngle -= (float) (Math.PI * 2);
+
+        faceToPoint(getHead().getBody().getPosition(), getMobInstance(Human.class, 1).getHead().getBody().getPosition(), 10);
     }
 
 
     @Override
-    public void render() {
-        getSpriteList().get(1).setCenter(getHead().getPosition().x, getHead().getPosition().y);
-        getSpriteList().get(1).rotate((float) (-1 * Math.toDegrees(getDeltaAngle())));
-        getSpriteList().get(1).draw(spriteBatch);
+    public void render(int layer) {
+        if (layer == 2) {
+            getSpriteList().get(1).setCenter(getHead().getPosition().x, getHead().getPosition().y);
+            getSpriteList().get(1).rotate((float) (-1 * Math.toDegrees(getDeltaAngle())));
+            getSpriteList().get(1).draw(spriteBatch);
 
-        getSpriteList().get(2).setCenter(armLeft.getPosition().x, armLeft.getPosition().y);
-        getSpriteList().get(2).flip(true, false);
-        getSpriteList().get(2).setRotation((float) (Math.toDegrees(armLeft.getBody().getAngle())));
-        getSpriteList().get(2).draw(spriteBatch);
+            getSpriteList().get(2).setCenter(armLeft.getPosition().x, armLeft.getPosition().y);
+            getSpriteList().get(2).flip(true, false);
+            getSpriteList().get(2).setRotation((float) (Math.toDegrees(armLeft.getBody().getAngle())));
+            getSpriteList().get(2).draw(spriteBatch);
 
-        getSpriteList().get(2).setCenter(armRight.getPosition().x, armRight.getPosition().y);
-        getSpriteList().get(2).flip(true, false);
-        getSpriteList().get(2).setRotation((float) (Math.toDegrees(armRight.getBody().getAngle())));
-        getSpriteList().get(2).draw(spriteBatch);
+            getSpriteList().get(2).setCenter(armRight.getPosition().x, armRight.getPosition().y);
+            getSpriteList().get(2).flip(true, false);
+            getSpriteList().get(2).setRotation((float) (Math.toDegrees(armRight.getBody().getAngle())));
+            getSpriteList().get(2).draw(spriteBatch);
 
-        getSpriteList().get(0).setCenter(getHead().getPosition().x, getHead().getPosition().y);
-        getSpriteList().get(0).rotate((float) (-1 * Math.toDegrees(getDeltaAngle())));
-        getSpriteList().get(0).draw(spriteBatch);
+            getSpriteList().get(0).setCenter(getHead().getPosition().x, getHead().getPosition().y);
+            getSpriteList().get(0).rotate((float) (-1 * Math.toDegrees(getDeltaAngle())));
+            getSpriteList().get(0).draw(spriteBatch);
+        }
 
     }
 

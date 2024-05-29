@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.mygdx.game.entity.mob.IPlayer;
 import com.mygdx.game.entity.mob.hostile.Human;
 import com.mygdx.game.entity.obj.blocks.MetalBox;
+import com.mygdx.game.map.Map;
 
 import static com.mygdx.game.util.IKeycodes.*;
 import static com.mygdx.game.util.MyInputProcessor.*;
@@ -19,7 +20,8 @@ public class PHuman extends Human implements IPlayer {
     public PHuman(float x, float y, String name) {
         super(x, y, name);
         setName(name);
-
+        getTorso().getBody().setActive(false);
+        getHead().getBody().getFixtureList().first().setFriction(5f);
     }
 
 
@@ -55,43 +57,31 @@ public class PHuman extends Human implements IPlayer {
             moveSouth();
         if (events.contains(D))
             moveEast();
-        if (clickEvent.contains(LEFTCLICK))
-            placeBlock();
-        if (events.contains(SPACE))
-            placeBlock();
+//        if (clickEvent.contains(LEFTCLICK))
+//            placeBlock();
+//        if (events.contains(SPACE))
+//            placeBlock();
         getHead().getBody().setTransform(getPosition(), (float) Math.toRadians(mouseAngle));
         getTorso().getBody().setTransform(getPosition(), (float) Math.toRadians(mouseAngle));
 //        System.out.printf("X[%f]  Y[%f]\n", Math.round(getPosition().x / 15) * 15f, Math.round(getPosition().y / 15) * 15f);
+        outOfBounds();
     }
 
-    private void move(float angle) {
-        float headAngle = getAngle(true), dif = Math.abs(angle - headAngle), fov = 40;
-        if (headAngle > 180) {
-            headAngle -= 180;
-            if (headAngle < (angle - (fov/2f)))
-                turnRight();
-            else if (headAngle > (angle + (fov/2f)))
-                turnLeft();
-            else
-                moveForward();
-        }
-        else {
-            if (headAngle < (angle - (fov/2f)))
-                turnLeft();
-            else if (headAngle > (angle + (fov/2f)))
-                turnRight();
-            else
-                moveForward();
-        }
-
-
-
-
+    private void outOfBounds() {
+        int hw = Map.mapSize[0]/2, hh = Map.mapSize[1]/2;
+        if (getHead().getPosition().x > hw)
+            getHead().getBody().applyForceToCenter(-50f, 0, true);
+        if (getHead().getPosition().x < -hw)
+            getHead().getBody().applyForceToCenter(50f, 0, true);
+        if (getHead().getPosition().y > hh)
+            getHead().getBody().applyForceToCenter(0, -50f, true);
+        if (getHead().getPosition().y < -hh)
+            getHead().getBody().applyForceToCenter(0, 50f, true);
     }
 
     @Override
-    public void render() {
-        super.render();
+    public void render(int layer) {
+        super.render(layer);
     }
 
 

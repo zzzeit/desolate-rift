@@ -11,6 +11,13 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
+import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.Main;
+import com.mygdx.game.entity.item.ItemEntity;
+import com.mygdx.game.entity.mob.MobileEntity;
+import com.mygdx.game.entity.obj.BlockEntity;
+import com.mygdx.game.map.Map;
+import com.mygdx.game.map.maps.Plains;
 import com.mygdx.game.util.MyQueryCallback;
 
 import java.util.ArrayList;
@@ -27,6 +34,7 @@ public abstract class Entity {
     public static BodyDef bodyDef = new BodyDef();
     public static WeldJointDef weldJointDef = new WeldJointDef();
     public static RevoluteJointDef revoluteJointDef = new RevoluteJointDef();
+    public static FixtureDef fixtureDef = new FixtureDef();
     /**
      *
      * @param v this is a vector 2 for the position you want to check
@@ -63,15 +71,40 @@ public abstract class Entity {
         world.createJoint(revoluteJointDef);
     }
 
-    public abstract void render();
-    public void update() {};
+    public static boolean isWithinDistance(Body body1, Body body2, float range) {
+        Vector2 position1 = body1.getPosition();
+        Vector2 position2 = body2.getPosition();
+
+        float distance = position1.dst(position2);
+
+        return distance <= range;
+    }
+
+    public static void entityRender() {
+        for (int i = 0; i < 10; i++) {
+            BlockEntity.ren(i);
+            MobileEntity.ren(i);
+            ItemEntity.ren(i);
+        }
+
+        Main.map.renderBounds();
+    }
+
+    public static void entityUpdate() {
+        BlockEntity.upd();
+        MobileEntity.upd();
+        ItemEntity.upd();
+}
+
+    public abstract void render(int layer);
+    public abstract void update();
     public abstract Vector2 getPosition();
 
 
 
 
     private String name;
-
+    private short collisionCategory;
     private float angle = 0, deltaAngle = 0, prevAngle = 0;
 
     // Sprites
@@ -79,7 +112,7 @@ public abstract class Entity {
     private Texture texture;
     private TextureRegion textureRegion;
     private List<TextureRegion> textureRegionList = new ArrayList<>();
-    private List<Sprite> spriteList = new ArrayList<>();
+    private Array<Sprite> spriteList = new Array<>();
     private int ssr = 0;  // Sprite sheet region
 
     // Setter
@@ -91,6 +124,7 @@ public abstract class Entity {
     public void setTexture(Texture t) {texture = t;}
     public void setTextureRegion(TextureRegion t) {textureRegion = t;}
     public void setSSR(int s) {ssr = s;}
+    public void setCollisionCategory(short c) {collisionCategory = c;}
 
 
     // Getter
@@ -103,7 +137,8 @@ public abstract class Entity {
     public Texture getTexture() {return texture;}
     public TextureRegion getTextureRegion() {return textureRegion;}
     public List<TextureRegion> getTextureRegionList() {return textureRegionList;}
-    public List<Sprite> getSpriteList() {return spriteList;}
+    public Array<Sprite> getSpriteList() {return spriteList;}
+    public short getCollisionCategory() {return collisionCategory;}
 
     public int getSSR() {return ssr;}
 

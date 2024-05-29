@@ -5,13 +5,13 @@ import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 public class MyTexturePacker {
     public static void main(String[] args) {
         // Input directory containing the images to be packed
-        String inputDir = "C:\\Users\\onie2\\Documents\\GDX_Project\\assets\\33";
+        String inputDir = "C:\\Users\\onie2\\Documents\\GDX_Project\\assets\\single";
 
         // Output directory where the packed texture atlas will be saved
         String outputDir = "C:\\Users\\onie2\\Documents\\GDX_Project\\assets\\pack";
 
         // Name of the packed texture atlas file
-        String packFileName = "ground";
+        String packFileName = "textures_single";
 
         // Configure settings for the TexturePacker
         TexturePacker.Settings settings = new TexturePacker.Settings();
@@ -34,6 +34,14 @@ public class MyTexturePacker {
 //        settings.stripWhitespaceY = true;
 
         // Create a new TexturePacker instance with the specified settings
+        TexturePacker.process(settings, inputDir, outputDir, packFileName);
+
+        inputDir = "C:\\Users\\onie2\\Documents\\GDX_Project\\assets\\ui";
+        packFileName = "ui";
+        TexturePacker.process(settings, inputDir, outputDir, packFileName);
+
+        inputDir = "C:\\Users\\onie2\\Documents\\GDX_Project\\assets\\item";
+        packFileName = "items";
         TexturePacker.process(settings, inputDir, outputDir, packFileName);
 
         // Print a message indicating successful packing

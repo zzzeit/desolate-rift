@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.mygdx.game.entity.obj.shape.Disk;
 
+import static com.mygdx.game.Main.getPlayerPos;
 import static com.mygdx.game.Main.spriteBatch;
 
 public class BeachBall extends Disk {
@@ -26,7 +27,7 @@ public class BeachBall extends Disk {
     }
 
     @Override
-    public void render() {
+    public void render(int layer) {
         getSprite().setCenter(getBody().getPosition().x, getBody().getPosition().y);
         getSprite().setRotation((float) Math.toDegrees(getBody().getAngle()));
         getSprite().draw(spriteBatch);

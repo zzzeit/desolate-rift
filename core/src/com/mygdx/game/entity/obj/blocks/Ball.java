@@ -19,7 +19,7 @@ public class Ball extends Disk {
     }
 
     @Override
-    public void render() {
+    public void render(int layer) {
 
     }
 

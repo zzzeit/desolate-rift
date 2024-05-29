@@ -27,7 +27,12 @@ public class Disk extends BlockEntity {
     public Body getBody() {return body;}
 
     @Override
-    public void render() {
+    public void render(int layer) {
+
+    }
+
+    @Override
+    public void update() {
 
     }
 
