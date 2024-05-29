@@ -33,5 +33,10 @@ public class Rect extends BlockEntity {
     }
 
     @Override
+    public void update() {
+
+    }
+
+    @Override
     public Vector2 getPosition() {return body.getPosition();}
 }

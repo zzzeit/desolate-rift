@@ -23,6 +23,7 @@ public class MetalBox extends Rect implements Serializable {
     }
     public MetalBox(float x, float y, float width, BodyDef.BodyType BT, float density, String name) {
         super(x, y, width, width, BT, density);
+        getBody().getFixtureList().first().getFilterData().categoryBits = 0x0006;
         setName(name);
 
         setSSR(0);

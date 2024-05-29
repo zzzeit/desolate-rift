@@ -10,6 +10,11 @@ public abstract class Design {
     protected void addUI(UI ui) {
         uiList.add(ui);
     }
+    protected UI getUI(int index) {
+        return uiList.get(index);
+    }
+    protected abstract void update();
+
 
     // Setter
     public void setUIList(Array<UI> uiList) {

@@ -17,11 +17,14 @@ import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 //import com.mygdx.game.map.ChunkHandler;
+import com.mygdx.game.entity.item.ItemEntity;
+import com.mygdx.game.entity.item.items.Stick;
 import com.mygdx.game.entity.mob.MobileEntity;
 import com.mygdx.game.entity.mob.hostile.Human;
 import com.mygdx.game.entity.mob.hostile.Zombie;
@@ -40,6 +43,7 @@ import com.mygdx.game.util.MyInputProcessor;
 import java.util.Random;
 
 import static com.mygdx.game.util.MyInputProcessor.*;
+import static com.mygdx.game.util.shaders.BrightnessShader.brightnessShader;
 import static com.mygdx.game.util.shaders.PixelShader.pixelShader;
 
 import com.mygdx.game.util.shaders.*;
@@ -65,7 +69,7 @@ public class Main extends ApplicationAdapter {
 	public void create () {
 		// Set window size and make it not resizable
 		Gdx.graphics.setWindowedMode(WIN_WIDTH, WIN_HEIGHT);
-//		Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+		Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
 		Gdx.input.setInputProcessor(new MyInputProcessor());
 
 		//
@@ -100,16 +104,17 @@ public class Main extends ApplicationAdapter {
 //		Box.instantiate(0, 30, 61f, 1f, StaticBody, 1f);
 //		Box.instantiate(0, -30, 61f, 1f, StaticBody, 1f);
 
-//		Zombie.instantiate(10f, 4f);
-//		Zombie.instantiate(0f, 3f);
-//		Zombie.instantiate(-15f, -5f);
+		Zombie.instantiate(10f, 4f);
+		Zombie.instantiate(0f, 3f);
+		Zombie.instantiate(-15f, -5f);
 
 		PHuman.instantiate(0f, 0f);
 		map = new Plains(201, 201);
 		map.genMap();
 
 		Ground.instantiate(new Grass(new Vector2(-10, 0), 2));
-
+		ItemEntity.create(new Stick(new Vector2(2, 0)));
+		ItemEntity.create(new Stick(new Vector2(2.2f, 0)));
 
 //		g = new ChunkHandler();
 	}
@@ -138,28 +143,33 @@ public class Main extends ApplicationAdapter {
 		playerPos.set(getMobInstance(PHuman.class, 1).getPosition());
 
 		spriteBatch.setProjectionMatrix(camera.combined);
+
+		BrightnessShader.setBrightness(1f);
+		spriteBatch.setShader(brightnessShader);
 		spriteBatch.begin();
 
 		entityRender();
+		entityUpdate();
 
+		font.getData().setScale(1f);
 		spriteBatch.end();
+		spriteBatch.setShader(null);
 
 		// Render UI
 		spriteBatch.setProjectionMatrix(uiCamera.combined);
 		spriteBatch.begin();
-
+		font.getData().setScale(uiCamera.zoom/camera.zoom * 1.5f);
+		font.draw(spriteBatch, "FPS: " + Gdx.graphics.getFramesPerSecond(), camera.project(new Vector3(5, 0 , 0)).x - Gdx.graphics.getWidth()/2f, camera.project(new Vector3(5, 0 , 0)).y - Gdx.graphics.getHeight()/2f);
 		font.getData().setScale(1f);
-		font.draw(spriteBatch, "FPS: " + Gdx.graphics.getFramesPerSecond(), Gdx.graphics.getWidth()/2 * .9f, Gdx.graphics.getHeight()/2 * .95f);
+		font.draw(spriteBatch, "FPS: " + Gdx.graphics.getFramesPerSecond(), Gdx.graphics.getWidth()/2 - 100, Gdx.graphics.getHeight()/2 - 25);
+		font.draw(spriteBatch, "Zoom: " + Math.round(camera.zoom * 100f) / 100f, Gdx.graphics.getWidth()/2 - 100, Gdx.graphics.getHeight()/2 - 50);
 
 
 		spriteBatch.end();
 
 		UI.uiRender();
+		UI.uiUpdate();
 
-
-
-		BlockEntity.upd();
-		MobileEntity.upd();
 
 //		getZombie(1).faceToPoint(getZombie(1).getHead().getPosition(), getMobInstance(Human.class, 1).getHead().getPosition(), 10);
 		mouseRelative.set(Gdx.input.getDeltaX(), Gdx.input.getDeltaY());
@@ -206,6 +216,9 @@ public class Main extends ApplicationAdapter {
         font.dispose();
         frameBuffer.dispose();
 		pixelShader.dispose();
+		brightnessShader.dispose();
+		textureAtlas.dispose();
+
 	}
 
 	@Override

@@ -32,5 +32,10 @@ public class Disk extends BlockEntity {
     }
 
     @Override
+    public void update() {
+
+    }
+
+    @Override
     public Vector2 getPosition() {return body.getPosition();}
 }

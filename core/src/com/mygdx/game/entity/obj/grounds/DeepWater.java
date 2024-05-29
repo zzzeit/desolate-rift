@@ -6,4 +6,9 @@ public class DeepWater extends Ground {
     public DeepWater(Vector2 pos) {
         super("deepwater", 33f, pos);
     }
+
+    @Override
+    public void update() {
+
+    }
 }

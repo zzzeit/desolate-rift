@@ -26,43 +26,21 @@ public class Image extends UI {
 
     }
 
-    float x = 0, y = 0.1f, m = .1f;
-    Texture newTexture;
-    Sprite newSprite;
+    protected Texture newTexture;
+    protected Sprite newSprite;
     @Override
     public void render(int layer) {
-        x += 0.01f;
-        sprite.rotate((float) (10 * (Math.cos(x) * .5f)));
-        frameBuffer.begin();
-        Gdx.gl.glClearColor(0, 0, 0, 0);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-//
         spriteBatch.begin();
         sprite.draw(spriteBatch);
         spriteBatch.end();
-        frameBuffer.end();
-
-        newTexture = frameBuffer.getColorBufferTexture();
-        newSprite = new Sprite(newTexture);
-        newSprite.setOriginCenter();
-        newSprite.setCenter(0, 0);
-//        newSprite.setScale(3f);
-
-        spriteBatch.setShader(pixelShader);
-        spriteBatch.begin();
-//        sprite.draw(spriteBatch);
-        newSprite.draw(spriteBatch);
-
-        spriteBatch.end();
-//        sprite = new Sprite(newTexture);
-        spriteBatch.setShader(null);
-//        PixelShader.updPixSize(y);
-//        y += m;
-//        if (y > 20f)
-//            m *= -1;
-//        else if (y < 0.1f)
-//            m *= -1;
-
-
     }
+
+    public Sprite getSprite() {
+        return sprite;
+    }
+
+    public void setSprite(Sprite sprite) {
+        this.sprite = sprite;
+    }
+
 }

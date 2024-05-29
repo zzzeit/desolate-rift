@@ -17,6 +17,10 @@ public abstract class UI {
             for(UI ui : design.getUIList())
                 ui.render(0);
     }
+    public static void uiUpdate() {
+        for (Design design : designList)
+            design.update();
+    }
 
     public abstract void render(int layer);
 }

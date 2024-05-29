@@ -11,10 +11,10 @@ public class Grass extends Ground {
     public int decorator = 0;
     public Sprite decoratorSprite;
     public Grass(Vector2 pos) {
-        super("grass", 33f, pos);
+        super("grass2", 33f, pos);
     }
     public Grass(Vector2 pos, int decorator) {
-        super("grass", 33f, pos);
+        super("grass2", 33f, pos);
         this.decorator = decorator;
     }
 
@@ -43,6 +43,11 @@ public class Grass extends Ground {
                     setDecoratorSprite("smallSprite4", getPosition(), 1/33f);
                     decoratorSprite.draw(spriteBatch);
                 }
+
+    }
+
+    @Override
+    public void update() {
 
     }
 

@@ -18,9 +18,9 @@ public abstract class MobileEntity extends Entity {
     public static void ren(int layer) {
         for (MobileEntity m : mobs) {
             m.render(layer);
-            if (m instanceof Zombie) {
-                ((Zombie) m).faceToPoint(((Zombie) m).getHead().getPosition(), getMobInstance(PHuman.class, 1).getHead().getPosition(), 30);
-            }
+//            if (m instanceof Zombie) {
+//                ((Zombie) m).faceToPoint(((Zombie) m).getHead().getPosition(), getMobInstance(PHuman.class, 1).getHead().getPosition(), 30);
+//            }
         }
     }
     public static <T extends MobileEntity> T getMobInstance(Class<T> c, int n) {

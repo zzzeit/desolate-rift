@@ -21,8 +21,8 @@ public class Tree extends Disk {
     @Override
     public void render(int layer) {
         if (inCameraFrustum(getSpriteList().get(0))) {
-            if (var > 360)
-                var = 0;
+//            if (var > 360)
+//                var = 0;
             if (layer == 5) {
                 var += .02f;
                 getSpriteList().get(0).draw(spriteBatch);

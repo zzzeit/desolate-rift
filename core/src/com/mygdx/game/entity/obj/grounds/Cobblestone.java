@@ -6,4 +6,9 @@ public class Cobblestone extends Ground {
     public Cobblestone(Vector2 pos) {
         super("cobblestone", 33f, pos);
     }
+
+    @Override
+    public void update() {
+
+    }
 }

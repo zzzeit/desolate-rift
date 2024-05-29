@@ -33,7 +33,7 @@ public class PixelShader extends ShaderProgram {
     PixelShader() {
         super(vertexShader, fragmentShader);
         this.begin();
-        this.setUniformf("u_pixelSize", 1.8f / Gdx.graphics.getWidth(), 1.8f / Gdx.graphics.getHeight());
+        this.setUniformf("u_pixelSize", 2.4f / Gdx.graphics.getWidth(), 2.4f / Gdx.graphics.getHeight());
         this.end();
     }
 

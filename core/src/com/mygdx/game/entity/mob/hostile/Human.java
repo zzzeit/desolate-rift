@@ -118,4 +118,5 @@ public class Human extends MobileEntity {
     // GETTER
     public Disk getHead() {return head;}
     public Rect getTorso() {return torso;}
+    public float getSpeed() {return speed;}
 }

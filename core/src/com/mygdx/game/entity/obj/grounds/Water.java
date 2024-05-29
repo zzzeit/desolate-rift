@@ -6,4 +6,9 @@ public class Water extends Ground {
     public Water(Vector2 pos) {
         super("water", 33f, pos);
     }
+
+    @Override
+    public void update() {
+
+    }
 }
