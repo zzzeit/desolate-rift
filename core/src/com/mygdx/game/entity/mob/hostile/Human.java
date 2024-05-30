@@ -105,6 +105,10 @@ public class Human extends MobileEntity {
 
     public void rotate(float angle) {head.getBody().setTransform(head.getBody().getPosition().x, head.getBody().getPosition().y, (float) (head.getBody().getAngle() + Math.toRadians(angle)));}
 
+    /**
+     * Returns the position of the head of the human
+     * @return
+     */
     @Override
     public Vector2 getPosition() {
         return getHead().getPosition();

@@ -29,6 +29,7 @@ import com.mygdx.game.entity.mob.MobileEntity;
 import com.mygdx.game.entity.mob.hostile.Human;
 import com.mygdx.game.entity.mob.hostile.Zombie;
 import com.mygdx.game.entity.mob.player.PHuman;
+import com.mygdx.game.entity.mob.player.Player;
 import com.mygdx.game.entity.obj.blocks.BeachBall;
 import com.mygdx.game.entity.obj.blocks.MetalBox;
 import com.mygdx.game.entity.obj.BlockEntity;
@@ -104,9 +105,9 @@ public class Main extends ApplicationAdapter {
 //		Box.instantiate(0, 30, 61f, 1f, StaticBody, 1f);
 //		Box.instantiate(0, -30, 61f, 1f, StaticBody, 1f);
 
-		Zombie.instantiate(10f, 4f);
-		Zombie.instantiate(0f, 3f);
-		Zombie.instantiate(-15f, -5f);
+//		Zombie.instantiate(10f, 4f);
+//		Zombie.instantiate(0f, 3f);
+//		Zombie.instantiate(-15f, -5f);
 
 		PHuman.instantiate(0f, 0f);
 		map = new Plains(201, 201);
@@ -140,7 +141,7 @@ public class Main extends ApplicationAdapter {
 
 //		// Lock the mouse cursor to the center of the window
 //		Gdx.input.setCursorPosition(WIN_WIDTH / 2, WIN_HEIGHT / 2);
-		playerPos.set(getMobInstance(PHuman.class, 1).getPosition());
+		playerPos.set(getMobInstance(Human.class, 1).getPosition());
 
 		spriteBatch.setProjectionMatrix(camera.combined);
 
@@ -163,6 +164,7 @@ public class Main extends ApplicationAdapter {
 		font.getData().setScale(1f);
 		font.draw(spriteBatch, "FPS: " + Gdx.graphics.getFramesPerSecond(), Gdx.graphics.getWidth()/2 - 100, Gdx.graphics.getHeight()/2 - 25);
 		font.draw(spriteBatch, "Zoom: " + Math.round(camera.zoom * 100f) / 100f, Gdx.graphics.getWidth()/2 - 100, Gdx.graphics.getHeight()/2 - 50);
+		font.draw(spriteBatch, "X: " + Math.round(getMobInstance(Human.class, 1).getHead().getBody().getPosition().x) + "  Y: " + Math.round(getMobInstance(Human.class, 1).getHead().getBody().getPosition().y), Gdx.graphics.getWidth()/2 - 100, Gdx.graphics.getHeight()/2 - 75);
 
 
 		spriteBatch.end();

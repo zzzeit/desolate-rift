@@ -6,15 +6,17 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.mygdx.game.entity.item.ItemEntity;
+import com.mygdx.game.entity.mob.hostile.Human;
+import com.mygdx.game.entity.mob.player.PHuman;
+import com.mygdx.game.entity.mob.player.Player;
 
 import static com.badlogic.gdx.physics.box2d.BodyDef.BodyType.DynamicBody;
 import static com.mygdx.game.Main.*;
+import static com.mygdx.game.entity.mob.player.Player.players;
 import static com.mygdx.game.util.IKeycodes.LEFTCLICK;
 import static com.mygdx.game.util.MyInputProcessor.clickEvent;
 
 public class Stick extends ItemEntity {
-    private Body body;
-
     public Stick(Vector2 pos) {
         fixtureDef.shape = new CircleShape();
         fixtureDef.shape.setRadius(0.2f);
@@ -33,6 +35,12 @@ public class Stick extends ItemEntity {
         fixtureDef.shape.dispose();
         setSprite(itemAtlas.createSprite("stick"));
         getSprite().setScale(1/66f);
+
+        fixtureDef.shape.setRadius(5f);
+        fixtureDef.density = 0f;
+        fixtureDef.filter.categoryBits = 0;
+        fixtureDef.filter.maskBits = (short) ~0xFFFF;
+        body.createFixture(fixtureDef);
     }
 
     @Override
@@ -46,9 +54,12 @@ public class Stick extends ItemEntity {
 
     @Override
     public void update() {
-        super.update();
-        if (clickEvent.contains(LEFTCLICK)) {
-            body.applyLinearImpulse(new Vector2(.01f, .01f), body.getPosition(), true);
+        if (inCameraFrustum(getSprite())) {
+            super.update();
+            if (clickEvent.contains(LEFTCLICK)) {
+                body.applyLinearImpulse(new Vector2(.01f, .01f), body.getPosition(), true);
+            }
+
         }
     }
 
@@ -56,4 +67,16 @@ public class Stick extends ItemEntity {
     public Vector2 getPosition() {
         return null;
     }
+
+    private float speed = 0.01f;
+    public void setSpeed(float speed) {this.speed = speed;}
+    @Override
+    public void beCollected(Vector2 pos) {
+        float angle = (float) Math.atan2(body.getPosition().y - pos.y, body.getPosition().x - pos.x);
+        body.applyForceToCenter((float) (-speed * Math.cos(angle)), (float) (-speed * Math.sin(angle)), true);
+        if (speed < .25f)
+            speed += .005f;
+
+    }
+
 }
