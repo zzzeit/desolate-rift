@@ -10,8 +10,6 @@ import com.mygdx.game.entity.obj.shape.Disk;
 import com.mygdx.game.entity.obj.shape.Rect;
 
 import static com.mygdx.game.Main.spriteBatch;
-import static com.mygdx.game.Main.world;
-import static com.mygdx.game.util.Settings.angleBetweenPoints;
 
 public class Human extends MobileEntity {
     public static int num_of_hum = 0;
@@ -56,7 +54,11 @@ public class Human extends MobileEntity {
         getSpriteList().get(1).setScale(2/33f);
         setSSR(2);
         getTextureRegionList().add(new TextureRegion(getTexture(), getSSR() * (1f/3), 0f, ((getSSR() + 1) / 3f), 1f));
+
+        subClass();
     }
+
+    protected void subClass() {};
 
 
     @Override

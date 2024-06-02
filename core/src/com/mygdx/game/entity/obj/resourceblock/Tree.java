@@ -1,6 +1,7 @@
 package com.mygdx.game.entity.obj.resourceblock;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.mygdx.game.entity.obj.shape.Disk;
 
@@ -32,6 +33,19 @@ public class Tree extends Disk {
                 getSpriteList().get(1).setCenter((float) (getPosition().x + (Math.cos(var) * (str + (str * .5f)))), (float) (getPosition().y + (Math.cos(var) * (str + (str * .5f)))));
             }
         }
+    }
+
+    @Override
+    public void destroy() {
+
+//        for (int i = 0; i < 50; i++){
+//            if (!world.isLocked()) {
+//
+//                break;
+//            }
+//        }
+        world.destroyBody(getBody());
+//        entities.removeValue(this, true);
     }
 
 }

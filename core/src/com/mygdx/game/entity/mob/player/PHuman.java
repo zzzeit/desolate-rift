@@ -28,6 +28,11 @@ public class PHuman extends Player implements IPlayer {
     public PHuman(float x, float y, String name) {
         human = new Human(x, y, name) {
             @Override
+            protected void subClass() {
+                getTorso().getBody().setActive(false);
+            }
+
+            @Override
             public void update() {
                 super.update();
 //                blockSilPos = getSilPos(getPosition(), getAngle(false));
@@ -51,9 +56,12 @@ public class PHuman extends Player implements IPlayer {
                 for (ItemEntity ie : items) {
                     if (ie.getBody().getFixtureList().get(1).testPoint(getHead().getPosition())) {
                         ie.beCollected(getHead().getPosition());
+                        if (ie.getBody().getFixtureList().get(0).testPoint(getHead().getPosition()))
+                            ie.destroy();
                     }
+                    else
+                        ie.setSpeed(0);
                 }
-
                 outOfBounds();
             }
 

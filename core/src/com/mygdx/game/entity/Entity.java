@@ -28,7 +28,7 @@ import static com.mygdx.game.Main.world;
 /**
  * The base class for entities
  */
-public abstract class Entity {
+public abstract class Entity implements DestroyEntity {
     public static int nPlayers = 0;
     public static int err = 0;
     public static BodyDef bodyDef = new BodyDef();
@@ -146,4 +146,8 @@ public abstract class Entity {
     public void addAngle(float a) {angle += a;}
 
 
+    @Override
+    public void destroy() {
+
+    }
 }

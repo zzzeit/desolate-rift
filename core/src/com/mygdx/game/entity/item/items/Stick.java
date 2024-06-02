@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.mygdx.game.entity.DestroyEntity;
 import com.mygdx.game.entity.item.ItemEntity;
 import com.mygdx.game.entity.mob.hostile.Human;
 import com.mygdx.game.entity.mob.player.PHuman;
@@ -24,7 +25,7 @@ public class Stick extends ItemEntity {
         fixtureDef.friction = 0.4f;
         fixtureDef.restitution = 0.1f;
         fixtureDef.filter.categoryBits = 0x0003;
-        fixtureDef.filter.maskBits = 0x0006 & ~0x0003;
+        fixtureDef.filter.maskBits = 0x0006 & 0x0003;
 
         bodyDef.type = DynamicBody;
         bodyDef.linearDamping = 2f;
@@ -68,15 +69,15 @@ public class Stick extends ItemEntity {
         return null;
     }
 
-    private float speed = 0.01f;
-    public void setSpeed(float speed) {this.speed = speed;}
+
     @Override
     public void beCollected(Vector2 pos) {
         float angle = (float) Math.atan2(body.getPosition().y - pos.y, body.getPosition().x - pos.x);
-        body.applyForceToCenter((float) (-speed * Math.cos(angle)), (float) (-speed * Math.sin(angle)), true);
-        if (speed < .25f)
-            speed += .005f;
+        body.applyForceToCenter((float) (-getSpeed() * Math.cos(angle)), (float) (-getSpeed() * Math.sin(angle)), true);
+        if (getSpeed() < .25f)
+            setSpeed(getSpeed() + .01f);
 
     }
+
 
 }

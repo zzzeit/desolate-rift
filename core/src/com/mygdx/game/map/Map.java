@@ -11,6 +11,7 @@ public abstract class Map implements  BlockList {
     private int[][] groundData;
 
     private final int seed = random.nextInt(-9999, 9999);
+//    private final int seed = 0;
     private FastNoiseLite noise = new FastNoiseLite();
     private final float[][] noiseData;
     private final float[] noiseHighLow = {-1000, 1000};
@@ -61,11 +62,10 @@ public abstract class Map implements  BlockList {
     protected abstract void proceduralGeneration();
 
     // SETTER
-    public void setGroundData(int[][] data) {
-        groundData = data;}
-    public void setGroundData(int x, int y, int v) {
-        groundData[y][x] = v;}
+    public void setGroundData(int[][] data) {groundData = data;}
+    public void setGroundData(int x, int y, int v) {groundData[y][x] = v;}
     public void setNoise(FastNoiseLite noise) {this.noise = noise;}
+    public void setSeed(int seed) {noise.SetSeed(seed);}
 
     // GETTER
     public int[][] getGroundData() {return groundData;}
