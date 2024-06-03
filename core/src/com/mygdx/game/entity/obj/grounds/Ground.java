@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.game.entity.obj.BlockEntity;
 
 import static com.mygdx.game.Main.*;
@@ -39,6 +40,11 @@ public abstract class Ground extends BlockEntity {
 
         if (spriteInCameraFrustum)
             getSprite().draw(spriteBatch);
+    }
+
+    @Override
+    public void destroy() {
+        BlockEntity.grounds.removeValue(this, true);
     }
 
 }

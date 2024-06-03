@@ -1,7 +1,6 @@
 package com.mygdx.game.map.maps;
 
-import static com.mygdx.game.Main.getTextureAtlas;
-import static com.mygdx.game.Main.spriteBatch;
+import static com.mygdx.game.Main.*;
 import static com.mygdx.game.util.FastNoiseLite.FractalType.FBm;
 import static com.mygdx.game.util.FastNoiseLite.NoiseType.OpenSimplex2;
 
@@ -58,7 +57,7 @@ public class Plains extends Map {
                 else if (m[y][x] == DeepWater)
                     Ground.instantiate(new DeepWater(pos));
             }
-
+        setSeed(random.nextInt(-9999, 9999));
     }
 
     Sprite boundSprite = getTextureAtlas().createSprite("bound1"), boundSprite2 = getTextureAtlas().createSprite("bound2");
@@ -106,26 +105,26 @@ public class Plains extends Map {
 
 
     private float[][] grassDecorator;
-    private float[][] natureBlocks = new float[getHEIGHT()][getWIDTH()];
+    private float[][] natureBlocks;
     @Override
     protected void proceduralGeneration() {
-        modifyNoise(OpenSimplex2, 0.001f, FBm, 5, 1.390f, 5.71f, 3.11f);
+        modifyNoise(OpenSimplex2, 0.02f, FBm, 2, 1.08f, 0.5f, 1.39f);
         updateNoiseData();
         float[][] nD = getNoiseData();
         int w = getWIDTH(), h = getHEIGHT();
+        float mid = .3f;
         for (int y = 0; y < h; y++)
             for(int x = 0; x < w; x++)
-                if (nD[y][x] < (getNoiseHighLow()[0] * .6f))
+                if (nD[y][x] < mid)
                     setGroundData(x, y, Grass);
-                else if (nD[y][x] > getNoiseHighLow()[0] * .8f)
+                else if (nD[y][x] > mid * 2.5f)
                     setGroundData(x, y, DeepWater);
-                else if (nD[y][x] > (getNoiseHighLow()[0] * .68f))
+                else if (nD[y][x] > mid * 1.4f)
                     setGroundData(x, y, Water);
-                else if (nD[y][x] > (getNoiseHighLow()[0] * .62f))
-                    setGroundData(x, y, Cobblestone);
-                else if (nD[y][x] > (getNoiseHighLow()[0] * .6f))
+                else if (nD[y][x] > mid * 1.2f)
                     setGroundData(x, y, Sand);
-
+                else if (nD[y][x] > mid)
+                    setGroundData(x, y, Cobblestone);
         // Grass decorator
         modifyNoise(OpenSimplex2, 0.5f, FBm, 3, 2.68f, 1.94f, 3.66f);
         updateNoiseData();
@@ -142,6 +141,7 @@ public class Plains extends Map {
                 else if (nD[y][x] > (getNoiseHighLow()[0] * .087f))
                     grassDecorator[y][x] = 4;
 
+        natureBlocks = new float[getHEIGHT()][getWIDTH()];
         // Nature Blocks
         for (int y = 0; y < h; y++)
             for(int x = 0; x < w; x++)

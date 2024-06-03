@@ -4,6 +4,8 @@ package com.mygdx.game;
 // DESOLATE RIFT
 import static com.badlogic.gdx.physics.box2d.BodyDef.BodyType.*;
 import static com.mygdx.game.entity.mob.MobileEntity.*;
+import static com.mygdx.game.util.IKeycodes.LEFTCLICK;
+import static com.mygdx.game.util.IKeycodes.SPACE;
 import static com.mygdx.game.util.Settings.*;
 
 import com.badlogic.gdx.ApplicationAdapter;
@@ -20,6 +22,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 //import com.mygdx.game.map.ChunkHandler;
@@ -29,6 +32,7 @@ import com.mygdx.game.entity.mob.MobileEntity;
 import com.mygdx.game.entity.mob.hostile.Human;
 import com.mygdx.game.entity.mob.hostile.Zombie;
 import com.mygdx.game.entity.mob.player.PHuman;
+import com.mygdx.game.entity.mob.player.Player;
 import com.mygdx.game.entity.obj.blocks.BeachBall;
 import com.mygdx.game.entity.obj.blocks.MetalBox;
 import com.mygdx.game.entity.obj.BlockEntity;
@@ -47,6 +51,7 @@ import static com.mygdx.game.util.shaders.BrightnessShader.brightnessShader;
 import static com.mygdx.game.util.shaders.PixelShader.pixelShader;
 
 import com.mygdx.game.util.shaders.*;
+import org.lwjgl.Sys;
 
 public class Main extends ApplicationAdapter {
 	public static Random random = new Random();
@@ -56,6 +61,7 @@ public class Main extends ApplicationAdapter {
 	public static SpriteBatch spriteBatch;
 	public static BitmapFont font;
 	public static World world;
+	public static Array<Body> bodiesToDestroy = new Array<>();
 	private static Vector2 playerPos = new Vector2(0, 0);
 	private Viewport viewport;
 	private Box2DDebugRenderer debugRenderer;
@@ -69,7 +75,7 @@ public class Main extends ApplicationAdapter {
 	public void create () {
 		// Set window size and make it not resizable
 		Gdx.graphics.setWindowedMode(WIN_WIDTH, WIN_HEIGHT);
-		Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+//		Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
 		Gdx.input.setInputProcessor(new MyInputProcessor());
 
 		//
@@ -104,15 +110,15 @@ public class Main extends ApplicationAdapter {
 //		Box.instantiate(0, 30, 61f, 1f, StaticBody, 1f);
 //		Box.instantiate(0, -30, 61f, 1f, StaticBody, 1f);
 
-		Zombie.instantiate(10f, 4f);
-		Zombie.instantiate(0f, 3f);
-		Zombie.instantiate(-15f, -5f);
+//		Zombie.instantiate(10f, 4f);
+//		Zombie.instantiate(0f, 3f);
+//		Zombie.instantiate(-15f, -5f);
 
 		PHuman.instantiate(0f, 0f);
 		map = new Plains(201, 201);
 		map.genMap();
 
-		Ground.instantiate(new Grass(new Vector2(-10, 0), 2));
+//		Ground.instantiate(new Grass(new Vector2(-10, 0), 2));
 		ItemEntity.create(new Stick(new Vector2(2, 0)));
 		ItemEntity.create(new Stick(new Vector2(2.2f, 0)));
 
@@ -122,8 +128,6 @@ public class Main extends ApplicationAdapter {
 	@Override
 	public void render () {
 
-
-
 		// Mouse
 		mousePosition = new Vector2(Gdx.input.getX(), Gdx.input.getY());
 		float prevAngle = mouseAngle;
@@ -132,6 +136,29 @@ public class Main extends ApplicationAdapter {
 
 		float deltaTime = Gdx.graphics.getDeltaTime();
 		world.step(deltaTime, 6, 2);
+
+		if (clickEvent.contains(LEFTCLICK)) {
+			Array<BlockEntity> toDestroy = new Array<>();
+			for (BlockEntity be : BlockEntity.entities) {
+				if (be instanceof Tree) {
+					be.destroy();
+					toDestroy.add(be);
+				}
+			}
+			BlockEntity.entities.removeAll(toDestroy, true);
+			for (BlockEntity be : BlockEntity.grounds) {
+				be.destroy();
+			}
+
+			BlockEntity.grounds.clear();
+			BlockEntity.entities.clear();
+			map.genMap();
+
+		}
+		for (Body b : bodiesToDestroy)
+			world.destroyBody(b);
+		bodiesToDestroy.clear();
+
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -140,7 +167,7 @@ public class Main extends ApplicationAdapter {
 
 //		// Lock the mouse cursor to the center of the window
 //		Gdx.input.setCursorPosition(WIN_WIDTH / 2, WIN_HEIGHT / 2);
-		playerPos.set(getMobInstance(PHuman.class, 1).getPosition());
+		playerPos.set(getMobInstance(Human.class, 1).getPosition());
 
 		spriteBatch.setProjectionMatrix(camera.combined);
 
@@ -158,11 +185,20 @@ public class Main extends ApplicationAdapter {
 		// Render UI
 		spriteBatch.setProjectionMatrix(uiCamera.combined);
 		spriteBatch.begin();
-		font.getData().setScale(uiCamera.zoom/camera.zoom * 1.5f);
-		font.draw(spriteBatch, "FPS: " + Gdx.graphics.getFramesPerSecond(), camera.project(new Vector3(5, 0 , 0)).x - Gdx.graphics.getWidth()/2f, camera.project(new Vector3(5, 0 , 0)).y - Gdx.graphics.getHeight()/2f);
+		font.getData().setScale(uiCamera.zoom/camera.zoom * 3.5f);
+//		font.draw(spriteBatch, "FPS: " + Gdx.graphics.getFramesPerSecond(), camera.project(new Vector3(5, 0 , 0)).x - Gdx.graphics.getWidth()/2f, camera.project(new Vector3(5, 0 , 0)).y - Gdx.graphics.getHeight()/2f);
+		font.draw(spriteBatch, "Grounds: " + BlockEntity.grounds.size, camera.project(new Vector3(5, 0, 0)).x - Gdx.graphics.getWidth()/2f, camera.project(new Vector3(5, 0, 0)).y - Gdx.graphics.getHeight()/2f);
+		font.draw(spriteBatch, "Items: " + ItemEntity.items.size, camera.project(new Vector3(5, -.8f , 0)).x - Gdx.graphics.getWidth()/2f, camera.project(new Vector3(5, -.8f , 0)).y - Gdx.graphics.getHeight()/2f);
+		font.draw(spriteBatch, "Blocks: " + BlockEntity.entities.size, camera.project(new Vector3(5, -1.6f , 0)).x - Gdx.graphics.getWidth()/2f, camera.project(new Vector3(5, -1.6f , 0)).y - Gdx.graphics.getHeight()/2f);
+		font.draw(spriteBatch, "Mobs: " + MobileEntity.mobs.size, camera.project(new Vector3(5, -2.4f , 0)).x - Gdx.graphics.getWidth()/2f, camera.project(new Vector3(5, -2.4f , 0)).y - Gdx.graphics.getHeight()/2f);
+		font.draw(spriteBatch, "Bodies: " + world.getBodyCount(), camera.project(new Vector3(15, 0 , 0)).x - Gdx.graphics.getWidth()/2f, camera.project(new Vector3(15, 0 , 0)).y - Gdx.graphics.getHeight()/2f);
+
+
 		font.getData().setScale(1f);
+
 		font.draw(spriteBatch, "FPS: " + Gdx.graphics.getFramesPerSecond(), Gdx.graphics.getWidth()/2 - 100, Gdx.graphics.getHeight()/2 - 25);
 		font.draw(spriteBatch, "Zoom: " + Math.round(camera.zoom * 100f) / 100f, Gdx.graphics.getWidth()/2 - 100, Gdx.graphics.getHeight()/2 - 50);
+		font.draw(spriteBatch, "X: " + Math.round(getMobInstance(Human.class, 1).getHead().getBody().getPosition().x) + "  Y: " + Math.round(getMobInstance(Human.class, 1).getHead().getBody().getPosition().y), Gdx.graphics.getWidth()/2 - 100, Gdx.graphics.getHeight()/2 - 75);
 
 
 		spriteBatch.end();
@@ -186,10 +222,10 @@ public class Main extends ApplicationAdapter {
 
 		camera.zoom = zoom;
 
+
+
+
 		renderer.setProjectionMatrix(camera.combined);
-
-
-
 		renderer.begin(ShapeRenderer.ShapeType.Line);
 //		renderer.setColor(new Color(1, 1, 1, 0.1f));
 //		for (float x = -30.5f; x < 30; x++)
@@ -200,7 +236,7 @@ public class Main extends ApplicationAdapter {
 		// Debug renderer
 		debugRenderer.render(world, camera.combined);
 		debugRenderer.setDrawJoints(false);
-		debugRenderer.setDrawBodies(false);
+//		debugRenderer.setDrawBodies(false);
 		debugRenderer.setDrawContacts(false);
 		clickEvent.clear();
 //		System.out.println("FPS: " + Gdx.graphics.getFramesPerSecond());
@@ -218,7 +254,6 @@ public class Main extends ApplicationAdapter {
 		pixelShader.dispose();
 		brightnessShader.dispose();
 		textureAtlas.dispose();
-
 	}
 
 	@Override

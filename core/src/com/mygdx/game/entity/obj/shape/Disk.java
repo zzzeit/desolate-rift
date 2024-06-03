@@ -25,6 +25,7 @@ public class Disk extends BlockEntity {
     }
 
     public Body getBody() {return body;}
+    public void setBody(Body b) {body = b;}
 
     @Override
     public void render(int layer) {
@@ -38,4 +39,9 @@ public class Disk extends BlockEntity {
 
     @Override
     public Vector2 getPosition() {return body.getPosition();}
+
+    @Override
+    public void destroy() {
+        world.destroyBody(body);
+    }
 }

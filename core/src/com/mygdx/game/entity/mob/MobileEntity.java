@@ -1,5 +1,6 @@
 package com.mygdx.game.entity.mob;
 
+import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.entity.Entity;
 import com.mygdx.game.entity.mob.hostile.Zombie;
 import com.mygdx.game.entity.mob.player.PHuman;
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class MobileEntity extends Entity {
-    public static List<MobileEntity> mobs = new ArrayList<>();
+    public static Array<MobileEntity> mobs = new Array<>();
     public static void upd() {
         for (MobileEntity m : mobs){
             m.update();

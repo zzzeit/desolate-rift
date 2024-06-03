@@ -4,7 +4,9 @@ import static com.mygdx.game.Main.*;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.entity.DestroyEntity;
 import com.mygdx.game.entity.Entity;
 import com.mygdx.game.entity.obj.grounds.Ground;
 import com.mygdx.game.entity.obj.resourceblock.Tree;
@@ -12,7 +14,7 @@ import com.mygdx.game.entity.obj.resourceblock.Tree;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BlockEntity extends Entity {
+public abstract class BlockEntity extends Entity{
     public static Array<BlockEntity> entities = new Array<>();
     public static Array<Ground> grounds = new Array<>();
     public static void create(BlockEntity b) {
@@ -50,6 +52,7 @@ public abstract class BlockEntity extends Entity {
         }
         return null;
     }
+
 
 
 //    private boolean[] adj = new boolean[8];

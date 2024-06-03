@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.ui.UI;
 import com.mygdx.game.util.shaders.PixelShader;
 
+import static com.badlogic.gdx.Gdx.graphics;
 import static com.mygdx.game.Main.*;
 import static com.mygdx.game.util.Settings.WIN_HEIGHT;
 import static com.mygdx.game.util.Settings.WIN_WIDTH;
@@ -22,7 +23,8 @@ public class Image extends UI {
         sprite = new Sprite(textureAtlas.findRegion(filename));
         sprite.setCenter(pos.x, pos.y);
         sprite.setScale(scale);
-        frameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, WIN_WIDTH, WIN_HEIGHT, false);
+        frameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, graphics.getWidth(), graphics.getHeight(), false);
+
 
     }
 
