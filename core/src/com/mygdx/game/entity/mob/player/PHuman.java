@@ -34,16 +34,19 @@ public class PHuman extends Player implements IPlayer {
 
             @Override
             public void update() {
+                Vector2 direction = new Vector2(0, 0);
                 super.update();
 //                blockSilPos = getSilPos(getPosition(), getAngle(false));
                 if (events.contains(W))
-                    moveNorth();
+                    direction.add(0, 1);
                 if (events.contains(A))
-                    moveWest();
+                    direction.add(-1, 0);
                 if (events.contains(S))
-                    moveSouth();
+                    direction.add(0, -1);
                 if (events.contains(D))
-                    moveEast();
+                    direction.add(1, 0);
+
+                moveByHypotenuse(direction);
 //        if (clickEvent.contains(LEFTCLICK))
 //            placeBlock();
 //        if (events.contains(SPACE))

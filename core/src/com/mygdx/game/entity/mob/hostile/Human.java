@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.entity.mob.MobileEntity;
 import com.mygdx.game.entity.obj.shape.Disk;
 import com.mygdx.game.entity.obj.shape.Rect;
+import org.lwjgl.Sys;
 
 import static com.mygdx.game.Main.spriteBatch;
 
@@ -104,6 +105,16 @@ public class Human extends MobileEntity {
     public void moveSouth() {head.getBody().applyForceToCenter(0, -speed, true);}
     public void moveEast() {head.getBody().applyForceToCenter(speed, 0, true);}
     public void moveWest() {head.getBody().applyForceToCenter(-speed, 0, true);}
+    public void moveByHypotenuse(Vector2 direction) {
+
+        float length = (float) Math.sqrt(Math.pow(direction.x * speed, 2) + Math.pow(direction.y * speed, 2));
+        if (length > 1) {
+            Vector2 normalizedSpeed = new Vector2((direction.x * speed) / length, (direction.y * speed) / length);
+            head.getBody().applyForceToCenter(normalizedSpeed.x * speed, normalizedSpeed.y * speed, true);
+        } else {
+            head.getBody().applyForceToCenter(direction.x * speed, direction.y * speed, true);
+        }
+    }
 
     public void rotate(float angle) {head.getBody().setTransform(head.getBody().getPosition().x, head.getBody().getPosition().y, (float) (head.getBody().getAngle() + Math.toRadians(angle)));}
 
